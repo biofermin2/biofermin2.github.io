@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(peek-char t ＊sexp-life＊)</title>
+<meta name="author" content="biofermin2"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h1 class="title">(peek-char t ＊sexp-life＊)</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-08 木 00:01</p>
+</section>
+<section id="table-of-contents-section">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-1">1. はじめに</a>
+<ul>
+<li><a href="#/slide-1-1">1.1. 最近の技術革新</a></li>
+<li><a href="#/slide-1-2">1.2. しかし、より直感的に</a></li>
+<li><a href="#/slide-1-3">1.3. フロントエンドの世界</a></li>
+<li><a href="#/slide-1-4">1.4. ところが、海の深層部</a></li>
+<li><a href="#/slide-1-5">1.5. そういう技術を化石と揶揄する声</a></li>
+<li><a href="#/slide-1-6">1.6. アンティーク、骨董品という類</a></li>
+<li><a href="#/slide-1-7">1.7. 大切なのは古いか新しいかではない。</a></li>
+<li><a href="#/slide-1-8">1.8. S式</a></li>
+<li><a href="#/slide-1-9">1.9. そしていっぱいの括弧。</a></li>
+<li><a href="#/slide-1-10">1.10. でも今は</a></li>
+<li><a href="#/slide-1-11">1.11. そう、Lispの技術の結集</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<section id="slide-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="1"><span class="section-number-2">1</span> はじめに</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+</section>
+<section id="slide-1-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-1"><span class="section-number-3">1.1</span> 最近の技術革新</h3>
+<p>
+でWEBの技術といってもただ単にHTML,CSS,Javascript
+を書いてればいいという話ではなくなってきている。
+もちろん、HTMLもHTML5になったりCSSやJavascript自身も
+それに合わせて機能強化されてきている。
+</p>
+
+</section>
+<section id="slide-1-2" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-2"><span class="section-number-3">1.2</span> しかし、より直感的に</h3>
+<p>
+わかりやすい記述法としてmarkdown形式が
+出てきたり、cssもネスト出来るものとしてsassなど出てきたり、
+Javascriptもtypescriptなど様々なaltjsが派生したりした。
+webassemblyなんてものも出て来ている。
+</p>
+
+</section>
+<section id="slide-1-3" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-3"><span class="section-number-3">1.3</span> フロントエンドの世界</h3>
+<p>
+はそうやってより広く
+急激な変化を遂げている。
+</p>
+
+<p>
+人々もまた最新技術を追い求め、
+日夜あれこれとそんな技術のチェックに余念がない。
+</p>
+
+<p>
+ちょうど海の面（おもて）が激しく波打つように
+そういう技術は流行り廃れもまた早い。
+</p>
+
+</section>
+<section id="slide-1-4" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-4"><span class="section-number-3">1.4</span> ところが、海の深層部</h3>
+<p>
+は暗く静かなように
+技術にもあまり一般の人目に触れないが
+何年経っても変わらないものもある。
+</p>
+
+<p>
+長期的な視野に立つとそういう技術にこそ
+腰をどっしり据えて取り組む価値があるのではないだろうか？
+</p>
+
+</section>
+<section id="slide-1-5" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-5"><span class="section-number-3">1.5</span> そういう技術を化石と揶揄する声</h3>
+<p>
+も聞かなくもない。
+新しく生まれてくる技術には価値があり、
+古い技術には一顧だにする価値がないと思う人もいるだろう。
+</p>
+
+<p>
+しかし、古い物全てそうだろうか？
+</p>
+
+</section>
+<section id="slide-1-6" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-6"><span class="section-number-3">1.6</span> アンティーク、骨董品という類</h3>
+<p>
+はあくまで質がいいから、時代を経る毎に
+その価値が高まるのであって、
+今の大量生産されたものが１００年後
+アンティークと呼ばれるようになるだろうか？
+</p>
+
+</section>
+<section id="slide-1-7" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-7"><span class="section-number-3">1.7</span> 大切なのは古いか新しいかではない。</h3>
+<p>
+質なのだ。
+何年経っても必要とされ、
+見る人を魅了する質。
+</p>
+
+<p>
+そういう質を持った技術の１つが
+自分はLispだと思っている。
+</p>
+
+</section>
+<section id="slide-1-8" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-8"><span class="section-number-3">1.8</span> S式</h3>
+<p>
+というあまりにもシンプルなデータ構造
+を持っている故に当初逆にこれの何が一体すごいんだ？
+と理解に苦しんだ。
+</p>
+
+</section>
+<section id="slide-1-9" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-9"><span class="section-number-3">1.9</span> そしていっぱいの括弧。</h3>
+<p>
+何なんだこの括弧だらけの異質なプログラムは&#x2026;
+正直に告白すると最初は非常に取っ付き辛く、
+受け入れるのにもとても時間、いや年数がかかった。
+</p>
+
+</section>
+<section id="slide-1-10" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-10"><span class="section-number-3">1.10</span> でも今は</h3>
+<p>
+好きでどっぷり浸かっている。
+</p>
+
+<p>
+そんな自分だからこそ、書けるものも逆に
+あるのかもしれないと今は思っている。
+</p>
+
+<p>
+このサイトではそういう技術を使って表現していこうと思う。
+</p>
+
+</section>
+<section id="slide-1-11" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-11"><span class="section-number-3">1.11</span> そう、Lispの技術の結集</h3>
+<p>
+であるemacsのorgファイルで
+とりあえず、書いていく事にする。
+</p>
+
+<p>
+そんな感じで少しずつS式生活を垣間見ていただけたらと思う。
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="../reveal.js/dist/reveal.js"></script>
+<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js/plugin/notes/notes.js"></script>
+<script src="../reveal.js/plugin/search/search.js"></script>
+<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>

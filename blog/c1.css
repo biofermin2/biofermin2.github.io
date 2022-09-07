@@ -1,0 +1,23 @@
+body {
+    background-color: "#000b00";
+    forground-color: "#ffffd9";
+}
+
+/*
+(set-face-foreground 'font-lock-comment-face "#f0908d")
+          (set-face-foreground 'font-lock-string-face "#89c3eb")
+          (set-face-foreground 'font-lock-keyword-face "#f39800")
+          (set-face-foreground 'font-lock-function-name-face "#ffd900")
+          (set-face-foreground 'font-lock-variable-name-face "#c3d825")
+          (set-face-foreground 'font-lock-type-face "#cca6bf")
+          (set-face-foreground 'font-lock-warning-face "#d9333f")
+          (set-face-foreground 'font-lock-builtin-face "#68be8d")
+          (set-face-foreground 'highlight "#f7fcfe")
+          (set-face-background 'highlight "#e95295")
+          (set-face-foreground 'mode-line "#f7fcfe")
+          (set-face-background 'mode-line "#203744")
+          (set-face-foreground 'menu "#F6F7F8")
+          (set-face-background 'menu "#00081A")
+      (set-face-attribute 'line-number nil :background "#1f3134" :foreground "#e7e7eb")
+      (set-face-attribute 'line-number-current-line nil :foreground "#E6B422"))
+*/
