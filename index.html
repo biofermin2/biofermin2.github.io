@@ -9,10 +9,6 @@
         color: #ffffd9;
         background-color: #000b00;
       }
-      .bold {
-        /* bold */
-        font-weight: bold;
-      }
       .builtin {
         /* font-lock-builtin-face */
         color: #68be8d;
@@ -21,26 +17,13 @@
         /* font-lock-comment-face */
         color: #f0908d;
       }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #f0908d;
+      }
       .keyword {
         /* font-lock-keyword-face */
         color: #f39800;
-      }
-      .org-block {
-        /* org-block */
-        color: #b3b3b3;
-      }
-      .org-block-begin-line {
-        /* org-block-begin-line */
-        color: #f0908d;
-      }
-      .org-block-end-line {
-        /* org-block-end-line */
-        color: #f0908d;
-      }
-      .org-link {
-        /* org-link */
-        color: #00ffff;
-        text-decoration: underline;
       }
       .rainbow-delimiters-depth-1 {
         /* rainbow-delimiters-depth-1-face */
@@ -49,6 +32,10 @@
       .rainbow-delimiters-depth-2 {
         /* rainbow-delimiters-depth-2-face */
         color: #f6bfbc;
+      }
+      .slime-reader-conditional {
+        /* slime-reader-conditional-face */
+        color: #f0908d;
       }
       .string {
         /* font-lock-string-face */
@@ -77,37 +64,37 @@
   </head>
   <body>
     <pre>
-;;; <span class="org-link"><a href="https://biofermin2.github.io/">(peek-char t "</a></span><span class="org-link"><span class="bold"><a href="https://biofermin2.github.io/">sexp-life</a></span></span><span class="org-link"><a href="https://biofermin2.github.io/">")</a></span> --- b2's blog
-;; Copyright 2022 biofermin2
-;; Author: biofermin2 <span class="org-link"><a href="mailto:twitter%40biofermin2">&lt;twitter@biofermin2&gt;</a></span>
-;; Version: 0.1
-;; Keywords: Lisp
-
-<span class="org-block-begin-line">#+BEGIN_SRC lisp
-</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">blog</span></span><span class="org-block"> title author since license</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">blog</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-blog </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"(peek-char t *sexp-life)"</span></span><span class="org-block">
-                          </span><span class="org-block"><span class="builtin">:author</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"biofermin2"</span></span><span class="org-block">
-                          </span><span class="org-block"><span class="builtin">:since</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"2022"</span></span><span class="org-block">
-                          </span><span class="org-block"><span class="builtin">:license</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"&#169;biofermin2"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG 
-</span></span><span class="org-block">
-
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">menu</span></span><span class="org-block"> first lisp</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">             </span><span class="org-block"><span class="comment">; =&gt;MENU 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">menu1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">               </span><span class="org-block"><span class="comment">; =&gt; MENU1
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">article</span></span><span class="org-block"> title date text link</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;ARTICLE 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"&#12399;&#12376;&#12417;&#12395;"</span></span><span class="org-block">
-                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> <a href="./blog/first.html">[[./blog/first.html][at first]]</a></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A1 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-first menu1</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a1</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">            </span><span class="org-block"><span class="comment">; =&gt;#&lt;UNPRINTABLE instance of #&lt;SB-KERNEL:STRUCTURE-CLASSOID ARTICLE&gt; {1001F53323}&gt; 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a2</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"&#23398;&#12403;"</span></span><span class="org-block">
-                           :</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
-
-</span><span class="org-block-end-line">#+End_SRC
+<span class="comment-delimiter">;;; </span><span class="comment">[[https://biofermin2.github.io/][(peek-char t "*sexp-life*")]] --- b2's blog
+</span><span class="comment-delimiter">;; </span><span class="comment">Copyright 2022 biofermin2
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: biofermin2 [[https://twitter.com/biofermin2][<a href="mailto:twitter%40biofermin2">&lt;twitter@biofermin2&gt;</a>]]
+</span><span class="comment-delimiter">;; </span><span class="comment">Version: 0.1
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: Lisp
 </span>
-</pre>
+<span class="slime-reader-conditional">#+BEGIN_SRC lisp</span>
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defstruct</span> <span class="type">blog</span> title author since license<span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;BLOG 
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defvar</span> <span class="variable-name">blog</span> <span class="rainbow-delimiters-depth-2">(</span>make-blog <span class="builtin">:title</span> <span class="string">"(peek-char t *sexp-life)"</span>
+                          <span class="builtin">:author</span> <span class="string">"biofermin2"</span>
+                          <span class="builtin">:since</span> <span class="string">"2022"</span>
+                          <span class="builtin">:license</span> <span class="string">"&#169;biofermin2"</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;BLOG 
+</span>
+
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defstruct</span> <span class="type">menu</span> first lisp<span class="rainbow-delimiters-depth-1">)</span>             <span class="comment">; =&gt;MENU 
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defvar</span> <span class="variable-name">menu1</span> <span class="rainbow-delimiters-depth-2">(</span>make-menu<span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span>               <span class="comment">; =&gt; MENU1
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defstruct</span> <span class="type">article</span> title date text link<span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;ARTICLE 
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defvar</span> <span class="variable-name">a1</span> <span class="rainbow-delimiters-depth-2">(</span>make-article <span class="builtin">:title</span> <span class="string">"first"</span>
+                           <span class="builtin">:link</span> <span class="string">"[./blog/first.html]"</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;A1 
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span>setf <span class="rainbow-delimiters-depth-2">(</span>menu-first menu1<span class="rainbow-delimiters-depth-2">)</span> a1<span class="rainbow-delimiters-depth-1">)</span>            <span class="comment">; =&gt;#&lt;UNPRINTABLE instance of #&lt;SB-KERNEL:STRUCTURE-CLASSOID ARTICLE&gt; {1001F53323}&gt; 
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defvar</span> <span class="variable-name">a2</span> <span class="rainbow-delimiters-depth-2">(</span>make-article <span class="builtin">:title</span> <span class="string">"lisp"</span>
+                           <span class="builtin">:link</span> <span class="string">"[./blog/lisp-menu.html]"</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;A2 
+</span>
+<span class="slime-reader-conditional">#+End_SRC
+
+</span></pre>
   </body>
 </html>
