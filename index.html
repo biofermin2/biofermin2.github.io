@@ -1,40 +1,122 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>プレゼンテスト</title>
+<meta name="author" content="biofermin2"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="file:///home/hiro/reveal.js/dist/reveal.css"/>
 
-		<title>reveal.js</title>
+<link rel="stylesheet" href="file:///home/hiro/reveal.js/dist/theme/black.css" id="theme"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h1 class="title">プレゼンテスト</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-07 水 16:19</p>
+</section>
+<section id="table-of-contents-section">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-1">1. test1</a>
+<ul>
+<li><a href="#/slide-1-1">1.1. test1-2</a></li>
+</ul>
+</li>
+<li><a href="#/slide-2">2. test2</a>
+<ul>
+<li><a href="#/slide-2-1">2.1. test2-1</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<section id="slide-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="1"><span class="section-number-2">1</span> test1</h2>
+<p>
+1のテストです
+</p>
+<div class="org-src-container">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/blood.css">
+<pre class="src src-lisp"><span style="color: #ec6d71;">(</span><span style="color: #f39800;">defun</span> <span style="color: #ffd900;">hoge</span> <span style="color: #f6bfbc;">(</span>x<span style="color: #f6bfbc;">)</span>
+ <span style="color: #f6bfbc;">(</span>* x x<span style="color: #f6bfbc;">)</span><span style="color: #ec6d71;">)</span> 
+</pre>
+</div>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+</section>
+<section id="slide-1-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="1-1"><span class="section-number-3">1.1</span> test1-2</h3>
+<p>
+1-2です
+</p>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+</section>
+</section>
+<section>
+<section id="slide-2" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="2"><span class="section-number-2">2</span> test2</h2>
+<p>
+2です
+</p>
+
+</section>
+<section id="slide-2-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="2-1"><span class="section-number-3">2.1</span> test2-1</h3>
+<p>
+2-1です。
+</p>
+
+
+<div class="figure">
+<p><img src="file:///home/hiro/reveal.js/img/biofermin2-symbol.png" alt="biofermin2-symbol.png" />
+</p>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="file:///home/hiro/reveal.js/dist/reveal.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/notes/notes.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/search/search.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
 </html>
