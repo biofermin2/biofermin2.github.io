@@ -4,3 +4,4 @@
 - fuga
 * テスト２
 ** test 2-2
+[[org-modeでgithub pagesの作成][2022-0907-2.html]]
