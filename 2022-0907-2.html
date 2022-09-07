@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>org-modeでgithub pagesのサイトを作る</title>
+<meta name="author" content="biofermin2"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="file:///home/hiro/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="file:///home/hiro/reveal.js/dist/theme/black.css" id="theme"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h1 class="title">org-modeでgithub pagesのサイトを作る</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-07 水 15:13</p>
+</section>
+<section id="table-of-contents-section">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-1">1. org-modeによるpagesの作成</a></li>
+<li><a href="#/slide-2">2. orgファイルのhtml化の方法</a>
+<ul>
+<li><a href="#/slide-2-1">2.1. org-re-reveal</a></li>
+<li><a href="#/slide-2-2">2.2. orgモードでexport</a></li>
+</ul>
+</li>
+<li><a href="#/slide-3">3. 問題点</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<section id="slide-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="1"><span class="section-number-2">1</span> org-modeによるpagesの作成</h2>
+<p>
+org-modeでorgファイルを作成し、
+それをhtml化して、github pagesに
+アップロード出来るか実験してみる。
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-2" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="2"><span class="section-number-2">2</span> orgファイルのhtml化の方法</h2>
+<p>
+  現段階で思いつくhtml化の方法は２通りある。
+昔org-publishとかやっていたけど、今ではその設定は消したので、
+なるべくシンプルなもので行こうと思う。
+</p>
+
+</section>
+<section id="slide-2-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="2-1"><span class="section-number-3">2.1</span> org-re-reveal</h3>
+<p>
+C-cC-evb
+htmlとして出力されるが、
+revealjsとリンクしてプレゼン画面のような動きのある見た目になる。
+これに関してはローカルで出力しているため、
+ローカルディレクトリにリンクされている。
+pagesにアップロードするのであるなら、
+revealjsもアップロードし、
+リンク先を変更してあげる必要はある。
+そういう意味では若干面倒臭い面もある。
+</p>
+
+</section>
+<section id="slide-2-2" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="2-2"><span class="section-number-3">2.2</span> orgモードでexport</h3>
+<p>
+C-cC-eho
+普通のhtmlになる。
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-3" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="3"><span class="section-number-2">3</span> 問題点</h2>
+<p>
+いずれもauthorに自分の名前がダイレクトに出てきたので、
+アカウント名に変更したい。そのためには
+org-modeで#+authorだかのタグをつけないといけないが、
+毎回そんなものを手で入力するのも邪魔くさい。
+autoinsertには自分の個人用のルーティンページ設定に
+なっているし、曜日毎にルーティングの内容設定を自動切り替えしている
+ため変更したくない。
+よって、随分使ってないyasnippetを活用していこうと思う。
+特に使いたいスニペットってなかったので、
+使い方をほぼほぼ忘れてしまった。
+ただ毎回定型の決まりきった作業をする時にはあれは便利かもしれない。
+init.elでのyasnippet関連の設定を見ると 
+("C-c y" . ivy-yasnippet)
+("C-c C-y" . ivy-yasnippet)
+("C-x i n" . yas-new-snippet) ; 新規スニペットを作成するバッファを用意する
+("C-x i i"   . yas-insert-snippet) ; 既存スニペットを挿入する
+("C-x i v" . yas-visit-snippet-file)); 既存スニペットを閲覧・編集する
+</p>
+
+<p>
+こんな形で設定はされている。
+正直いって、ivy-yasnippetって要るのか？と思っているが
+とりあえず、入れてある。
+では早速snippetを作ってみよう。
+新規作成だからC-x i nだ。そうすると
+新規バッファが開き
+とりあえず、presentation用なので、
+名前をpresentation-top-setting
+keyはpre
+にしてみる。
+$0,$1,$2とtabで移動したいポイントを指定する。
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="file:///home/hiro/reveal.js/dist/reveal.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/notes/notes.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/search/search.js"></script>
+<script src="file:///home/hiro/reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>
