@@ -2,91 +2,82 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>プレゼンテスト</title>
 <meta name="author" content="biofermin2"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="./reveal.js/dist/reveal.css"/>
+<link rel="stylesheet" href=".reveal.js/css/reveal.css"/>
 
-<link rel="stylesheet" href="./reveal.js/dist/theme/black.css" id="theme"/>
+<link rel="stylesheet" href=".reveal.js/css/theme/black.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '.reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide" data-background="./reveal.js/img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h1 class="title">プレゼンテスト</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-07 水 16:19</p>
+<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-07 水 16:44</p>
 </section>
 <section id="table-of-contents-section">
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-1">1. test1</a>
+<li><a href="#/slide-1">1. b2の遊び場</a>
 <ul>
-<li><a href="#/slide-1-1">1.1. test1-2</a></li>
+<li><a href="#/slide-1-1">1.1. テスト</a></li>
 </ul>
 </li>
-<li><a href="#/slide-2">2. test2</a>
+<li><a href="#/slide-2">2. テスト２</a>
 <ul>
-<li><a href="#/slide-2-1">2.1. test2-1</a></li>
+<li><a href="#/slide-2-1">2.1. test 2-2</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 </section>
+
+
+
 <section>
-<section id="slide-1" data-background="./reveal.js/img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="1"><span class="section-number-2">1</span> test1</h2>
-<p>
-1のテストです
-</p>
-<div class="org-src-container">
-
-<pre class="src src-lisp"><span style="color: #ec6d71;">(</span><span style="color: #f39800;">defun</span> <span style="color: #ffd900;">hoge</span> <span style="color: #f6bfbc;">(</span>x<span style="color: #f6bfbc;">)</span>
- <span style="color: #f6bfbc;">(</span>* x x<span style="color: #f6bfbc;">)</span><span style="color: #ec6d71;">)</span> 
-</pre>
+<section id="slide-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="1"><span class="section-number-2">1</span> b2の遊び場</h2>
+<div class="outline-text-2" id="text-1">
 </div>
-
-
 </section>
 <section id="slide-1-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="1-1"><span class="section-number-3">1.1</span> test1-2</h3>
-<p>
-1-2です
-</p>
+<h3 id="1-1"><span class="section-number-3">1.1</span> テスト</h3>
+<ul>
+<li>hoge</li>
+<li>fuga</li>
 
+</ul>
 </section>
 </section>
 <section>
 <section id="slide-2" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="2"><span class="section-number-2">2</span> test2</h2>
-<p>
-2です
-</p>
-
+<h2 id="2"><span class="section-number-2">2</span> テスト２</h2>
+<div class="outline-text-2" id="text-2">
+</div>
 </section>
 <section id="slide-2-1" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="2-1"><span class="section-number-3">2.1</span> test2-1</h3>
-<p>
-2-1です。
-</p>
-
-
-<div class="figure">
-<p><img src="file:///home/hiro/reveal.js/img/biofermin2-symbol.png" alt="biofermin2-symbol.png" />
-</p>
-</div>
+<h3 id="2-1"><span class="section-number-3">2.1</span> test 2-2</h3>
 </section>
 </section>
 </div>
 </div>
-<script src="file:///home/hiro/reveal.js/dist/reveal.js"></script>
-<script src="file:///home/hiro/reveal.js/plugin/markdown/markdown.js"></script>
-<script src="file:///home/hiro/reveal.js/plugin/notes/notes.js"></script>
-<script src="file:///home/hiro/reveal.js/plugin/search/search.js"></script>
-<script src="file:///home/hiro/reveal.js/plugin/zoom/zoom.js"></script>
+<script src=".reveal.js/lib/js/head.min.js"></script>
+<script src=".reveal.js/js/reveal.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -105,16 +96,18 @@ hashOneBasedIndex: false,
 pdfSeparateFragments: true,
 overview: true,
 
-transition: 'convex',
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'convex', // see README of reveal.js for options
 transitionSpeed: 'default',
 showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
 
-// Plugins with reveal.js 4.x
-plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
-
 // Optional libraries used to extend reveal.js
 dependencies: [
-]
+ { src: '.reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '.reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '.reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '.reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '.reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
 
 });
 </script>
