@@ -37,10 +37,18 @@
         /* org-block-end-line */
         color: #f0908d;
       }
+      .org-code {
+        /* org-code */
+        color: #b3b3b3;
+      }
       .org-link {
         /* org-link */
         color: #00ffff;
         text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        color: #f0908d;
       }
       .rainbow-delimiters-depth-1 {
         /* rainbow-delimiters-depth-1-face */
@@ -49,6 +57,10 @@
       .rainbow-delimiters-depth-2 {
         /* rainbow-delimiters-depth-2-face */
         color: #f6bfbc;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #f6ad49;
       }
       .string {
         /* font-lock-string-face */
@@ -91,22 +103,26 @@
                           </span><span class="org-block"><span class="builtin">:since</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"2022"</span></span><span class="org-block">
                           </span><span class="org-block"><span class="builtin">:license</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"&#169;biofermin2"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG 
 </span></span><span class="org-block">
-
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">menu</span></span><span class="org-block"> first lisp</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">             </span><span class="org-block"><span class="comment">; =&gt;MENU 
 </span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">menu1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">               </span><span class="org-block"><span class="comment">; =&gt; MENU1
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">menu1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">              </span><span class="org-block"><span class="comment">; =&gt;MENU1 
 </span></span><span class="org-block">
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">article</span></span><span class="org-block"> title date text link</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;ARTICLE 
 </span></span><span class="org-block">
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"first"</span></span><span class="org-block">
-                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> <a href="./blog/first.html">[./blog/first.html]</a></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A1 
+                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"[./blog/first.html]"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt; A1
 </span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-first menu1</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a1</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">            </span><span class="org-block"><span class="comment">; =&gt;#&lt;UNPRINTABLE instance of #&lt;SB-KERNEL:STRUCTURE-CLASSOID ARTICLE&gt; {1001F53323}&gt; 
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-first menu1</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a1</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">            </span><span class="org-block"><span class="comment">; =&gt;#S(ARTICLE :TITLE "first" :DATE NIL :TEXT NIL :LINK "[./blog/first.html]") 
 </span></span><span class="org-block">
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a2</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"lisp"</span></span><span class="org-block">
-                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> <a href="./blog/lisp-menu.html">[./blog/lisp-menu.html]</a></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A2 
+                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"[./blog/lisp-menu.html]"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt; A2
+</span></span><span class="org-block">                           
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-lisp </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a2</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">                          </span><span class="org-block"><span class="comment">; =&gt; #S(ARTICLE :TITLE "lisp" :DATE NIL :TEXT NIL :LINK "[./blog/lisp-menu.html]")
 </span></span><span class="org-block">
 </span><span class="org-block-end-line">#+End_SRC
+</span>
+<span class="org-meta-line">#+RESULTS:</span>
+<span class="org-code">: #S(ARTICLE :TITLE "lisp" :DATE NIL :TEXT NIL :LINK "[./blog/lisp-menu.html]")
 </span>
 </pre>
   </body>
