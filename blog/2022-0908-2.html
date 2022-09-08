@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>org-modeでgithub pagesのサイトを作る２</title>
+<meta name="author" content="biofermin2"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h1 class="title">org-modeでgithub pagesのサイトを作る２</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-08 木 12:25</p>
+</section>
+
+<section>
+<section id="slide-org977eb7b" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="org977eb7b">org-modeによるgithub pagesの作成２</h2>
+<div class="outline-text-2" id="text-org977eb7b">
+</div>
+</section>
+<section id="slide-org26c4a26" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org26c4a26">あれから</h3>
+<p>
+雰囲気hackerっぽいイメージ笑を出そうと、
+当初はcssで配色デザインとか考えていたが、
+いかんせん、あまりcssに馴染んでないので面倒臭い。
+なんか配色そのままで出すものがあったなぁと
+vimの:TOhtmlで当初は吐き出してみた。
+</p>
+
+</section>
+<section id="slide-org0bf4827" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org0bf4827">やってみたものの</h3>
+<p>
+vim側のカラー設定は正直あまりやっていないので、
+普段emacsで使っているものと比べたらなんとも
+ショボかった。<img src="./img/vim.png" alt="vim.png" />
+</p>
+
+</section>
+<section id="slide-org1afd38b" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org1afd38b">emacsで出せないか探してみた。</h3>
+<p>
+かつて使った事あるけど、すっかり忘れていた笑
+htmlizeというツールがあり、package-list-packagesから
+見てみると既に入っていた。
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="../reveal.js/dist/reveal.js"></script>
+<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js/plugin/notes/notes.js"></script>
+<script src="../reveal.js/plugin/search/search.js"></script>
+<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>
