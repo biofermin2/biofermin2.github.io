@@ -3,6 +3,9 @@ body {
     forground-color: "#ffffd9";
 }
 
+	
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { text-transform: none; }
+
 /*
 (set-face-foreground 'font-lock-comment-face "#f0908d")
           (set-face-foreground 'font-lock-string-face "#89c3eb")
