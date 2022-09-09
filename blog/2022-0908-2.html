@@ -8,24 +8,24 @@
 .underline { text-decoration: underline; }
 </style>
 <link rel="stylesheet" href="../reveal.js/dist/reveal.css"/>
-<link rel="stylesheet" href="./c1.css"/>
+
 <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h1 class="title">org-modeでgithub pagesのサイトを作る２</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-08 木 12:25</p>
+<h1 class="title">org-modeでgithub pagesのサイトを作る２</h1><h2 class="author">biofermin2</h2><p class="date">Created: 2022-09-09 金 21:48</p>
 </section>
 
 <section>
-<section id="slide-org977eb7b" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="org977eb7b">org-modeによるgithub pagesの作成２</h2>
-<div class="outline-text-2" id="text-org977eb7b">
+<section id="slide-orgc3858fa" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="orgc3858fa">org-modeによるgithub pagesの作成２</h2>
+<div class="outline-text-2" id="text-orgc3858fa">
 </div>
 </section>
-<section id="slide-org26c4a26" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org26c4a26">あれから</h3>
+<section id="slide-org763052b" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org763052b">あれから</h3>
 <p>
 雰囲気hackerっぽいイメージ笑を出そうと、
 当初はcssで配色デザインとか考えていたが、
@@ -35,21 +35,46 @@ vimの:TOhtmlで当初は吐き出してみた。
 </p>
 
 </section>
-<section id="slide-org0bf4827" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org0bf4827">やってみたものの</h3>
+<section id="slide-orgc6ea455" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="orgc6ea455">やってみたものの</h3>
 <p>
 vim側のカラー設定は正直あまりやっていないので、
-普段emacsで使っているものと比べたらなんとも
-ショボかった。<img src="./img/vim.png" alt="vim.png" />
+emacsと比べたらなんともショボかった。
+<img src="./img/vim.png" alt="vim.png" />
 </p>
 
+
 </section>
-<section id="slide-org1afd38b" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org1afd38b">emacsで出せないか探してみた。</h3>
+<section id="slide-org5d60854" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org5d60854">emacsで出せないか探してみた。</h3>
 <p>
 かつて使った事あるけど、すっかり忘れていた笑
 htmlizeというツールがあり、package-list-packagesから
 見てみると既に入っていた。
+</p>
+
+</section>
+<section id="slide-org1023bd6" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org1023bd6">最初は</h3>
+<p>
+適当になんちゃってS式で書こうかとも思ってたが、
+それでは面白くないなと、なんとなく気付いたら
+ブログをdefstructで定義するところから始めて
+なんか使えるデータをorg-babelで出力したいな
+と思うように。
+</p>
+
+</section>
+<section id="slide-org13ffa72" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org13ffa72">しかし</h3>
+<p>
+org-babelではなぜかformatでまともに出力してくれない。
+printは出来るけど。
+そういう事もあって、せっかく作った構造体だったが、
+それで出力したメニューでってところまで残念ながら
+持っていけなかった。
+formatの評価自体出来るけど、出力したものは
+リンクが効かない。
 </p>
 </section>
 </section>
