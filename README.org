@@ -18,4 +18,3 @@ github上でorgファイルをアップするのとはまた勝手が違うよ�
 M-x org-md-export-as-markdown (C-c e m M)
 でmarkdown形式で出力するらしい。
 
-[[./2022-0907-2.html][org-modeでgithub pagesの作成]]
