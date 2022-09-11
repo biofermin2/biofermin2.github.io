@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>2022-0910-2.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #ffffd9;
+        background-color: #000b00;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #68be8d;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #f0908d;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #89c3eb;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #ffd900;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #f39800;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #f0908d;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #f0908d;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #ffd900;
+      }
+      .org-link {
+        /* org-link */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #ec6d71;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #f6bfbc;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #f6ad49;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #ffec47;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #68be8d;
+      }
+      .rainbow-delimiters-depth-6 {
+        /* rainbow-delimiters-depth-6-face */
+        color: #478384;
+      }
+      .rainbow-delimiters-depth-7 {
+        /* rainbow-delimiters-depth-7-face */
+        color: #a0d8ef;
+      }
+      .rainbow-delimiters-depth-8 {
+        /* rainbow-delimiters-depth-8-face */
+        color: #aa4c8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #cca6bf;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-level-1">* common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563;</span>
+
+&#12493;&#12483;&#12488;&#12391;&#26908;&#32034;&#12377;&#12427;&#12392;&#12289;cookbook&#12384;&#12363;&#12364;&#20986;&#12390;&#12365;&#12390;&#12289;
+cl-ppcre&#12391;&#12398;&#32622;&#25563;&#12399;&#20986;&#26469;&#12427;&#12424;&#12358;&#12395;&#20986;&#12390;&#12427;&#12290;
+
+&#12414;&#12383;&#12371;&#12371;&#12398;&#12469;&#12452;&#12488;&#12394;&#12435;&#12363;&#35211;&#12390;&#12418;&#12420;&#12399;&#12426;common-lisp
+&#12395;&#12399;&#27161;&#28310;&#12391;&#25991;&#23383;&#21015;&#12398;&#32622;&#25563;&#12364;&#12394;&#12356;&#12392;&#12356;&#12358;&#25351;&#25688;&#12364;&#12354;&#12427;&#12290;
+
+<span class="org-link"><a href="https://shammerism.hatenadiary.com/entry/20081203/1297535192">Lisp&#12395;&#12399;&#25991;&#23383;&#21015;&#32622;&#25563;&#38306;&#25968;&#12364;&#12394;&#12356;&#65311;</a></span>
+
+&#20013;&#12434;&#35501;&#12416;&#12392;&#20197;&#19979;&#12398;&#12424;&#12358;&#12394;&#38306;&#25968;&#12364;&#23450;&#32681;&#12373;&#12428;&#12390;&#12427;&#12290;
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">replace-all</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">string part replacement </span><span class="org-block"><span class="type">&amp;key</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">test #'char=</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+  </span><span class="org-block"><span class="doc">"Returns a new string in which all the occurences of the part 
+  is replaced with replacement."</span></span><span class="org-block">
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">with-output-to-string</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">out</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+        </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> with part-length = </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">length part</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+              for old-pos = 0 then </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">+ pos part-length</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+              for pos = </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">search part string
+                                </span><span class="org-block"><span class="builtin">:start2</span></span><span class="org-block"> old-pos
+                                </span><span class="org-block"><span class="builtin">:test</span></span><span class="org-block"> test</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+              do </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">write-string string out
+                               </span><span class="org-block"><span class="builtin">:start</span></span><span class="org-block"> old-pos
+                               </span><span class="org-block"><span class="builtin">:end</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">or pos </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">length string</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+              when pos do </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">write-string replacement out</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+              while pos</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> 
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+&#12371;&#12428;&#12395;&#27671;&#20184;&#12363;&#12378;&#12392;&#12426;&#12354;&#12360;&#12378;&#12289;&#33258;&#20998;&#12391;&#20316;&#12387;&#12390;&#12415;&#12383;&#12290;
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">%s</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">old new obj</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">old-len </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">length old</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> 
+          </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">start </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">search old obj</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"> 
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">concatenate 'string </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">subseq obj 0 start</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> new
+                   </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">rest </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">subseq obj </span><span class="org-block"><span class="rainbow-delimiters-depth-8">(</span></span><span class="org-block">+ start old-len</span><span class="org-block"><span class="rainbow-delimiters-depth-8">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                     </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="keyword">if</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">&lt; old-len </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">length rest</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block">
+                         </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">%s old new rest</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block">
+                         rest</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">        </span><span class="org-block"><span class="comment">; =&gt;%S 
+</span></span><span class="org-block-end-line">#+END_SRC
+</span>
+&#33258;&#20998;&#12394;&#12426;&#12395;ppcre&#12392;&#12363;&#12392;&#26178;&#38291;&#12434;&#27604;&#12409;&#12390;&#12415;&#12383;&#12425;
+&#24847;&#22806;&#12392;&#12431;&#12378;&#12363;&#12384;&#12364;&#36895;&#12367;&#20986;&#26469;&#12390;&#12356;&#12383;&#12290;
+&#21521;&#12371;&#12358;&#12399;&#27491;&#35215;&#34920;&#29694;&#23550;&#24540;&#12375;&#12383;&#12426;&#20869;&#23481;&#30340;&#12395;&#12399;&#12424;&#12426;
+&#35079;&#38609;&#12394;&#20107;&#12420;&#12387;&#12390;&#12356;&#12427;&#12363;&#12425;&#12384;&#12429;&#12358;&#12369;&#12393;&#12290;
+&#20808;&#31243;&#12398;replace-all&#12384;&#12364;&#23450;&#32681;&#12398;&#20181;&#26041;
+&#12385;&#12423;&#12387;&#12392;&#32032;&#20154;&#12395;&#12399;&#21380;&#20171;&#12394;&#24863;&#12376;&#12399;&#12377;&#12427;&#12375;&#12289;
+&#33258;&#20998;&#12391;&#20316;&#12387;&#12383;&#26041;&#12364;&#24863;&#35226;&#30340;&#12395;&#12399;&#12431;&#12363;&#12426;&#12420;&#12377;&#12356;&#12363;&#12394;&#12392;&#12290;
+&#12383;&#12384;&#35211;&#12390;&#12398;&#36890;&#12426;&#12289;&#20877;&#24112;&#12434;&#20351;&#12387;&#12390;&#12356;&#12427;&#12363;&#12425;
+&#22823;&#12365;&#12394;&#12501;&#12449;&#12452;&#12523;&#12392;&#12363;&#12384;&#12392;&#12385;&#12423;&#12387;&#12392;&#36895;&#24230;&#12364;&#12393;&#12358;&#12394;&#12427;&#12363;&#65311;
+&#12392;&#12418;&#24605;&#12358;&#12290;
+
+&#12388;&#12356;&#12391;&#12395;cookbook&#12398;&#26041;&#12398;ppcre&#12398;scan&#12394;&#12435;&#12390;&#12418;&#12398;&#12418;
+&#20986;&#12390;&#12356;&#12383;&#12398;&#12391;&#12289;&#12371;&#12428;&#12418;&#32622;&#25563;&#12392;&#12411;&#12412;&#21516;&#12376;&#20107;&#12420;&#12387;&#12390;&#12427;&#12394;&#12392;
+&#12377;&#12368;&#20316;&#12387;&#12390;&#12415;&#12383;&#12290;
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">scan</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">key obj</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">key-len </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">length key</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+          </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">start </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">search key obj</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">values start </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">+ start key-len</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">  </span><span class="org-block"><span class="comment">; =&gt;SCAN 
+</span></span><span class="org-block-end-line">#+END_SRC
+</span>
+&#36554;&#36650;&#12398;&#20877;&#30330;&#26126;&#12399;&#33391;&#12367;&#12394;&#12356;&#12392;&#12399;&#35328;&#12431;&#12428;&#12427;&#12369;&#12393;&#12289;
+&#33258;&#20998;&#12391;&#20316;&#12387;&#12383;&#12425;&#12450;&#12523;&#12468;&#12522;&#12474;&#12512;&#12364;&#29702;&#35299;&#20986;&#26469;&#12427;&#12363;&#12425;
+&#28961;&#39364;&#12391;&#12399;&#12394;&#12356;&#12392;&#24605;&#12358;&#12290;
+
+&#12503;&#12525;&#12464;&#12521;&#12511;&#12531;&#12464;&#12434;&#12420;&#12387;&#12390;&#12356;&#12427;&#12392;&#19968;&#21475;&#12395;&#35328;&#12387;&#12390;&#12418;
+&#12371;&#12358;&#12356;&#12358;&#12424;&#12358;&#12395;
+&#12503;&#12525;&#12464;&#12521;&#12512;&#12434;"&#20351;&#12358;"&#20154;&#12392;&#12503;&#12525;&#12464;&#12521;&#12512;&#12434;"&#20316;&#12427;"&#20154;
+&#12391;&#12399;&#20840;&#28982;&#24847;&#21619;&#12420;&#36074;&#12364;&#36949;&#12387;&#12390;&#12367;&#12427;&#12392;&#24605;&#12358;&#12290;
+&#22810;&#20998;python&#12518;&#12540;&#12470;&#12540;&#12398;&#22810;&#12367;&#12399;&#21069;&#32773;&#12376;&#12419;&#12394;&#12356;&#12363;&#12394;&#65311;
+&#20415;&#21033;&#12394;&#12521;&#12452;&#12502;&#12521;&#12522;&#12364;&#12356;&#12387;&#12401;&#12356;&#12354;&#12427;&#12387;&#12390;&#12356;&#12358;&#12375;&#12290;
+&#12391;&#12418;&#12289;&#33258;&#20998;&#12399;&#12394;&#12435;&#12363;&#12381;&#12358;&#12356;&#12358;&#12398;&#12364;&#12388;&#12414;&#12425;&#12394;&#12356;&#12392;
+&#24863;&#12376;&#12390;&#12375;&#12414;&#12358;&#26178;&#12364;&#12354;&#12427;&#12290;
+
+&#12384;&#12363;&#12425;&#36554;&#36650;&#12398;&#20877;&#30330;&#26126;&#12394;&#12435;&#12390;&#12418;&#12435;&#12399;&#12393;&#12435;&#12393;&#12435;&#12420;&#12387;&#12390;&#12418;&#12356;&#12356;&#12392;&#24605;&#12358;&#12290;
+
+
+
+</pre>
+  </body>
+</html>
