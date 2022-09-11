@@ -1,0 +1,9 @@
+<Files ~"^\.ht">
+deny from all
+</Files>
+<Files ~"^\img">
+deny from all
+</Files>
+
+Options +Indexes
+IndexOptions Charset=utf-8
