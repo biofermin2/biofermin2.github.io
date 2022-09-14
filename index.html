@@ -33,6 +33,15 @@
         /* org-block-end-line */
         color: #f0908d;
       }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
       .org-link {
         /* org-link */
         color: #00ffff;
@@ -70,8 +79,6 @@
       }
     -->
     </style>
-    <link rel="icon" href="./blog/img/biofermin2-symbol.svg" type="image/svg+xml">
-
   </head>
   <body>
     <pre>
@@ -80,8 +87,8 @@
 ;; Author: biofermin2 <span class="org-link"><a href="https://twitter.com/biofermin2">twitter@biofermin2</a></span>
 ;; Version: 0.1
 ;; Keywords: Lisp
-
-<span class="org-block-begin-line">#+BEGIN_SRC lisp
+<span class="org-document-info-keyword">#+TITLE:</span> <span class="org-document-title">(peek-char t sexp-life)
+</span><span class="org-block-begin-line">#+BEGIN_SRC lisp
 </span><span class="org-block">
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">blog</span></span><span class="org-block"> title author since license</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG 
 </span></span><span class="org-block">
@@ -102,7 +109,7 @@
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-first menu1</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a1</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
 
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a2</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"lisp"</span></span><span class="org-block">
-                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"<a href="./blog/lisp-menu.html">[[./blog/lisp-menu.html][lisp]]</a>"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A2 
+                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"<a href="./blog/lisp-menu.lisp.html">[[./blog/lisp-menu.lisp.html][lisp]]</a>"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A2 
 </span></span><span class="org-block">
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">menu-lisp</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">          </span><span class="org-block"><span class="comment">; =&gt;MENU-LISP 
 </span></span><span class="org-block">
