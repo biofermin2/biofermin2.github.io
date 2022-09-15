@@ -1,17 +1,47 @@
-body {
-    background-color: "#000b00";
+ body {
     color: "#ffffd9";
+    background-color: "#000b00";
+    margin: 0px;
 }
+
 header {
-    background-color: "#000b00";
-    color: "#ffffd9";
+    width: 100%;
+    height: 80px;
+    text-align: left;
+    color: #ffffd9;
+    background-color: #000b00;
+    background-image: url("./img/biofermin2-symbol.svg");
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    margin-top: 0px;
+    z-index: 1;
 }
+iframe {
+  border: none;
+  width: 100%;
+  padding-top: 85px;
+  padding-left: 0px;
+  height: 550px;
+  background-color: #000b00;
+  align: left;
+}
+#parentframe {
+    frameborder: "no";
+    scrolling: "no";
+}
+
 footer {
-    background-color: "#000b00";
-    color: "#ffffd9";
+  width: 100%;
+  height: 20px; 
+  text-align: left;
+  padding: 0px 0;
+  color: #ffffd9;
+  position: fixed;
+  bottom: 0;
+  background-color: #000b00;
 }
-
-
 
 .builtin {
     /* font-lock-builtin-face */
@@ -71,7 +101,6 @@ footer {
     /* font-lock-variable-name-face */
     color: #c3d825;
 }
-
 a {
     color: inherit;
     background-color: inherit;
@@ -81,8 +110,19 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.comment-delimiter {
+    /* font-lock-comment-delimiter-face */
+    color: #f0908d;
+}
+.org-meta-line {
+    /* org-meta-line */
+    color: #f0908d;
+}
 
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { text-transform: none; }
+@media screen and (min-width: 481px)　{ } ;pc向け
+                                           
+@media screen and (max-width: 480px)　{ } ;スマホ向け
 
 /*
 (set-face-foreground 'font-lock-comment-face "#f0908d")
