@@ -1,120 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.57 in css mode. -->
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>index.lisp</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #ffffd9;
-        background-color: #000b00;
-      }
-      .builtin {
-        /* font-lock-builtin-face */
-        color: #68be8d;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #f0908d;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #f39800;
-      }
-      .org-block {
-        /* org-block */
-        color: #b3b3b3;
-      }
-      .org-block-begin-line {
-        /* org-block-begin-line */
-        color: #f0908d;
-      }
-      .org-block-end-line {
-        /* org-block-end-line */
-        color: #f0908d;
-      }
-      .org-document-info-keyword {
-        /* org-document-info-keyword */
-        color: #b3b3b3;
-      }
-      .org-document-title {
-        /* org-document-title */
-        color: #afeeee;
-        font-weight: bold;
-      }
-      .org-link {
-        /* org-link */
-        color: #00ffff;
-        text-decoration: underline;
-      }
-      .rainbow-delimiters-depth-1 {
-        /* rainbow-delimiters-depth-1-face */
-        color: #ec6d71;
-      }
-      .rainbow-delimiters-depth-2 {
-        /* rainbow-delimiters-depth-2-face */
-        color: #f6bfbc;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #89c3eb;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #cca6bf;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #c3d825;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
-  </head>
-  <body>
-    <pre>
-;;; <span class="org-link"><a href="https://biofermin2.github.io/">(peek-char t &#65290;sexp-life&#65290;)</a></span> --- b2's blog
-;; Copyright 2022 biofermin2
+    <head>
+     <meta charset="UTF-8">
+        <title>(peek-char t *sexp-life*)</title>
+        <link rel="icon" href="./blog/img/biofermin2-symbol.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="./blog/local.css">
+        <script src="./blog/js/jquery-3.6.1.min.js"></script>
+    <script>
+        window.addEventListener('message', function(e) {
+             var iframe = $("#parentframe");
+        var eventName = e.data[0];
+        var data = e.data[1];
+        switch(eventName) {
+            case 'setHeight':
+                iframe.height(data);
+                break;
+            }
+        }, false);
+    </script>
+    </head>
+    <body>
+        <header>
+            <meta name=”viewport” content=”width=device-width,initial-scale=1.0″>
+            <pre>
+;;; <span class="org-link"><a href="./index.html">(peek-char t *sexp-life*)</a></span> --- b2's blog
 ;; Author: biofermin2 <span class="org-link"><a href="https://twitter.com/biofermin2">twitter@biofermin2</a></span>
-;; Version: 0.1
-;; Keywords: Lisp
-<span class="org-document-info-keyword">#+TITLE:</span> <span class="org-document-title">(peek-char t sexp-life)
-</span><span class="org-block-begin-line">#+BEGIN_SRC lisp
-</span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">blog</span></span><span class="org-block"> title author since license</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">blog</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-blog </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"(peek-char t *sexp-life*)"</span></span><span class="org-block">
-                          </span><span class="org-block"><span class="builtin">:author</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"biofermin2"</span></span><span class="org-block">
-                          </span><span class="org-block"><span class="builtin">:since</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"2022"</span></span><span class="org-block">
-                          </span><span class="org-block"><span class="builtin">:license</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"&#169;biofermin2"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">menu</span></span><span class="org-block"> first lisp</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">             </span><span class="org-block"><span class="comment">; =&gt;MENU 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">menu1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">              </span><span class="org-block"><span class="comment">; =&gt;MENU1 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defstruct</span></span><span class="org-block"> </span><span class="org-block"><span class="type">article</span></span><span class="org-block"> title date text link</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;ARTICLE 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a1</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"first"</span></span><span class="org-block">
-                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"<a href="./blog/first.html">[[./blog/first.html][first]]</a>"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A1 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-first menu1</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a1</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+;; Version: <a href="./blog/ChangeLog.org.html">0.1</a>
+;; Keywords: <a href="./blog/lisp-menu.lisp.html">Lisp</a>
+            </pre>
+        </header>
 
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">a2</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-article </span><span class="org-block"><span class="builtin">:title</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"lisp"</span></span><span class="org-block">
-                           </span><span class="org-block"><span class="builtin">:link</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"<a href="./blog/lisp-menu.lisp.html">[[./blog/lisp-menu.lisp.html][lisp]]</a>"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;A2 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defvar</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">menu-lisp</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">make-menu</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">          </span><span class="org-block"><span class="comment">; =&gt;MENU-LISP 
-</span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">setf </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">menu-lisp menu1</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> a2</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
-</span><span class="org-block-end-line">#+END_SRC
-</span></pre>
-  </body>
+        <iframe id="parentframe" src="./blog/index.lisp.html" width="100%" height="auto" style="display:block; margin:0 auto; border:none;"></iframe>
+
+            <footer>
+;; copyright (c) 2022 <a href="./index.html"> biofermin2</a>
+            </footer>
+    </body>
 </html>
