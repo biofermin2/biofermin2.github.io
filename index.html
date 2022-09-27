@@ -39,8 +39,16 @@
             </pre>
         </header>
 
-        <iframe id="parentframe" src="./blog/index.lisp.html" width="100%" height="auto" style="display:block; margin:0 auto; border:none;"></iframe>
-
+        <iframe id="parentframe" src="./blog/index.lisp.html" width="100%" style="display:block; margin:0 auto; border:none;"></iframe>
+<script>
+    // Selecting the iframe element
+    var iframe = document.getElementById("parentframe");
+    
+    // Adjusting the iframe height onload event
+    iframe.onload = function(){
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+    }
+    </script>
             <footer>
 ;; copyright (c) 2022 <a href="./index.html"> biofermin2</a> <a href="https://twitter.com/messages/compose?recipient_id=9104852&ref_src=twsrc%5Etfw" class="twitter-dm-button" data-screen-name="biofermin2" data-show-count="false">Message @biofermin2</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </footer>
