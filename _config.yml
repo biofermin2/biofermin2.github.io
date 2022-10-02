@@ -1,1 +1,7 @@
+plugins:
+  - jekyll-feed
+title: (peek-char t *sexp-life*)
+description: b2's blog
+author: biofermin2
+
 theme: jekyll-theme-hacker
