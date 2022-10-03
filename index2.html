@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>(peek-char t *sexp-life*)</title>
+        <link rel="icon" href="./blog/img/biofermin2-symbol.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="./blog/local.css">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGL0KFVPZB"></script>
+        <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+
+         gtag('config', 'G-DGL0KFVPZB');
+        </script>
+        <script src="./blog/js/jquery-3.6.1.min.js"></script>
+        <script>
+         window.addEventListener('message', function(e) {
+             var iframe = $("#parentframe");
+             var eventName = e.data[0];
+             var data = e.data[1];
+             switch(eventName) {
+                 case 'setHeight':
+                     iframe.height(data);
+                     break;
+             }
+         }, false);
+        </script>
+        <script>
+         // Selecting the iframe element
+         var iframe = document.getElementById("parentframe");
+         
+         // Adjusting the iframe height onload event
+         iframe.onload = function(){
+             iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+         }
+        </script>
+
+    </head>
+    <body>
+       <script src="./blog/js/header.js"></script>
+         <script>header();</script>
+        <main>
+            <iframe id="parentframe" src="./blog/index.lisp.html" width="100%" style="display:block; margin:0 auto; border:none;"></iframe>
+        </main>
+       <script src="./blog/js/footer.js"></script>
+         <script>footer();</script>
+    </body>
+</html>
