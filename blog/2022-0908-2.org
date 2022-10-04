@@ -1,0 +1,65 @@
+#+TITLE: org-modeでgithub pagesのサイトを作る２
+#+Author: biofermin2
+#+REVEAL_TITLE_SLIDE_BACKGROUND: img/biofermin2-symbol.png
+#+REVEAL_TITLE_SLIDE_BACKGROUND_SIZE: 80px
+# #+REVEAL_TITLE_SLIDE_BACKGROUND_REPEAT: repeat
+#+REVEAL_TITLE_SLIDE: <h3>%t</h3><h4>%a</h4>
+#+REVEAL_EXTRA_CSS: ./local.css
+
+# https://revealjs.com/themes/
+# #+REVEAL_THEME: blood
+#+REVEAL_ROOT: ../reveal.js/
+# #+REVEAL: split
+#+REVEAL_TITLE_SLIDE_BACKGROUND_POSITION: top right
+#+reveal_slide_toc_footer: t
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: img/biofermin2-symbol.png
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_SIZE: 80px
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_POSITION: top right
+#+REVEAL_EXPORT_NOTES_TO_PDF:t
+
+# 目次やら番号を消したい時
+#+OPTIONS: num:nil toc:nil
+
+* org-modeによるgithub pagesの作成２
+
+** あれから
+雰囲気hackerっぽいイメージ笑を出そうと、
+当初はcssで配色デザインとか考えていたが、
+いかんせん、あまりcssに馴染んでないので面倒臭い。
+なんか配色そのままで出すものがあったなぁと
+vimの:TOhtmlで当初は吐き出してみた。
+
+** やってみたものの
+vim側のカラー設定は正直あまりやっていないので、
+emacsと比べたらなんともショボかった。
+しかもlinkの箇所の設定が丸見え。
+[[./img/vim.png]]
+
+** emacsで出せないか探してみた。
+かつて使った事あるけど、すっかり忘れていた笑
+htmlizeというツールがあり、package-list-packagesから
+見てみると既に入っていた。
+
+** 最初は
+適当になんちゃってS式で書こうかとも思ってたが、
+それでは面白くないなと、なんとなく気付いたら
+ブログをdefstructで定義するところから始めて
+なんか使えるデータをorg-babelで出力したいな
+と思うように。
+
+** しかし
+org-babelではなぜかformatでまともに出力してくれない。
+printは出来るけど。
+そういう事もあって、せっかく作った構造体だったが、
+それで出力したメニューでってところまで残念ながら
+持っていけなかった。
+formatの評価自体出来るけど、出力したものは
+リンクが効かない。
+
+** おわり 
+いきなりだが、とりあえず、だいたいの雛形は
+出来たので、この話題はここで終わりにする。
+
+[[../index.html][top]] [[./lisp-menu.html][次へ]]
+
+

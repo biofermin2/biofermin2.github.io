@@ -1,0 +1,7 @@
+* ChangeLog
+
+** version 0.1
+*** [2022-09-07] start this blog
+*** [2022-09-13] add iframe, Responsive Web Support
+*** [2022-09-14] add header footer
+*** [2022-09-22] add twitter message link

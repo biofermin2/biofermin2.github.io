@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: reveal.js/
+Disallow: blog/posts/
+Disallow: blog/vender/
+

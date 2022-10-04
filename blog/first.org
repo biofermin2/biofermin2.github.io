@@ -1,0 +1,103 @@
+#+TITLE: はじめに
+#+Author: biofermin2
+#+REVEAL_TITLE_SLIDE_BACKGROUND: img/biofermin2-symbol.png
+#+REVEAL_TITLE_SLIDE_BACKGROUND_SIZE: 80px
+# #+REVEAL_TITLE_SLIDE_BACKGROUND_REPEAT: repeat
+#+REVEAL_TITLE_SLIDE: <h3>%t</h3><h4>%a</h4>
+#+REVEAL_EXTRA_CSS: ./local.css
+
+# https://revealjs.com/themes/
+# #+REVEAL_THEME: blood
+#+REVEAL_ROOT: ../reveal.js/
+# #+REVEAL: split
+#+REVEAL_TITLE_SLIDE_BACKGROUND_POSITION: top right
+#+reveal_slide_toc_footer: t
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: img/biofermin2-symbol.png
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_SIZE: 80px
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_POSITION: top right
+#+REVEAL_EXPORT_NOTES_TO_PDF:t
+
+# 目次やら番号を消したい時
+#+OPTIONS: num:nil toc:nil
+
+* はじめに
+
+** 最近の技術革新
+でWEBの技術といってもただ単にHTML,CSS,Javascript
+を書いてればいいという話ではなくなってきている。
+もちろん、HTMLもHTML5になったりCSSやJavascript自身も
+それに合わせて機能強化されてきている。
+
+** しかし、より直感的に
+わかりやすい記述法としてmarkdown形式が
+出てきたり、cssもネスト出来るものとしてsassなど出てきたり、
+Javascriptもtypescriptなど様々なaltjsが派生したりした。
+webassemblyなんてものも出て来ている。
+
+** フロントエンドの世界
+はそうやってより広く
+急激な変化を遂げている。
+
+人々もまた最新技術を追い求め、
+日夜あれこれとそんな技術のチェックに余念がない。
+
+ちょうど海の面（おもて）が激しく波打つように
+そういう技術は流行り廃れもまた早い。
+
+** ところが、海の深層部
+は暗く静かなように
+技術にもあまり一般の人目に触れないが
+何年経っても変わらないものもある。
+
+長期的な視野に立つとそういう技術にこそ
+腰をどっしり据えて取り組む価値があるのではないだろうか？
+
+** そういう技術を化石と揶揄する声
+も聞かなくもない。
+新しく生まれてくる技術には価値があり、
+古い技術には一顧だにする価値がないと思う人もいるだろう。
+
+しかし、古い物全てそうだろうか？
+
+** アンティーク、骨董品という類
+はあくまで質がいいから、時代を経る毎に
+その価値が高まるのであって、
+今の大量生産されたものが１００年後
+アンティークと呼ばれるようになるだろうか？
+
+** 大切なのは古いか新しいかではない。
+質なのだ。
+何年経っても必要とされ、
+見る人を魅了する質。
+
+そういう質を持った技術の１つが
+自分はLispだと思っている。
+
+** S式
+というあまりにもシンプルなデータ構造
+を持っている故に当初逆にこれの何が一体すごいんだ？
+と理解に苦しんだ。
+
+** そしていっぱいの括弧。
+何なんだこの括弧だらけの異質なプログラムは...
+正直に告白すると最初は非常に取っ付き辛く、
+受け入れるのにもとても時間、いや年数がかかった。
+
+** でも今は
+好きでどっぷり浸かっている。
+
+そんな自分だからこそ、書けるものも逆に
+あるのかもしれないと今は思っている。
+
+このサイトではそういう技術を使って表現していこうと思う。
+
+** そう、Lispの技術の結集
+であるemacsのorgファイルで
+とりあえず、書いていく事にする。
+
+そんな感じで少しずつS式生活を垣間見ていただけたらと思う。
+
+[[../index.html][top]] [[./lisp-menu.html][次へ]]
+
+
+

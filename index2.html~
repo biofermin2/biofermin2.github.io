@@ -27,19 +27,6 @@
             }
         }, false);
     </script>
-    </head>
-    <body>
-        <header>
-            <meta name=”viewport” content=”width=device-width,initial-scale=1.0″>
-            <pre>
-;;; <span class="org-link"><a href="./index.html">(peek-char t *sexp-life*)</a></span> --- b2's blog
-;; Author: biofermin2 <span class="org-link"><a href="https://twitter.com/biofermin2">twitter: @biofermin2</a></span>
-;; Version: <a href="./blog/ChangeLog.org.html">0.1</a>
-;; Keywords: <a href="./blog/lisp-menu.lisp.html">Lisp</a> <a href="./blog/agri-menu.lisp.html">Agriculture</a> <a href="./blog/others-menu.lisp.html">others</a> 
-            </pre>
-        </header>
-
-        <iframe id="parentframe" src="./blog/index.lisp.html" width="100%" style="display:block; margin:0 auto; border:none;"></iframe>
 <script>
     // Selecting the iframe element
     var iframe = document.getElementById("parentframe");
@@ -49,8 +36,23 @@
         iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
     }
     </script>
-            <footer>
-;; copyright (c) 2022 <a href="./index.html"> biofermin2</a> <a href="https://twitter.com/messages/compose?recipient_id=9104852&ref_src=twsrc%5Etfw" class="twitter-dm-button" data-screen-name="biofermin2" data-show-count="false">Message @biofermin2</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </footer>
+
+    </head>
+    <body>
+      <div id="header"><!-- ここにheader.htmlが読み込まれる --></div>
+            <script>
+                $(function(){
+                   $('#header').load('./header.html'); // #headerにheader.htmlを読み込む
+                });
+            </script>
+             <main>
+               <iframe id="parentframe" src="./blog/index.lisp.html" width="100%" style="display:block; margin:0 auto; border:none;"></iframe>
+             </main>
+      <div id="footer"><!-- ここにfooter.htmlが読み込まれる --></div>
+            <script>
+               $(function(){
+                  $('#footer').load('./footer.html'); // #headerにheader.htmlを読み込む
+               });
+           </script>
     </body>
 </html>
