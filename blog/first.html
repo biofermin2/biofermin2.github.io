@@ -7,9 +7,22 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="../reveal.js/dist/reveal.css"/>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
 
-<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
+<link rel="stylesheet" href="./reveal.js/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./local.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
 </head>
 <body>
 <div class="reveal">
@@ -19,33 +32,34 @@
 </section>
 
 <section>
-<section id="slide-orgab819b9" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="orgab819b9">はじめに</h2>
-<div class="outline-text-2" id="text-orgab819b9">
+<section id="slide-org32cabb9" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="org32cabb9">はじめに</h2>
+<div class="outline-text-2" id="text-org32cabb9">
 </div>
 </section>
-<section id="slide-org25c9fb7" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org25c9fb7">最近の技術革新</h3>
+<section id="slide-orgb9ea941" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="orgb9ea941">最近の技術革新</h3>
 <p>
-でWEBの技術といってもただ単にHTML,CSS,Javascript
+WEBの技術といってもただ単にHTML,CSS,Javascript
 を書いてればいいという話ではなくなってきている。
-もちろん、HTMLもHTML5になったりCSSやJavascript自身も
-それに合わせて機能強化されてきている。
+HTMLもHTML5から更にHTML living standard
+になったりCSSはCSS3やJavascript自身も
+ecmascript2020に準拠する形で機能強化されてきている。
 </p>
 
 </section>
-<section id="slide-orgdae2965" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgdae2965">しかし、より直感的に</h3>
+<section id="slide-org8cc1091" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org8cc1091">その他</h3>
 <p>
-わかりやすい記述法としてmarkdown形式が
-出てきたり、cssもネスト出来るものとしてsassなど出てきたり、
+より直感的でわかりやすい記述法としてmarkdown形式が
+出てきたり、cssもネスト出来るものとしてsassやscssなど出てきたり、
 Javascriptもtypescriptなど様々なaltjsが派生したりした。
 webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-org68757f3" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org68757f3">フロントエンドの世界</h3>
+<section id="slide-orgcdcd0ec" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="orgcdcd0ec">フロントエンドの世界</h3>
 <p>
 はそうやってより広く
 急激な変化を遂げている。
@@ -62,8 +76,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-org30b8090" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org30b8090">ところが、海の深層部</h3>
+<section id="slide-org8aecfba" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org8aecfba">ところが、海の深層部</h3>
 <p>
 は暗く静かなように
 技術にもあまり一般の人目に触れないが
@@ -76,8 +90,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-orga7f01b6" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orga7f01b6">そういう技術を化石と揶揄する声</h3>
+<section id="slide-orga639dad" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="orga639dad">そういう技術を化石と揶揄する声</h3>
 <p>
 も聞かなくもない。
 新しく生まれてくる技術には価値があり、
@@ -89,8 +103,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-orgd36a7b5" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgd36a7b5">アンティーク、骨董品という類</h3>
+<section id="slide-org548c2fc" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org548c2fc">アンティーク、骨董品という類</h3>
 <p>
 はあくまで質がいいから、時代を経る毎に
 その価値が高まるのであって、
@@ -99,8 +113,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-orgf05260c" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgf05260c">大切なのは古いか新しいかではない。</h3>
+<section id="slide-org09621b0" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org09621b0">大切なのは古いか新しいかではない。</h3>
 <p>
 質なのだ。
 何年経っても必要とされ、
@@ -113,8 +127,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-org78f0134" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org78f0134">S式</h3>
+<section id="slide-org6f57fd4" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org6f57fd4">S式</h3>
 <p>
 というあまりにもシンプルなデータ構造
 を持っている故に当初逆にこれの何が一体すごいんだ？
@@ -122,8 +136,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-orgdd4371c" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgdd4371c">そしていっぱいの括弧。</h3>
+<section id="slide-org9fc6f51" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org9fc6f51">そしていっぱいの括弧。</h3>
 <p>
 何なんだこの括弧だらけの異質なプログラムは&#x2026;
 正直に告白すると最初は非常に取っ付き辛く、
@@ -131,8 +145,8 @@ webassemblyなんてものも出て来ている。
 </p>
 
 </section>
-<section id="slide-org7046999" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org7046999">でも今は</h3>
+<section id="slide-org520d949" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org520d949">でも今は</h3>
 <p>
 好きでどっぷり浸かっている。
 </p>
@@ -143,33 +157,19 @@ webassemblyなんてものも出て来ている。
 </p>
 
 <p>
-このサイトではそういう技術を使って表現していこうと思う。
-</p>
-
-</section>
-<section id="slide-org99029ae" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org99029ae">そう、Lispの技術の結集</h3>
-<p>
-であるemacsのorgファイルで
-とりあえず、書いていく事にする。
+このサイトはそういうLispの技術を使って
+表現していこうと思う。
 </p>
 
 <p>
 そんな感じで少しずつS式生活を垣間見ていただけたらと思う。
 </p>
-
-<p>
-<a href="./index.lisp.html">top</a> <a href="./lisp-menu.html">次へ</a>
-</p>
 </section>
 </section>
 </div>
 </div>
-<script src="../reveal.js/dist/reveal.js"></script>
-<script src="../reveal.js/plugin/markdown/markdown.js"></script>
-<script src="../reveal.js/plugin/notes/notes.js"></script>
-<script src="../reveal.js/plugin/search/search.js"></script>
-<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -188,16 +188,18 @@ hashOneBasedIndex: false,
 pdfSeparateFragments: true,
 overview: true,
 
-transition: 'convex',
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'convex', // see README of reveal.js for options
 transitionSpeed: 'default',
 showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
 
-// Plugins with reveal.js 4.x
-plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
-
 // Optional libraries used to extend reveal.js
 dependencies: [
-]
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
 
 });
 </script>

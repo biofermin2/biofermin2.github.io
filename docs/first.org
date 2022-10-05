@@ -8,7 +8,7 @@
 
 # https://revealjs.com/themes/
 # #+REVEAL_THEME: blood
-#+REVEAL_ROOT: ../reveal.js/
+#+REVEAL_ROOT: ./reveal.js/
 # #+REVEAL: split
 #+REVEAL_TITLE_SLIDE_BACKGROUND_POSITION: top right
 #+reveal_slide_toc_footer: t
@@ -21,16 +21,16 @@
 #+OPTIONS: num:nil toc:nil
 
 * はじめに
-
 ** 最近の技術革新
-でWEBの技術といってもただ単にHTML,CSS,Javascript
+WEBの技術といってもただ単にHTML,CSS,Javascript
 を書いてればいいという話ではなくなってきている。
-もちろん、HTMLもHTML5になったりCSSやJavascript自身も
-それに合わせて機能強化されてきている。
+HTMLもHTML5から更にHTML living standard
+になったりCSSはCSS3やJavascript自身も
+ecmascript2020に準拠する形で機能強化されてきている。
 
-** しかし、より直感的に
-わかりやすい記述法としてmarkdown形式が
-出てきたり、cssもネスト出来るものとしてsassなど出てきたり、
+** その他
+より直感的でわかりやすい記述法としてmarkdown形式が
+出てきたり、cssもネスト出来るものとしてsassやscssなど出てきたり、
 Javascriptもtypescriptなど様々なaltjsが派生したりした。
 webassemblyなんてものも出て来ている。
 
@@ -89,15 +89,8 @@ webassemblyなんてものも出て来ている。
 そんな自分だからこそ、書けるものも逆に
 あるのかもしれないと今は思っている。
 
-このサイトではそういう技術を使って表現していこうと思う。
-
-** そう、Lispの技術の結集
-であるemacsのorgファイルで
-とりあえず、書いていく事にする。
+このサイトはそういうLispの技術を使って
+表現していこうと思う。
 
 そんな感じで少しずつS式生活を垣間見ていただけたらと思う。
-
-[[../index.html][top]] [[./lisp-menu.html][次へ]]
-
-
 
