@@ -1,8 +1,0 @@
-User-agent: *
-
-Disallow: reveal.js/
-blog/posts/
-blog/vender/
-
-Allow: 
-
