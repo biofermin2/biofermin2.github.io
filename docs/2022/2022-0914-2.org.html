@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>2022-0914-2.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #ffffd9;
+        background-color: #000b00;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #68be8d;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #f0908d;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #f0908d;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #ffd900;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #f39800;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #f0908d;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #f0908d;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #ffd900;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #c3d825;
+      }
+      .org-link {
+        /* org-link */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #ec6d71;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #f6bfbc;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #f6ad49;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #ffec47;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #68be8d;
+      }
+      .rainbow-delimiters-depth-6 {
+        /* rainbow-delimiters-depth-6-face */
+        color: #478384;
+      }
+      .rainbow-delimiters-depth-7 {
+        /* rainbow-delimiters-depth-7-face */
+        color: #a0d8ef;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #89c3eb;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #cca6bf;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-level-1">* common-lisp&#12391;fizzbuzz</span>
+
+&#12392;&#12354;&#12427;&#12392;&#12371;&#12391;&#35211;&#25499;&#12369;&#12383;&#12398;&#12391;&#12289;
+&#12392;&#12426;&#12354;&#12360;&#12378;&#20182;&#12398;&#20154;&#12398;&#12420;&#12426;&#26041;&#12392;&#12363;&#12399;&#35211;&#12378;
+&#12414;&#12387;&#12373;&#12425;&#12394;&#24515;&#12391;&#26360;&#12356;&#12390;&#12415;&#12383;&#12290;
+
+<span class="org-level-2">** &#33258;&#20998;&#12398;&#26360;&#12356;&#12383;fizzbuzz</span>
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="comment-delimiter">;; </span></span><span class="org-block"><span class="comment">&#65297;&#12363;&#12425;&#65297;&#65296;&#65296;&#12414;&#12391;&#12398;&#25968;&#12434;&#12503;&#12522;&#12531;&#12488;&#12377;&#12427;&#12503;&#12525;&#12464;&#12521;&#12512;&#12434;&#26360;&#12369;&#12290;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="comment-delimiter">;; </span></span><span class="org-block"><span class="comment">&#12383;&#12384;&#12375;&#65299;&#12398;&#20493;&#25968;&#12398;&#12392;&#12365;&#12399;&#25968;&#12398;&#20195;&#12431;&#12426;&#12395;Fizz&#12392;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="comment-delimiter">;; </span></span><span class="org-block"><span class="comment">&#65301;&#12398;&#20493;&#25968;&#12398;&#12392;&#12365;&#12399;Buzz&#12392;&#12503;&#12522;&#12531;&#12488;&#12375;&#12289;&#65299;&#12392;&#65301;&#12398;&#20001;&#26041;&#12398;&#20493;&#25968;&#12398;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="comment-delimiter">;; </span></span><span class="org-block"><span class="comment">&#22580;&#21512;&#12395;&#12399;FizzBuzz&#12392;&#12503;&#12522;&#12531;&#12488;&#12377;&#12427;&#20107;&#12290;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">fizzbuzz</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">n</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:for</span></span><span class="org-block"> i </span><span class="org-block"><span class="builtin">:from</span></span><span class="org-block"> 1 </span><span class="org-block"><span class="builtin">:to</span></span><span class="org-block"> n
+          </span><span class="org-block"><span class="builtin">:do</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">lcm </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">lcm 3 5</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+                </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">cond</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">zerop </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod i lcm</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">print 'FizzBuzz</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                                           </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">zerop </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod i 5</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">print 'Buzz</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                                           </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">zerop </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod i 3</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">print 'Fizz</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                                           </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">t </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">print i</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">      </span><span class="org-block"><span class="comment">; =&gt;FIZZBUZZ 
+</span></span><span class="org-block">
+
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+&#26132;&#12363;&#12425;&#12424;&#12367;&#35211;&#25499;&#12369;&#12427;&#12375;&#12289;&#12456;&#12531;&#12472;&#12491;&#12450;&#12398;&#38754;&#25509;&#35430;&#39443;&#12384;&#12363;&#12391;
+&#12424;&#12367;&#20986;&#12390;&#12367;&#12427;&#12392;&#12363;&#32862;&#12367;&#12369;&#12393;&#12289;&#12354;&#12435;&#12414;&#12426;&#12420;&#12387;&#12383;&#20107;&#12394;&#12356;&#27671;&#12364;&#12377;&#12427;&#12290;
+common lisp&#12399;&#12394;&#12435;&#12391;&#12418;loop&#12391;&#26360;&#12369;&#12427;&#12363;&#12425;&#27005;&#12290;
+&#12391;&#12418;lisp&#12425;&#12375;&#12367;&#12394;&#12356;&#12392;&#35328;&#12360;&#12400;&#12425;&#12375;&#12367;&#12394;&#12356;&#12290;
+
+&#20182;&#12398;&#20154;&#12399;&#12393;&#12358;&#26360;&#12356;&#12390;&#12356;&#12427;&#12435;&#12384;&#12429;&#12358;&#65311;&#12392;&#24605;&#12387;&#12390;&#12493;&#12483;&#12488;&#12434;
+&#35519;&#12409;&#12390;&#12415;&#12427;&#12290;
+
+<span class="org-level-2">** </span><span class="org-link"><a href="https://qiita.com/oieioi/items/e4eaa78a4894ef549a23">Common Lisp &#12391; Fizz Buzz</a></span>
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="comment-delimiter">;; </span></span><span class="org-block"><span class="comment">#1
+</span></span><span class="org-block">    </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">dotimes</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">i 100</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">                     </span><span class="org-block"><span class="comment">; &#12510;&#12463;&#12525;. (dotimes (&#12459;&#12454;&#12531;&#12479;&#22793;&#25968; &#32368;&#12426;&#36820;&#12375;&#25968; dotimes&#12398;&#36820;&#12426;&#20516;) E0 E1 ...)
+</span></span><span class="org-block">      </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">num</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">                         </span><span class="org-block"><span class="comment">; (let (V0 V1 V2 ...) E0 E1 E2 ...) &#23616;&#25152;&#22793;&#25968;&#12434;&#23450;&#32681;&#12377;&#12427;
+</span></span><span class="org-block">        </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">setq num </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">+ i 1</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">               </span><span class="org-block"><span class="comment">; num &#12395; i + 1 &#12434;&#20195;&#20837;
+</span></span><span class="org-block">        </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">if</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">mod num 3</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">            </span><span class="org-block"><span class="comment">; Fizz&#12434;&#21028;&#26029;
+</span></span><span class="org-block">          </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">format t </span><span class="org-block"><span class="string">"Fizz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">              </span><span class="org-block"><span class="comment">; Fizz&#12434;&#20986;&#21147;
+</span></span><span class="org-block">          nil</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">                           </span><span class="org-block"><span class="comment">; else&#31680;(&#12394;&#12395;&#12418;&#12375;&#12394;&#12356;)
+</span></span><span class="org-block">        </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">if</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">mod num 5</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">            </span><span class="org-block"><span class="comment">; Buzz&#12434;&#21028;&#26029;
+</span></span><span class="org-block">          </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">format t </span><span class="org-block"><span class="string">"Buzz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">              </span><span class="org-block"><span class="comment">; Buzz&#12434;&#20986;&#21147;
+</span></span><span class="org-block">          nil</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">                           </span><span class="org-block"><span class="comment">; else&#31680;(&#12394;&#12395;&#12418;&#12375;&#12394;&#12356;)
+</span></span><span class="org-block">        </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">if</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">and </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">not </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod num 5</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; Fizz&#12391;&#12418;Buzz&#12391;&#12418;&#12394;&#12356;&#12398;&#12434;&#21028;&#26029;
+</span></span><span class="org-block">                 </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">not </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod num 3</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="comment">;
+</span></span><span class="org-block">          </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">format t </span><span class="org-block"><span class="string">"~a"</span></span><span class="org-block"> num</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">           </span><span class="org-block"><span class="comment">; &#25968;&#23383;&#12434;&#20986;&#21147;
+</span></span><span class="org-block">        </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">format t </span><span class="org-block"><span class="string">" "</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">                </span><span class="org-block"><span class="comment">; &#12377;&#12365;&#12414;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="comment-delimiter">;; </span></span><span class="org-block"><span class="comment">#2
+</span></span><span class="org-block">  </span><span class="org-block"><span class="comment">; counter &#20491;&#12398;&#12452;&#12531;&#12463;&#12522;&#12513;&#12531;&#12479;&#12523;&#12394;&#12522;&#12473;&#12488;&#12434;&#20316;&#12427;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">iota</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">counter </span><span class="org-block"><span class="type">&amp;optional</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">start 0</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">if</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">= counter 0</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+      nil
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">cons start </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">iota </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">- counter 1</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                        </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">+ start 1</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+  </span><span class="org-block"><span class="comment">; FizzBuzz &#12434;&#36820;&#12377;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">fizz_buzz</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">num</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">cond</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">and </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">mod num 3</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">mod num 5</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"FizzBuzz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+          </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">mod num 3</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"Fizz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+          </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">mod num 5</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"Buzz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+          </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">t num</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+  </span><span class="org-block"><span class="comment">; &#20986;&#21147;
+</span></span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">format t
+          </span><span class="org-block"><span class="string">"~{~a ~}"</span></span><span class="org-block">
+          </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">mapcar #'fizz_buzz </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">iota 100 1</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+#1&#12399;dotimes&#12434;&#26360;&#12356;&#12390;&#12390;&#36870;&#12395;&#12381;&#12398;&#30330;&#24819;&#12364;&#26368;&#36817;&#34180;&#12367;&#12394;&#12387;&#12390;&#12356;&#12427;&#12392;&#33258;&#20998;&#12391;
+&#24863;&#12376;&#12383;&#12290;&#35211;&#12383;&#30446;&#12399;&#12394;&#12435;&#12392;&#12394;&#12367;lisp&#12387;&#12413;&#12356;&#12435;&#12384;&#12369;&#12393;&#12289;
+&#12385;&#12423;&#12387;&#12392;&#12431;&#12363;&#12426;&#12389;&#12425;&#12356;&#12290;&#20182;&#20154;&#12398;&#26360;&#12356;&#12383;&#12477;&#12540;&#12473;&#12467;&#12540;&#12489;&#12384;&#12363;&#12425;
+&#12387;&#12390;&#12398;&#12418;&#12354;&#12427;&#12398;&#12363;&#12418;&#12384;&#12369;&#12393;&#12289;if&#25991;&#12434;&#65299;&#12388;&#12418;&#20351;&#12387;&#12383;&#12426;&#12289;
+&#12381;&#12398;&#37117;&#24230;nil&#12434;&#20837;&#12428;&#12390;&#12365;&#12383;&#12426;&#12289;&#26368;&#24460;&#12395;&#38553;&#38291;&#12398;format&#12434;&#21029;&#36884;
+&#20351;&#12387;&#12383;&#12426;&#12289;&#12385;&#12423;&#12387;&#12392;&#20887;&#38263;&#12394;&#24863;&#12376;&#12418;&#12377;&#12427;&#12290;
+&#12372;&#12417;&#12435;&#12394;&#12373;&#12356;&#12289;&#25209;&#21028;&#12375;&#12383;&#12356;&#35379;&#12376;&#12419;&#12394;&#12367;
+&#12354;&#12367;&#12414;&#12391;&#20182;&#20154;&#12398;&#12467;&#12540;&#12489;&#12434;&#21442;&#32771;&#12395;&#23398;&#12406;&#12388;&#12418;&#12426;&#12391;&#26360;&#12356;&#12390;&#12414;&#12377;&#12290;
+&#12414;&#12353;&#12289;&#32032;&#20154;&#12387;&#12390;&#33258;&#20998;&#12391;&#26360;&#12356;&#12390;&#12356;&#12427;&#12375;&#12289;
+&#32032;&#20154;&#12391;&#21205;&#12367;&#12418;&#12398;&#26360;&#12369;&#12383;&#12435;&#12384;&#12363;&#12425;&#20932;&#12356;&#12392;&#24605;&#12358;&#12290;
+and&#12434;&#20351;&#12387;&#12390;&#12427;&#12398;&#12418;&#12394;&#12427;&#12411;&#12393;&#12381;&#12358;&#12356;&#12358;&#26360;&#12365;&#26041;&#12418;&#12354;&#12427;&#12394;&#12392;&#24863;&#12376;&#12383;&#12290;
+
+#2&#12391;iota&#12434;&#20316;&#12387;&#12390;&#12356;&#12427;&#12398;&#12399;&#33258;&#20998;&#12418;&#12385;&#12423;&#12387;&#12392;&#32771;&#12360;&#12383;&#12290;
+&#25968;&#21015;&#12434;&#20316;&#12427;&#26178;&#12399;iota&#12415;&#12383;&#12356;&#12394;&#38306;&#25968;&#12364;&#12354;&#12428;&#12400;&#20415;&#21033;&#12363;&#12394;&#12392;&#12290;
+&#12383;&#12384;loop&#12398;&#22580;&#21512;&#12289;&#12418;&#12358;&#12381;&#12358;&#12356;&#12358;&#12418;&#12398;&#12418;&#35201;&#12425;&#12394;&#12367;&#12394;&#12427;&#12363;&#12425;
+&#25954;&#12360;&#12390;&#20316;&#12425;&#12394;&#12363;&#12387;&#12383;&#12290;
+iota&#12434;&#20877;&#24112;&#12391;&#26360;&#12356;&#12390;&#12427;&#12369;&#12393;&#12289;lisp&#12387;&#12413;&#12356;&#12375;&#12289;
+&#12358;&#12414;&#12356;&#12394;&#12353;&#12392;&#12290;loop&#12434;&#22810;&#29992;&#12375;&#12390;&#12356;&#12427;&#20107;&#12418;&#12354;&#12387;&#12390;&#12289;
+&#20877;&#24112;&#30340;&#12394;&#32771;&#12360;&#12364;&#12385;&#12423;&#12387;&#12392;&#38627;&#12375;&#12367;&#12394;&#12387;&#12390;&#12427;&#12392;&#21453;&#30465;&#12290;
+&#38957;&#24746;&#12356;&#12363;&#12425;&#12497;&#12483;&#12392;&#29702;&#35299;&#20986;&#26469;&#12394;&#12356;&#12435;&#12384;&#12424;&#12394;&#31505;
+
+&#12362;&#12362;&#65281;&#12375;&#12363;&#12418;&#12371;&#12387;&#12385;&#12399;&#12496;&#12471;&#12483;&#12392;cond&#12391;&#12414;&#12392;&#12417;&#12390;&#12365;&#12383;&#12290;
+#1&#12399;&#20309;&#12384;&#12387;&#12383;&#12435;&#12384;&#65311;&#12387;&#12390;&#24863;&#12376;&#12398;&#26360;&#12365;&#12387;&#12407;&#12426;&#12384;&#12424;&#12394;&#31505;
+
+&#12383;&#12384;&#12289;&#26368;&#24460;&#12399;mapcar&#12375;&#12383;&#24460;&#12289;
+format&#12391;&#12523;&#12540;&#12503;&#12434;&#12363;&#12369;&#12390;&#12427;&#12290;&#65298;&#22238;&#22238;&#12375;&#12390;&#12427;&#12290;
+iota&#12418;&#20837;&#12428;&#12427;&#12392;&#65299;&#22238;&#12290;&#12371;&#12428;&#12399;&#36933;&#12367;&#12394;&#12425;&#12394;&#12356;&#12363;&#12394;&#65311;
+&#21839;&#38988;&#30340;&#12395;&#12399;&#12393;&#12358;&#12394;&#12435;&#12384;&#12429;&#65311;&#25324;&#24359;&#20184;&#12365;&#12391;&#12356;&#12356;&#12394;&#12425;
+mapcar&#12414;&#12391;&#12391;&#12418;&#12356;&#12356;&#12424;&#12358;&#12394;&#27671;&#12418;&#12377;&#12427;&#12435;&#12384;&#12369;&#12393;&#12290;
+&#12365;&#12385;&#12435;&#12392;&#20986;&#21147;&#12377;&#12427;&#12392;&#12371;&#12429;&#12414;&#12391;&#12420;&#12427;&#12394;&#12425;&#12289;
+&#12420;&#12387;&#12401;&#12426;fizzbuzz&#38306;&#25968;&#20869;&#12391;&#20986;&#21147;&#12375;&#12383;&#26041;&#12364;&#12356;&#12356;&#27671;&#12364;&#12375;&#12383;&#12290;
+
+&#27425;&#35211;&#12388;&#12369;&#12383;&#12398;&#12399;&#12371;&#12428;&#12290;
+
+<span class="org-level-2">** </span><span class="org-link"><a href="https://gos-k.hatenablog.com/entry/2017/11/13/205634">Common Lisp&#12391;&#26368;&#36895;&#12398;fizzbuzz&#12434;&#23455;&#35013;&#12375;&#12383;&#35441;</a></span>
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defmacro</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">fizzbuzz</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">n</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">format nil </span><span class="org-block"><span class="string">"~{~a ~}"</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> for i from 1 below n
+                                collect </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">cond</span></span><span class="org-block">
+                                          </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod i 15</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"fizzbuzz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                                          </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod i 5</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"buzz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                                          </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">= 0 </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">mod i 3</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"fizz"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+                                          </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">t i</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">main</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">()</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">print </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">fizzbuzz 100</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+&#12371;&#12428;&#12418;loop&#12420;&#12387;&#12383;&#24460;&#12395;format&#12391;&#12414;&#12383;&#12523;&#12540;&#12503;&#12420;&#12387;&#12390;&#12427;&#12394;&#12353;&#12290;
+&#12383;&#12384;&#12424;&#12367;&#35211;&#12427;&#12392;defmacro&#20351;&#12387;&#12390;&#12427;&#12394;&#31505;
+&#27491;&#30452;&#36895;&#24230;&#12399;&#12354;&#12414;&#12426;&#25304;&#12387;&#12390;&#20316;&#12387;&#12390;&#12399;&#12356;&#12394;&#12356;&#12369;&#12393;&#12289;
+&#12385;&#12423;&#12387;&#12392;&#33258;&#20998;&#12398;&#26360;&#12356;&#12383;&#12418;&#12398;&#12392;&#20966;&#29702;&#36895;&#24230;&#27604;&#12409;&#12390;&#12415;&#12427;&#12363;&#12290;
+&#32080;&#26524;&#12399;&#20197;&#19979;&#12398;&#36890;&#12426;&#12290;
+
+<span class="org-level-2">** &#12381;&#12428;&#12382;&#12428;&#12398;&#36895;&#24230;</span>
+;; &#33258;&#20998;&#12398;&#26360;&#12356;&#12383;&#12418;&#12398;
+Evaluation took:
+  0.000 seconds of real time
+  0.000042 seconds of total run time (0.000036 user, 0.000006 system)
+  100.00% CPU
+  147,778 processor cycles
+  0 bytes consed
+ 
+;; defmacro&#12496;&#12540;&#12472;&#12519;&#12531; 
+Evaluation took:
+  0.000 seconds of real time
+  0.000009 seconds of total run time (0.000008 user, 0.000001 system)
+  100.00% CPU
+  29,156 processor cycles
+  0 bytes consed
+  
+&#30906;&#12363;&#12395;&#36895;&#12356;&#12375;&#12289;&#36000;&#12369;&#12390;&#12427;&#12290;
+
+;; &#12385;&#12394;&#12415;&#12395;&#20808;&#31243;&#12398;iota&#12496;&#12540;&#12472;&#12519;&#12531;&#12399;
+Evaluation took:
+  0.000 seconds of real time
+  0.000043 seconds of total run time (0.000043 user, 0.000000 system)
+  100.00% CPU
+  153,587 processor cycles
+  0 bytes consed
+
+&#32080;&#26524;&#33258;&#20998;&#12398;&#12418;&#12398;&#12392;&#12373;&#12411;&#12393;&#22823;&#24046;&#12394;&#12375;&#12290;
+
+&#33258;&#20998;&#12398;&#26360;&#12356;&#12383;&#12418;&#12398;&#12434;&#12383;&#12384;&#21336;&#32020;&#12395;defmacro&#12395;&#12375;&#12390;&#12415;&#12383;&#12290;
+&#32080;&#26524;&#12399;&#20197;&#19979;&#12398;&#36890;&#12426;&#12290;&#26089;&#12387;&#65281;
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000001 seconds of total run time (0.000001 user, 0.000000 system)
+  100.00% CPU
+  1,813 processor cycles
+  0 bytes consed
+
+&#12420;&#12399;&#12426;processor cycles&#12364;&#36949;&#12358;&#12397;&#12290;
+&#36895;&#12373;&#12395;&#25304;&#12427;&#12435;&#12384;&#12387;&#12383;&#12425;lcm&#12418;&#28040;&#12377;&#12394;&#12290;
+&#12391;&#12289;&#24471;&#24847;&#12376;&#12419;&#12394;&#12356;&#12369;&#12393;&#12289;&#26368;&#36969;&#21270;&#12392;&#12363;&#12377;&#12427;&#12384;&#12429;&#12358;&#12394;&#12290;
+&#12391;&#12289;&#12420;&#12387;&#12390;&#12415;&#12383;&#32080;&#26524;&#12364;&#12371;&#12428;
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000002 seconds of total run time (0.000002 user, 0.000000 system)
+  100.00% CPU
+  1,628 processor cycles
+  0 bytes consed
+  
+&#12358;&#12540;&#12435;&#12289;processor cycles&#12399;&#19979;&#12364;&#12387;&#12383;&#12369;&#12393;&#12289;
+run time&#12399;&#22679;&#12360;&#12390;&#12356;&#12427;&#12290;
+&#12418;&#12358;&#12371;&#12398;&#12524;&#12505;&#12523;&#12384;&#12392;&#12356;&#12376;&#12387;&#12383;&#12392;&#12371;&#12429;&#12391;
+&#22823;&#24046;&#12394;&#12356;&#12290;
+
+&#36870;&#12395;defun&#12391;&#26368;&#36969;&#21270;&#12375;&#12383;&#12425;&#12393;&#12358;&#12394;&#12427;&#12435;&#12384;&#12429;&#12358;&#65311;
+&#22411;&#12398;&#26368;&#36969;&#21270;&#36861;&#21152;
+Evaluation took:
+  0.000 seconds of real time
+  0.000049 seconds of total run time (0.000049 user, 0.000000 system)
+  100.00% CPU
+  177,785 processor cycles
+  0 bytes consed
+
+&#12354;&#12428;&#65311;&#26368;&#36969;&#21270;&#21069;&#12424;&#12426;&#22679;&#12360;&#12390;&#12427;&#12382;&#31505;
+optimize&#12418;&#20837;&#12428;&#12390;&#12415;&#12383;&#12290;
+Evaluation took:
+  0.000 seconds of real time
+  0.000045 seconds of total run time (0.000037 user, 0.000008 system)
+  100.00% CPU
+  158,064 processor cycles
+  0 bytes consed
+
+&#12381;&#12435;&#12394;&#36895;&#12367;&#12394;&#12427;&#35379;&#12391;&#12418;&#12394;&#12356;&#12394;&#12353;&#12290;
+&#12392;&#12426;&#12354;&#12360;&#12378;&#12371;&#12371;&#12391;&#12399;&#21177;&#26524;&#12394;&#12375;&#12384;&#12394;&#12290;
+
+<span class="org-level-2">** defmacro&#21177;&#26524;&#12364;&#20932;&#12356;&#12290;</span>
+&#12383;&#12384;&#12394;&#12435;&#12384;&#12429;&#12358;&#12290;&#33258;&#20998;&#12418;&#19968;&#26178;&#26399;defmacro&#26360;&#12365;&#12414;&#12367;&#12387;&#12390;&#12356;&#12383;&#12369;&#12393;&#12289;
+defmacro&#12434;&#26356;&#12395;defmacro&#12375;&#12383;&#12426;&#12375;&#12390;&#12383;&#12425;&#12456;&#12521;&#12540;&#12364;&#20986;&#12390;&#12289;
+lisper&#12398;&#26041;&#12395;&#35338;&#12356;&#12383;&#12425;&#12289;defun&#12391;&#26360;&#12369;&#12427;&#12418;&#12398;&#12399;
+&#12394;&#12427;&#12409;&#12367;defun&#12391;&#26360;&#12367;&#12424;&#12358;&#12395;&#35328;&#12431;&#12428;&#12383;&#12290;
+
+&#12381;&#12428;&#12363;&#12425;&#12399;&#12393;&#12358;&#12375;&#12390;&#12418;defun&#12391;&#26360;&#12369;&#12394;&#12356;&#12392;&#12371;&#12429;&#12384;&#12369;&#12395;&#32094;&#12427;&#12424;&#12358;&#12395;&#12375;&#12390;&#12427;&#12290;
+
+&#12391;&#12418;&#21193;&#24375;&#12395;&#12394;&#12387;&#12383;&#12394;&#12353;&#12290;
+&#12414;&#12384;&#12414;&#12384;&#26908;&#32034;&#12395;&#24341;&#12387;&#12363;&#12363;&#12387;&#12390;&#12365;&#12383;&#12369;&#12393;&#12289;&#12418;&#12358;&#12362;&#33145;&#12356;&#12387;&#12401;&#12356;&#12394;&#12398;&#12391;&#12289;
+&#12420;&#12417;&#12390;&#12362;&#12367;&#12290;
+
+&#12356;&#12420;&#12289;&#12522;&#12450;&#12523;&#12398;&#26041;&#12399;&#12416;&#12375;&#12429;&#12362;&#33145;&#31354;&#12356;&#12383;&#12369;&#12393;&#31505;
+
+&#36861;&#35352;&#65306;&#36942;&#21435;&#12398;&#33258;&#20998;&#12398;&#32244;&#32722;&#12375;&#12383;&#20869;&#23481;&#12434;grep&#12375;&#12390;&#12415;&#12383;&#12425;&#12289;
+2019-0322-201724.lisp&#12392;&#12356;&#12358;&#12398;&#12364;&#35211;&#12388;&#12363;&#12387;&#12390;&#12289;
+&#12381;&#12371;&#12391;&#20363;&#12398;&#26368;&#36895;&#12398;fizzbuzz&#12434;&#19968;&#24230;&#33258;&#20998;&#12391;&#35430;&#12375;&#12390;&#12415;&#12390;&#12383;&#12424;&#12358;&#12384;&#12290;
+defmacro&#12384;&#12392;compile&#26178;&#12395;&#35336;&#31639;&#12375;&#12390;&#12289;
+&#23455;&#34892;&#26178;&#12399;&#12381;&#12398;&#35336;&#31639;&#32080;&#26524;&#12434;&#26360;&#12365;&#20986;&#12377;&#12384;&#12369;&#12387;&#12390;&#33258;&#20998;&#12391;&#26360;&#12356;&#12390;&#12354;&#12427;&#12290;
+&#12394;&#12427;&#12411;&#12393;&#12289;&#12381;&#12428;&#12391;&#36895;&#12356;&#12431;&#12369;&#12384;&#31505;
+
+</pre>
+  </body>
+</html>

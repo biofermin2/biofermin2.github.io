@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>org-modeでgithub pagesのサイトを作る２</title>
+<meta name="author" content="biofermin2"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./local.css"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3>org-modeでgithub pagesのサイトを作る２</h3><h4>biofermin2</h4>
+</section>
+
+<section>
+<section id="slide-org61f9fa9" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h2 id="org61f9fa9">org-modeによるgithub pagesの作成２</h2>
+<div class="outline-text-2" id="text-org61f9fa9">
+</div>
+</section>
+<section id="slide-orgbce1fa0" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="orgbce1fa0">あれから</h3>
+<p>
+雰囲気hackerっぽいイメージ笑を出そうと、
+当初はcssで配色デザインとか考えていたが、
+いかんせん、あまりcssに馴染んでないので面倒臭い。
+なんか配色そのままで出すものがあったなぁと
+vimの:TOhtmlで当初は吐き出してみた。
+</p>
+
+</section>
+<section id="slide-org83bda82" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org83bda82">やってみたものの</h3>
+<p>
+vim側のカラー設定は正直あまりやっていないので、
+emacsと比べたらなんともショボかった。
+しかもlinkの箇所の設定が丸見え。
+<img src="./img/vim.png" alt="vim.png" />
+</p>
+
+</section>
+<section id="slide-org544d390" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org544d390">emacsで出せないか探してみた。</h3>
+<p>
+かつて使った事あるけど、すっかり忘れていた笑
+htmlizeというツールがあり、package-list-packagesから
+見てみると既に入っていたので、これを使う事に。
+普段emacsで使っているそのままの姿を表現出来るようになった。
+</p>
+
+</section>
+<section id="slide-orgf5bea05" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="orgf5bea05">最初は</h3>
+<p>
+適当になんちゃってS式で書こうかとも思ってたが、
+それでは面白くないなと、なんとなく気付いたら
+ブログをdefstructで定義するところから始めて
+そのままorg-babelで出力したいなと思うように。
+</p>
+
+</section>
+<section id="slide-org46d3176" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org46d3176">org-babelの問題点</h3>
+<p>
+しかしorg-babelではなぜかformat出力してくれない。
+printは出来るけど。
+そういう事もあって、最後はorg-babelの機能で
+出力しないで、そのままformat出力し、
+それをorg-babel外にコピーして
+それっぽくした笑
+そうしないとリンクがうまく効いてくれないし。
+</p>
+
+</section>
+<section id="slide-org46214c5" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
+<h3 id="org46214c5">おわり</h3>
+<p>
+いきなりだが、だいたいの雛形は出来たので、
+この話題はここで終わりにする。
+あまり時間を掛けているとブログに時間が
+吸われるので、こういう感じでザックリ
+時間が来たら終了って形式で書いていきたい。
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="../reveal.js/dist/reveal.js"></script>
+<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js/plugin/notes/notes.js"></script>
+<script src="../reveal.js/plugin/search/search.js"></script>
+<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>
