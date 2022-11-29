@@ -1,6 +1,6 @@
 function main(){
     $.ajax({
-      url: "https://biofermin2.github.io/index.lisp.html",
+      url: "https://biofermin2.github.io/menu.org.html",
         cache: false,
         async: false,
         dataType: 'html',

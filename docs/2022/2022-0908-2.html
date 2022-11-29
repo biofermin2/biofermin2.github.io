@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>org-modeでgithub pagesのサイトを作る２</title>
-<meta name="author" content="biofermin2"/>
+<meta name="author" content="Higashi, Hiromitsu"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
@@ -11,44 +10,47 @@
 
 <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
 
-<link rel="stylesheet" href="./local.css"/>
+<link rel="stylesheet" href="../local.css"/>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3>org-modeでgithub pagesのサイトを作る２</h3><h4>biofermin2</h4>
-</section>
+
 
 <section>
-<section id="slide-org61f9fa9" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="org61f9fa9">org-modeによるgithub pagesの作成２</h2>
-<div class="outline-text-2" id="text-org61f9fa9">
-</div>
+<section id="slide-org1c79ce0" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h2 id="org1c79ce0"><span class="timestamp-wrapper"><span class="timestamp">[2022-09-08 木] </span></span> org-modeによるgithub pagesの作成２&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lisp">lisp</span></span></h2>
+
 </section>
-<section id="slide-orgbce1fa0" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgbce1fa0">あれから</h3>
+<section id="slide-org1f47b97" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org1f47b97">あれから</h3>
 <p>
-雰囲気hackerっぽいイメージ笑を出そうと、
-当初はcssで配色デザインとか考えていたが、
+hackerっぽいイメージ笑を出そうと、
+当初はcssで配色デザインを考えていたが、
 いかんせん、あまりcssに馴染んでないので面倒臭い。
 なんか配色そのままで出すものがあったなぁと
 vimの:TOhtmlで当初は吐き出してみた。
 </p>
 
 </section>
-<section id="slide-org83bda82" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org83bda82">やってみたものの</h3>
+<section id="slide-org09f657a" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org09f657a">やってみたものの</h3>
 <p>
 vim側のカラー設定は正直あまりやっていないので、
-emacsと比べたらなんともショボかった。
-しかもlinkの箇所の設定が丸見え。
-<img src="./img/vim.png" alt="vim.png" />
+普段emacsで使っているものと比べたらなんともショボかった。
 </p>
 
+
+<div class="figure">
+<p><img src="../img/vim.png" alt="vim.png" />
+</p>
+</div>
+
+
+
 </section>
-<section id="slide-org544d390" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org544d390">emacsで出せないか探してみた。</h3>
+<section id="slide-org6150eba" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org6150eba">emacsで出せないか探してみた。</h3>
 <p>
 かつて使った事あるけど、すっかり忘れていた笑
 htmlizeというツールがあり、package-list-packagesから
@@ -57,8 +59,19 @@ htmlizeというツールがあり、package-list-packagesから
 </p>
 
 </section>
-<section id="slide-orgf5bea05" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgf5bea05">最初は</h3>
+<section id="slide-orgf89a4a4" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="orgf89a4a4">emacsの配色設定</h3>
+<p>
+長時間見ても目に優しいようにこだわりの黒板色や、
+和の伝統色などを活用したりしているが、
+そういう配色のこだわりをcssで一から設定し直す
+必要がなかったので、もの凄く助かった。
+</p>
+
+
+</section>
+<section id="slide-orge978fee" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="orge978fee">最初は</h3>
 <p>
 適当になんちゃってS式で書こうかとも思ってたが、
 それでは面白くないなと、なんとなく気付いたら
@@ -66,28 +79,27 @@ htmlizeというツールがあり、package-list-packagesから
 そのままorg-babelで出力したいなと思うように。
 </p>
 
+
 </section>
-<section id="slide-org46d3176" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org46d3176">org-babelの問題点</h3>
+<section id="slide-orgf66a80f" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="orgf66a80f">org-babelの問題点</h3>
 <p>
-しかしorg-babelではなぜかformat出力してくれない。
-printは出来るけど。
-そういう事もあって、最後はorg-babelの機能で
-出力しないで、そのままformat出力し、
-それをorg-babel外にコピーして
-それっぽくした笑
+しかしorg-babelではなぜかformat出力してくれない。 
+printは出来るけど。そういう事もあって、最後は
+org-babelの機能で出力しないで、そのままformat出力し、
+それをorg-babel外にコピーして それっぽくした笑
 そうしないとリンクがうまく効いてくれないし。
 </p>
 
 </section>
-<section id="slide-org46214c5" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org46214c5">おわり</h3>
+<section id="slide-org1824be1" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org1824be1">おわり</h3>
 <p>
 いきなりだが、だいたいの雛形は出来たので、
-この話題はここで終わりにする。
+唐突だがこの話題はここで終わりにする。 
 あまり時間を掛けているとブログに時間が
 吸われるので、こういう感じでザックリ
-時間が来たら終了って形式で書いていきたい。
+時間が来たら強制終了って形式で書いていきたい。
 </p>
 </section>
 </section>

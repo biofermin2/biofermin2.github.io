@@ -2,113 +2,121 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>org-modeでgithub pagesのサイトを作る</title>
-<meta name="author" content="biofermin2"/>
+<meta name="author" content="Higashi, Hiromitsu"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="./reveal.js/dist/reveal.css"/>
+<link rel="stylesheet" href="../reveal.js/dist/reveal.css"/>
 
-<link rel="stylesheet" href="./reveal.js/dist/theme/black.css" id="theme"/>
+<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme"/>
 
-<link rel="stylesheet" href="./local.css"/>
+<link rel="stylesheet" href="../local.css"/>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3>org-modeでgithub pagesのサイトを作る</h3><h4>biofermin2</h4>
-</section>
-
 <section>
-<section id="slide-orge845671" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="orge845671">org-modeによるpagesの作成</h2>
+<section id="slide-org5215b96" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h2 id="org5215b96"><span class="timestamp-wrapper"><span class="timestamp">[2022-09-07 水] </span></span> org-modeでgithub pagesのサイトを作る&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lisp">lisp</span></span></h2>
+</section>
+<section id="slide-orgaf0cf42" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="orgaf0cf42">org-modeによるpagesの作成</h3>
 <p>
-サイトを作りながら記事を書いている。
-org-modeでorgファイルを記述し、
+org-modeでorgファイルを作成し、
 それをhtml化して、github pagesに
 アップロード出来るか実験してみる。
 </p>
 
 </section>
-</section>
-<section>
-<section id="slide-orgc259063" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="orgc259063">orgファイルのhtml化の方法</h2>
+<section id="slide-org746d66a" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org746d66a">orgファイルのhtml化の方法</h3>
 <p>
-現段階で思いつくhtml化の方法は２通り。
+  現段階で思いつくhtml化の方法は２通りある。
 昔org-publishとかやっていたけど、今ではその設定は消したので、
 なるべくシンプルなもので行こうと思う。
 </p>
 
 </section>
-<section id="slide-org948f3a7" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org948f3a7">org-re-revealを使う方法</h3>
+<section id="slide-org5385969" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org5385969">org-re-reveal</h4>
 <p>
-keybind: C-c C-e v b
-htmlとして出力するが、ブラウザ上では
-プレゼン画面のような動きのある見た目になる。
-これに関してはリモート側で出力出来ないため、
-ローカル側で出力。出来たhtmlをリモートにもアップ。
+C-c C-e v b
+htmlとして出力されるが、
+revealjsとリンクしてプレゼン画面のような動きのある見た目になる。
+これに関してはローカルで出力しているため、
+ローカルディレクトリにリンクされている。
+pagesにアップロードするのであるなら、
+revealjsもアップロードし、
+リンク先を変更してあげる必要はある。
+そういう意味では若干面倒臭い面もある。
 </p>
 
 </section>
-<section id="slide-orgc1073c5" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="orgc1073c5">orgモードでexport</h3>
+<section id="slide-org473a381" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org473a381">orgモードでexport</h4>
 <p>
-keybind: C-c C-e h o
+C-c C-e h o
 普通のhtmlになる。
 </p>
 
 </section>
+<section id="slide-org2b599cb" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org2b599cb">問題点</h3>
 </section>
-<section>
-<section id="slide-org926ba18" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h2 id="org926ba18">問題点</h2>
-<div class="outline-text-2" id="text-org926ba18">
-</div>
-</section>
-<section id="slide-org5899285" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org5899285">authorの名前</h3>
+<section id="slide-org9fb3915" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org9fb3915">いずれもauthorに自分の名前がダイレクトに出てきたので、</h4>
 <p>
-自分のフルネームがダイレクトに出てきたので、
 アカウント名に変更したい。そのためには
 org-modeで#+authorだかのタグをつけないといけないが、
 毎回そんなものを手で入力するのも邪魔くさい。
-autoinsertは自分の個人用のルーティンページ設定に
+autoinsertには自分の個人用のルーティンページ設定に
 なっているし、曜日毎にルーティングの内容設定を自動切り替えしている
 ため変更したくない。
 よって、随分使ってないyasnippetを活用していこうと思う。
 </p>
 </section>
-<section id="slide-org2f2ff4e" data-background="img/biofermin2-symbol.png" data-background-size="80px" data-background-position="top right">
-<h3 id="org2f2ff4e">yasnippet</h3>
+<section id="slide-orgbb1e2a0" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="orgbb1e2a0">yasnippet</h4>
 <p>
 特に使いたいスニペットってなかったので、
 使い方をほぼほぼ忘れてしまった。
 ただ毎回定型の決まりきった作業をする時にはあれは便利かもしれない。
 init.elでのyasnippet関連の設定を見ると 
 </p>
+
 <div class="org-src-container">
 
 <pre class="src src-lisp"><span style="color: #ec6d71;">(</span><span style="color: #89c3eb;">"C-x i n"</span> . yas-new-snippet<span style="color: #ec6d71;">)</span> <span style="color: #f0908d;">; &#26032;&#35215;&#12473;&#12491;&#12506;&#12483;&#12488;&#12434;&#20316;&#25104;&#12377;&#12427;&#12496;&#12483;&#12501;&#12449;&#12434;&#29992;&#24847;&#12377;&#12427;</span>
 <span style="color: #ec6d71;">(</span><span style="color: #89c3eb;">"C-x i i"</span>   . yas-insert-snippet<span style="color: #ec6d71;">)</span> <span style="color: #f0908d;">; &#26082;&#23384;&#12473;&#12491;&#12506;&#12483;&#12488;&#12434;&#25407;&#20837;&#12377;&#12427;</span>
-<span style="color: #ec6d71;">(</span><span style="color: #89c3eb;">"C-x i v"</span> . yas-visit-snippet-file<span style="color: #ec6d71;">)</span><span style="color: #88090B;">)</span><span style="color: #f0908d;">; &#26082;&#23384;&#12473;&#12491;&#12506;&#12483;&#12488;&#12434;&#38322;&#35239;&#12539;&#32232;&#38598;&#12377;&#12427;</span>
+<span style="color: #ec6d71;">(</span><span style="color: #89c3eb;">"C-x i v"</span> . yas-visit-snippet-file<span style="color: #ec6d71;">)</span><span style="color: #f0908d;">; &#26082;&#23384;&#12473;&#12491;&#12506;&#12483;&#12488;&#12434;&#38322;&#35239;&#12539;&#32232;&#38598;&#12377;&#12427;</span>
 </pre>
 </div>
+
 <p>
 こんな形で設定はされている。
-今の場合新規作成だからC-x i nだ。
+では早速snippetを作ってみよう。
+</p>
+</section>
+<section id="slide-orgef0bc4a" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="orgef0bc4a">新規作成だから</h4>
+<p>
+C-x i nだ。そうすると
+新規バッファが開き
+とりあえず、presentation用なので、
+名前をpresentation-top-setting
+keyはpre
+にしてみる。
+$0,$1,$2とtabで移動したいポイントを指定する。
 </p>
 </section>
 </section>
 </div>
 </div>
-<script src="./reveal.js/dist/reveal.js"></script>
-<script src="./reveal.js/plugin/markdown/markdown.js"></script>
-<script src="./reveal.js/plugin/notes/notes.js"></script>
-<script src="./reveal.js/plugin/search/search.js"></script>
-<script src="./reveal.js/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js/dist/reveal.js"></script>
+<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js/plugin/notes/notes.js"></script>
+<script src="../reveal.js/plugin/search/search.js"></script>
+<script src="../reveal.js/plugin/zoom/zoom.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -127,7 +135,7 @@ hashOneBasedIndex: false,
 pdfSeparateFragments: true,
 overview: true,
 
-transition: 'convex',
+transition: 'concave',
 transitionSpeed: 'default',
 showNotes: window.location.search.match( /print-pdf/gi ) ? 't' : false,
 

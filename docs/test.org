@@ -1,11 +1,10 @@
-* hoge
+* [2022-11-23] hoge :agri:
 hoge hoge
 ** hoge2
 hoge hoge2
 *** hoge3
 hoge hoge hoge3
-
-* fuga 
+* [2022-11-23] fuga :lisp:
 fuga
 ** fuga2-1
 fuga fuga 
@@ -13,7 +12,6 @@ fuga fuga
 fuga fuga2
 *** fuga2-1-2
 fuga fuga2
-
 ** fuga2-2
 fuga4
-*** fuga2-2-1
+*** fuga1-2-1

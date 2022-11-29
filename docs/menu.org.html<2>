@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>menu.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #ffffd9;
+        background-color: #000b00;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #68be8d;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #f0908d;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #ffd900;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #f39800;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #f0908d;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #f0908d;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #ffd900;
+      }
+      .org-link {
+        /* org-link */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        color: #f0908d;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #ec6d71;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #f6bfbc;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #f6ad49;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #ffec47;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #68be8d;
+      }
+      .rainbow-delimiters-depth-6 {
+        /* rainbow-delimiters-depth-6-face */
+        color: #478384;
+      }
+      .rainbow-delimiters-depth-7 {
+        /* rainbow-delimiters-depth-7-face */
+        color: #a0d8ef;
+      }
+      .rainbow-delimiters-depth-8 {
+        /* rainbow-delimiters-depth-8-face */
+        color: #aa4c8f;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #89c3eb;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #cca6bf;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #c3d825;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-level-1">* blog menu</span>
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">ql:quickload '</span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="builtin">:unix-cmd</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:silent</span></span><span class="org-block"> t</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;(:UNIX-CMD) 
+</span></span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defpackage</span></span><span class="org-block"> </span><span class="org-block"><span class="type">:myblog</span></span><span class="org-block"> 
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="builtin">:use</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:cl</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:unix-cmd</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="builtin">:export</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:main</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">                    </span><span class="org-block"><span class="comment">; =&gt;#&lt;PACKAGE "MYBLOG"&gt; 
+</span></span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">in-package</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:myblog</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">                    </span><span class="org-block"><span class="comment">; =&gt;#&lt;PACKAGE "MYBLOG"&gt; 
+</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defparameter</span></span><span class="org-block"> </span><span class="org-block"><span class="variable-name">blog-home</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">merge-pathnames </span><span class="org-block"><span class="string">"biofermin2.github.io/docs/"</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">user-homedir-pathname</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;BLOG-HOME 
+</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">get-titles</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">file</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">full-path </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">merge-pathnames file blog-home</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">with-open-file</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">in full-path </span><span class="org-block"><span class="builtin">:direction</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:input</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+        </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:for</span></span><span class="org-block"> line = </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">read-line in nil</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+              </span><span class="org-block"><span class="builtin">:while</span></span><span class="org-block"> line
+              </span><span class="org-block"><span class="builtin">:with</span></span><span class="org-block"> titles
+              </span><span class="org-block"><span class="builtin">:do</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="keyword">when</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">and </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">&gt; </span><span class="org-block"><span class="rainbow-delimiters-depth-8">(</span></span><span class="org-block">length line</span><span class="org-block"><span class="rainbow-delimiters-depth-8">)</span></span><span class="org-block"> 2</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">string-equal </span><span class="org-block"><span class="rainbow-delimiters-depth-8">(</span></span><span class="org-block">subseq line 0 2</span><span class="org-block"><span class="rainbow-delimiters-depth-8">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"* "</span></span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block">
+                    </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">push </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">subseq line 2</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"> titles</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+              </span><span class="org-block"><span class="builtin">:finally</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="keyword">return</span></span><span class="org-block"> titles</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;GET-TITLES 
+</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">make-link</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">file</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">let*</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">full-path </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">merge-pathnames file blog-home</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+           </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">titles </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">get-titles full-path</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:for</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">a . b</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:in</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">mapcar #'</span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="keyword">lambda</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">x</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">cons file x</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"> titles</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+            </span><span class="org-block"><span class="builtin">:do</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">return</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">format nil </span><span class="org-block"><span class="string">"<a href="./~a.html">[[./~a.html][~a]]</a>"</span></span><span class="org-block"> a b</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;MAKE-LINK 
+</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">menu</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">org-file</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">cd blog-home</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> 
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">mapcar #'</span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">lambda</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">x</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">make-link x</span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">ll org-file</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;MENU 
+</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">menu </span><span class="org-block"><span class="string">"20??/*.org"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">                     </span><span class="org-block"><span class="comment">; =&gt;
+</span></span><span class="org-block-end-line">#+END_SRC
+</span>
+<span class="org-meta-line">#+RESULTS:</span>
+("<span class="org-link"><a href="./2022/2022-0907-2.org.html">[2022-09-07 &#27700;] org-mode&#12391;github pages&#12398;&#12469;&#12452;&#12488;&#12434;&#20316;&#12427; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0908-2.org.html">[2022-09-08 &#26408;] org-mode&#12395;&#12424;&#12427;github pages&#12398;&#20316;&#25104;&#65298; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0909-2.org.html">[2022-09-09 &#37329;] &#12394;&#12380;markdown&#24418;&#24335;&#12391;&#12399;&#12394;&#12367;org-mode&#24418;&#24335;&#12391;&#26360;&#12367;&#12398;&#12363;&#65311; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0910-2.org.html">[2022-09-10 &#22303;] common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0912-2.org.html">[2022-09-12 &#26376;] &#12371;&#12398;&#12502;&#12525;&#12464;&#12398;&#12371;&#12428;&#12363;&#12425;&#12398;&#22312;&#12426;&#26041;</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0913-2.org.html">[2022-09-13 &#28779;] &#26368;&#36817;&#12398;lisp&#31995;&#12398;&#20670;&#21521;&#12395;&#12388;&#12356;&#12390;&#24605;&#12358;&#20107;&#12290; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0914-2.org.html">[2022-09-14 &#27700;] 25.5&#8451; 60% :agriculture:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0916-2.org.html">[2022-09-16 &#37329;] &#25105;&#12364;&#23478;&#12398;lisp&#26412; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0927-2.org.html">[2022-09-27 &#28779;] common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563;2 :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-0930-2.org.html">[2022-09-30 &#37329;] fusion! :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1019-2.org.html">[2022-10-19 &#27700;] &#12463;&#12525;&#12510;&#12513;&#12289;&#12450;&#12458;&#12480;&#12452;&#12474;&#12289;&#12463;&#12525;&#12469;&#12469;&#12466;&#21454;&#31339; :agriculture:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1020-2.org.html">[2022-10-20 &#26408;] &#12521;&#12483;&#12459;&#12475;&#12452;&#12398;&#21454;&#31339; :agriculture:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1024-2.org.html">[2022-10-24 &#26376;] &#26311;&#26178;&#12293;&#26228; :agriculture:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1026-2.org.html">[2022-10-26 &#27700;] &#12502;&#12525;&#12464;&#36939;&#29992;&#12391;&#12398;&#21839;&#38988;&#28857; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1027-2.org.html">[2022-10-27 &#26408;] aws&#12395;lisp&#12434;&#12452;&#12531;&#12473;&#12488;&#12540;&#12523; :lisp:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1028-2.org.html">[2022-10-28 &#37329;] &#26228;&#24460;&#26311;&#12290;&#21320;&#24460;&#19968;&#26178;&#38632;&#12290; :agriculture:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1030-2.org.html">[2022-10-30 &#26085;] :forestry:</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1114-2.org.html">[2022-11-14 &#26376;] &#12371;&#12398;&#12502;&#12525;&#12464;&#12398;&#22312;&#12426;&#26041;&#12395;&#12388;&#12356;&#12390;</a></span>"
+   "<span class="org-link"><a href="./2022/2022-1115-2.org.html">[2022-11-15 &#28779;] &#12481;&#12455;&#12540;&#12531;&#12477;&#12540;&#12434;&#35430;&#12377; :forestry:</a></span>") 
+</pre>
+  </body>
+</html>
