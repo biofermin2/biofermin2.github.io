@@ -1,0 +1,79 @@
+* blog menu
+
+#+BEGIN_SRC lisp
+  (ql:quickload '(:unix-cmd) :silent t) ; =>(:UNIX-CMD) 
+  (defpackage :myblog 
+    (:use :cl :unix-cmd)
+    (:export :main))                  ; =>#<PACKAGE "MYBLOG"> 
+  (in-package :myblog)                    ; =>#<PACKAGE "MYBLOG"> 
+
+  (defparameter blog-home (merge-pathnames "biofermin2.github.io/docs/" (user-homedir-pathname))) ; =>BLOG-HOME 
+
+  (defun get-titles (org-file)
+    (with-open-file (in org-file :direction :input)
+      (loop :for line = (read-line in nil)
+            :while line
+            :with titles
+            :do (when (and (> (length line) 2) (string-equal (subseq line 0 2) "* "))
+                  (push (subseq line 2) titles))
+            :finally (return titles)))) ; =>GET-TITLES 
+
+  (defun scan (key obj)
+    (let ((key-len (length key))
+          (start (search key obj)))
+      (when start
+        (values start (+ start key-len))))) ; =>SCAN 
+
+  (defun %s (old new obj)
+    (multiple-value-bind (start end)
+        (scan old obj)
+      (if start
+          (let* ((rest (subseq obj end))
+                 (result (%s old new rest)))
+            (concatenate 'string (subseq obj 0 start) new result))
+          obj)))                        ; =>%S 
+
+  (defun make-link (html-file)
+    (let* ((html-path (merge-pathnames html-file blog-home))
+           (html->org (make-pathname :type "org" :defaults html-path))
+           (org-file (if (probe-file html->org)
+                         html->org
+                         (make-pathname :name (%s ".org" "" (pathname-name html-file))
+                                        :type "org" :defaults html-path)))
+           (titles (get-titles org-file)))
+      (loop :for (a . b) :in (mapcar #'(lambda (x) (cons html-file x)) titles)
+            :collect (format nil "[[./~a][~a]]" a b)))) ; =>MAKE-LINK 
+
+  (defun menu (html-file)
+    (cd blog-home) 
+    (reverse (mapcar #'(lambda (x) (make-link x)) (ll html-file)))) ; =>MENU 
+
+  (menu "20??/*.html")          ; =>
+#+END_SRC
+
+#+RESULTS:
+ (("[[./2022/2022-1127-2.org.html][[2022-11-27 日] :agriculture:]]")
+   ("[[./2022/2022-1115-2.org.html][[2022-11-15 火] チェーンソーを試す :forestry:]]")
+   ("[[./2022/2022-1114-2.org.html][[2022-11-14 月] このブログの在り方について]]"
+    "[[./2022/2022-1114-2.org.html][[2022-11-14 月] jsclを入れてみた :lisp:]]"
+    "[[./2022/2022-1114-2.org.html][[2022-11-14 月]]]")
+   ("[[./2022/2022-1030-2.org.html][[2022-10-30 日] :forestry:]]"
+    "[[./2022/2022-1030-2.org.html][[2022-10-30 日] substとsublis :lisp:]]")
+   ("[[./2022/2022-1028-2.org.html][[2022-10-28 金] 晴後曇。午後一時雨。 :agriculture:]]")
+   ("[[./2022/2022-1027-2.org.html][[2022-10-27 木] awsにlispをインストール :lisp:]]")
+   ("[[./2022/2022-1026-2.org.html][[2022-10-26 水] ブログ運用での問題点 :lisp:]]"
+    "[[./2022/2022-1026-2.org.html][[2022-10-26 水] :agriculture:]]")
+   ("[[./2022/2022-1024-2.org.html][[2022-10-24 月] 曇時々晴 :agriculture:]]")
+   ("[[./2022/2022-1020-2.org.html][[2022-10-20 木] ラッカセイの収穫 :agriculture:]]")
+   ("[[./2022/2022-1019-2.org.html][[2022-10-19 水] クロマメ、アオダイズ、クロササゲ収穫 :agriculture:]]")
+   ("[[./2022/2022-0930-2.org.html][[2022-09-30 金] fusion! :lisp:]]")
+   ("[[./2022/2022-0927-2.org.html][[2022-09-27 火] common lispでの文字列置換2 :lisp:]]")
+   ("[[./2022/2022-0916-2.org.html][[2022-09-16 金] 我が家のlisp本 :lisp:]]")
+   ("[[./2022/2022-0914-2.org.html][[2022-09-14 水] 25.5℃ 60% :agriculture:]]"
+    "[[./2022/2022-0914-2.org.html][[2022-09-14 水] common-lispでfizzbuzz :lisp:]]")
+   ("[[./2022/2022-0913-2.org.html][[2022-09-13 火] 最近のlisp系の傾向について思う事。 :lisp:]]")
+   ("[[./2022/2022-0912-2.org.html][[2022-09-12 月] このブログのこれからの在り方]]")
+   ("[[./2022/2022-0910-2.org.html][[2022-09-10 土] common lispでの文字列置換 :lisp:]]")
+   ("[[./2022/2022-0909-2.org.html][[2022-09-09 金] なぜmarkdown形式ではなくorg-mode形式で書くのか？ :lisp:]]")
+   ("[[./2022/2022-0908-2.html][[2022-09-08 木] org-modeによるgithub pagesの作成２ :lisp:]]")
+   ("[[./2022/2022-0907-2.html][[2022-09-07 水] org-modeでgithub pagesのサイトを作る :lisp:]]"))
