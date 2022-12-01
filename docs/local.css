@@ -25,7 +25,7 @@ header {
 
 #menu iframe {
   border: none;
-  width: 70%;
+  width: 100%;
   padding-top: 80px;
   top: 85px;
   padding-left: 0px;
@@ -35,8 +35,7 @@ header {
 }
 #jscl iframe {
   border: none;
-  width: 30%;
-  top: 85px;
+  width: 100%;
   padding-left: 0px;
   padding-bottom: 20px;
   background-color: #000b00;
