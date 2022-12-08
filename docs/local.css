@@ -26,12 +26,11 @@ header {
 #menu iframe {
   border: none;
   width: 100%;
-  padding-top: 80px;
-  top: 85px;
+  padding-top: 90px;
+  top: 95px;
   padding-left: 0px;
   background-color: #000b00;
   align: left;
-  display: flex;
 }
 #jscl iframe {
   border: none;
@@ -40,7 +39,6 @@ header {
   padding-bottom: 20px;
   background-color: #000b00;
   align: left;
-  display: flex;
 }
 
 #parentframe {
