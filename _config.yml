@@ -7,4 +7,4 @@ author:
 url: https://biofermin2.github.io
 theme: jekyll-theme-hacker
 feed:
-  path: ./blog/feed.atom
+  path: ./docs/feed.atom

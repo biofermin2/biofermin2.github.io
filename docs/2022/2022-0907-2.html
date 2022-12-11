@@ -16,20 +16,24 @@
 <div class="reveal">
 <div class="slides">
 <section>
-<section id="slide-org5215b96" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h2 id="org5215b96"><span class="timestamp-wrapper"><span class="timestamp">[2022-09-07 水] </span></span> org-modeでgithub pagesのサイトを作る&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lisp">lisp</span></span></h2>
-</section>
-<section id="slide-orgaf0cf42" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h3 id="orgaf0cf42">org-modeによるpagesの作成</h3>
+<section id="slide-orga7d147e" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h2 id="orga7d147e"><span class="timestamp-wrapper"><span class="timestamp">[2022-09-07 水] </span></span> org-modeでgithub pagesのサイトを作る</h2>
 <p>
-org-modeでorgファイルを作成し、
-それをhtml化して、github pagesに
-アップロード出来るか実験してみる。
+biofermin2
+</p>
+</section>
+<section id="slide-org81a5961" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org81a5961">個人blogの作成</h3>
+<p>
+普通に作ったのでは面白くないので、
+orgファイルをhtml化して、
+github pagesにアップロード出来るか
+実験してみる。
 </p>
 
 </section>
-<section id="slide-org746d66a" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h3 id="org746d66a">orgファイルのhtml化の方法</h3>
+<section id="slide-orgee925a4" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="orgee925a4">orgファイルのhtml化の方法</h3>
 <p>
   現段階で思いつくhtml化の方法は２通りある。
 昔org-publishとかやっていたけど、今ではその設定は消したので、
@@ -37,8 +41,8 @@ org-modeでorgファイルを作成し、
 </p>
 
 </section>
-<section id="slide-org5385969" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h4 id="org5385969">org-re-reveal</h4>
+<section id="slide-org24a5757" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org24a5757">org-re-reveal</h4>
 <p>
 C-c C-e v b
 htmlとして出力されるが、
@@ -52,19 +56,19 @@ revealjsもアップロードし、
 </p>
 
 </section>
-<section id="slide-org473a381" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h4 id="org473a381">orgモードでexport</h4>
+<section id="slide-org345a2c5" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org345a2c5">orgモードでexport</h4>
 <p>
 C-c C-e h o
 普通のhtmlになる。
 </p>
 
 </section>
-<section id="slide-org2b599cb" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h3 id="org2b599cb">問題点</h3>
+<section id="slide-org4990b85" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h3 id="org4990b85">問題点</h3>
 </section>
-<section id="slide-org9fb3915" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h4 id="org9fb3915">いずれもauthorに自分の名前がダイレクトに出てきたので、</h4>
+<section id="slide-org2a6ba14" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org2a6ba14">いずれもauthorに自分の名前がダイレクトに出てきたので、</h4>
 <p>
 アカウント名に変更したい。そのためには
 org-modeで#+authorだかのタグをつけないといけないが、
@@ -74,9 +78,10 @@ autoinsertには自分の個人用のルーティンページ設定に
 ため変更したくない。
 よって、随分使ってないyasnippetを活用していこうと思う。
 </p>
+
 </section>
-<section id="slide-orgbb1e2a0" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h4 id="orgbb1e2a0">yasnippet</h4>
+<section id="slide-org8aa3db5" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org8aa3db5">yasnippet</h4>
 <p>
 特に使いたいスニペットってなかったので、
 使い方をほぼほぼ忘れてしまった。
@@ -96,9 +101,10 @@ init.elでのyasnippet関連の設定を見ると
 こんな形で設定はされている。
 では早速snippetを作ってみよう。
 </p>
+
 </section>
-<section id="slide-orgef0bc4a" data-background="#000b00" data-background-size="80px" data-background-position="top right">
-<h4 id="orgef0bc4a">新規作成だから</h4>
+<section id="slide-org9bc52c3" data-background="#000b00" data-background-size="80px" data-background-position="top right">
+<h4 id="org9bc52c3">新規作成だから</h4>
 <p>
 C-x i nだ。そうすると
 新規バッファが開き

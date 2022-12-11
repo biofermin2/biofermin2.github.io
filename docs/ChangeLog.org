@@ -1,5 +1,24 @@
 * ChangeLog
 
+** version 0.3
+*** DONE メニューの構造を変更
+    level1のtitleは日付のみに変更しそこだけlinkを張り、
+level2のtitleは項目として表示
+    CLOSED: [2022-12-11 日 19:42]
+    - State "TODO"       from "DONE"       [2022-12-11 日 19:42]
+
+** version 0.2 
+
+*** [2022-11-29 火] topページの刷新とmenuシステムの切り替え
+カテゴリーを分けてそれぞれメニューを作る方法を廃止し、
+統合メニューのみに切り替えた。
+**** DONE 複数メニューの際に、最後のメニューしか表示されていないので要修正
+     CLOSED: [2022-11-29 火 23:59]
+     make-link内のformat文でnil指定したものをreturnすると、
+  ループの最後のデータしか表示されてなかったので、loopのdoを辞めてcollectに切り替えた。
+     - State "DONE"       from "TODO"       [2022-11-29 火 23:59]
+     - State "TODO"       from              [2022-11-24 木 23:59]
+
 ** version 0.1
 
 *** [2022-09-07] start this blog
@@ -8,17 +27,4 @@
 *** [2022-09-22] add twitter message link
 *** [2022-11-17] add jscl repl
 
-** version 0.2 
 
-*** [2022-11-29 火] topページの刷新とmenuシステムの切り替え
-カテゴリーを分けてそれぞれメニューを作る方法を廃止し、
-統合メニューのみに切り替えた。
-
-* todo
-
-** DONE 複数メニューの際に、最後のメニューしか表示されていないので要修正
-   CLOSED: [2022-11-29 火 23:59]
-   make-link内のformat文でnil指定したものをreturnすると、
-ループの最後のデータしか表示されてなかったので、loopのdoを辞めてcollectに切り替えた。
-   - State "DONE"       from "TODO"       [2022-11-29 火 23:59]
-   - State "TODO"       from              [2022-11-24 木 23:59]

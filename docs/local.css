@@ -23,6 +23,10 @@ header {
     display:block;
 }
 
+#wmap img {
+    width: 35%
+}
+
 #menu iframe {
   border: none;
   width: 100%;
