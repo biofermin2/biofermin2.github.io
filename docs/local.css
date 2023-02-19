@@ -45,12 +45,6 @@ header {
   align: left;
 }
 
-#parentframe {
-    padding-bottom: 55px;
-    margin-bottom:auto;
-  frameborder: none;
-  scrolling: none;
-}
 main {
     padding-top: 85px; 
     padding-bottom: 30px; 
