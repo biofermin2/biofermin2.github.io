@@ -110,8 +110,16 @@
       }
     -->
     </style>
+ <script>
+      window.addEventListener('load', () => {
+          setTimeout( function() {
+              window.scrollTo({top: 1200,
+                               behavior: 'smooth'});
+          }, 5000);
+      });
+    </script>
   </head>
-  <body>
+  <body  onload="framescrolld()">
     <pre>
 <span class="org-level-1">* blog menu</span>
 
