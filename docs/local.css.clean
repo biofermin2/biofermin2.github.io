@@ -12,22 +12,16 @@ header {
     margin-top: 0px;
     position: fixed;
     padding-top: 0px;
-    color: #ffffd9;
+    z-index: 1;
+  color: #ffffd9;
+  background-color: #000b00;
+    background-image: url("./img/biofermin2-symbol.svg");
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
     height: 80px;
     display:block;
-    background-color: #000b00;
-    z-index: 5;
 }
-
-#header div {
-   position: relative;
- }
-
-#symbol img {
-  position: absolute;
-  right: 0;
-}
-
 
 #wmap img {
     width: 35%

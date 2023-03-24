@@ -1,0 +1,104 @@
+* [2023-03-24 金] 
+((☼→☁ . 晴れ 夜遅く くもり) (☁→☼ . くもり 昼過ぎ から 晴れ) (☔☁ . 雨 時々 くもり))
+
+[[./around-Japan-color-2023-03-24.png]]
+
+** 配列とハッシュテーブルの違い :lisp:
+最近zennに以下の記事を書き始めている。
+[[https://zenn.dev/biofermin2/scraps/1fe8ea4b95b358][Common Lispによる幾何中央値計算で求める日本の中心]]
+
+個人ブログのここには何も書いてないけど笑
+
+そういう反省も込めて今日は久し振りにここも書く。
+
+今日は記事を書きながら昔作ったプログラムを
+動かして自分自身思い出す作業をしたりもしてたが、
+もちろん思い出したらリファクタリングしたい部分もある。
+
+そんな事を考えている時にふと思ったのが標記の疑問。
+
+さらっとネットで調べるとハッシュテーブルは文字列もキーにする
+事が出来るといったような事が出てた。
+
+ただ今頭にあるのはキーは数字。特にどっちでもいいかなと。
+その際に、どっちが果たして処理が速いのか？
+むしろ、そっちの方に興味がある。
+
+正直今までハッシュも配列と同じようなもんだという認識
+しか無かったけど、この際ちょっと調べてみたくなった。
+
+まずはハッシュテーブルから２回テスト。
+# Evaluation took:
+#   0.000 seconds of real time
+#   0.000003 seconds of total run time (0.000003 user, 0.000000 system)
+#   100.00% CPU
+#   4,218 processor cycles
+#   0 bytes consed
+  
+# Evaluation took:
+#   0.000 seconds of real time
+#   0.000003 seconds of total run time (0.000003 user, 0.000000 system)
+#   100.00% CPU
+#   4,292 processor cycles
+#   0 bytes consed
+
+次は配列を２回テスト
+# Evaluation took:
+#   0.000 seconds of real time
+#   0.000003 seconds of total run time (0.000002 user, 0.000001 system)
+#   100.00% CPU
+#   2,701 processor cycles
+#   0 bytes consed
+  
+# Evaluation took:
+#   0.000 seconds of real time
+#   0.000001 seconds of total run time (0.000001 user, 0.000000 system)
+#   100.00% CPU
+#   2,257 processor cycles
+#   0 bytes consed
+
+同じようなものだと思ってたけど、配列のprocessor cyclesが半分近く少ない。
+スピードもわずかに速そう。
+
+ついでだからリストでもテストしてみる。
+# Evaluation took:
+#   0.000 seconds of real time
+#   0.000001 seconds of total run time (0.000001 user, 0.000000 system)
+#   100.00% CPU
+#   1,813 processor cycles
+#   0 bytes consed
+  
+# Evaluation took:
+#   0.000 seconds of real time
+#   0.000003 seconds of total run time (0.000003 user, 0.000000 system)
+#   100.00% CPU
+#   5,439 processor cycles
+#   0 bytes consed
+
+run timeは大した違いが無かったので、
+processor cyclesを表で結果をまとめると
+|------------+------+------|
+| データ構造 |  1st |  2nd |
+|------------+------+------|
+| hashtable  | 4218 | 4292 |
+| array      | 2701 | 2257 |
+| list       | 1813 | 5439 |
+|------------+------+------|
+
+それぞれのテストでは前方のデータと後方のデータの２回を測っている。
+リストはやっぱりデータの位置によって速さにばらつきがあって、
+リストの前の方にある要素の方がアクセスが速い。
+
+よくハッシュテーブルの方が速いとは聞いていたけど、
+リストは言う程、遅くもなくトータルを平均すると3626processor cyclesに成るので、
+然程変わらないんじゃないか？というより、ハッシュテーブルに比べると速くなる。
+というのが自分の感想。そう考えると扱い易いリストの構造は
+そう悪くない選択であるような気がした。
+
+今まであまり配列を使って来なかったので、
+もう少し配列を使う事もやっていきたい。
+
+今回のテストではハッシュテーブルが意外とそうでもないのかな？
+という印象を受けた。
+
+
