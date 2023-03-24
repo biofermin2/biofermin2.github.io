@@ -6,12 +6,10 @@ body {
     padding: auto;
 }
 
-.flex div {
-    display:flex
+header {
     width: 100%;
     text-align: left;
     margin-top: 0px;
-    position: fixed;
     padding-top: 0px;
     color: #ffffd9;
     height: 80px;
@@ -20,16 +18,18 @@ body {
     z-index: 5;
 }
 
+.flex div {
+    display: flex;
+    height: 80px;
+}
+
 #header-left div {
    float: left;
    height: 80px;
-   background-color: #000b00;
  }
 #header-right div {
    height: 80px;
    float: right;
-   background-color: #000b00;
-   z-index: 10000;
  }
 
 #symbol img {

@@ -1,6 +1,6 @@
 function header(){
     $.ajax({
-      url: "https://biofermin2.github.io/docs/header.html",
+      url: "htts://biofermin2.github.io/header.html",
         cache: false,
         async: false,
         dataType: 'html',
