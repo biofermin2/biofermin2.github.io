@@ -19,8 +19,18 @@ header {
     z-index: 5;
 }
 
-#header div {
+#header-left div {
    position: relative;
+   float: left;
+   height: 80px;
+   background-color: #000b00;
+ }
+#header-right div {
+   position: relative;
+   height: 80px;
+   float: right;
+   background-color: #000b00;
+   z-index: 10000;
  }
 
 #symbol img {
