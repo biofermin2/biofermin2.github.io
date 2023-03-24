@@ -6,7 +6,8 @@ body {
     padding: auto;
 }
 
-header {
+.flex div {
+    display:flex
     width: 100%;
     text-align: left;
     margin-top: 0px;
@@ -20,13 +21,11 @@ header {
 }
 
 #header-left div {
-   position: relative;
    float: left;
    height: 80px;
    background-color: #000b00;
  }
 #header-right div {
-   position: relative;
    height: 80px;
    float: right;
    background-color: #000b00;
