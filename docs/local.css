@@ -13,9 +13,9 @@ header {
     margin-top: 0px;
     padding-top: 0px;
     color: #ffffd9;
-    height: 80px;
+    height: 81px;
     display:block;
-    background-position: top 0px right 0px;
+    background-position: top 1px right 1px;
     background-repeat: no-repeat;  
     background-image: url("./img/biofermin2-symbol.svg");
     z-index: 5;
