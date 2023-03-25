@@ -7,34 +7,38 @@ body {
 }
 
 header {
-    width: 100%;
+    position: fixed;
+    width: 100vw;
     text-align: left;
     margin-top: 0px;
     padding-top: 0px;
     color: #ffffd9;
     height: 80px;
     display:block;
-    background-color: #000b00;
+    background-position: top 0px right 0px;
+    background-repeat: no-repeat;  
+    background-image: url("./img/biofermin2-symbol.svg");
     z-index: 5;
 }
 
 .flex div {
     display: flex;
+    top:0px;
     height: 80px;
 }
 
 #header-left div {
    float: left;
+   top:0px;
    height: 80px;
  }
 #header-right div {
    height: 80px;
+   top: 0px;
    float: right;
  }
 
 #symbol img {
-  position: absolute;
-  right: 0;
 }
 
 
@@ -44,11 +48,10 @@ header {
 
 #menu iframe {
   border: none;
-  width: 100%;
+  width: 100vw;
   padding-top: 90px;
   top: 95px;
   padding-left: 0px;
-  background-color: #000b00;
   align: left;
 }
 #jscl iframe {
@@ -56,7 +59,6 @@ header {
   width: 100%;
   padding-left: 0px;
   padding-bottom: 20px;
-  background-color: #000b00;
   align: left;
 }
 
@@ -66,15 +68,14 @@ main {
     z-index: 0;
 }
 footer {
-  width: 100%;
+  width: 100vw;
   height: 30px; 
   text-align: left;
   padding-bottom: 10px;
   position: fixed;
-  bottom: 0;
-    z-index: 1;
+  bottom: 0px;
+  z-index: 1;
   color: #ffffd9;
-  background-color: #000b00;
 }
 
 .builtin {
