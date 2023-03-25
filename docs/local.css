@@ -13,10 +13,11 @@ header {
     margin-top: 0px;
     margin-right: 5px;
     padding-top: 0px;
+    padding-right: 5px;
     color: #ffffd9;
     height: 81px;
     display:block;
-    background-position: top 1px right 10px;
+    background-position: top 1px right 15px;
     background-repeat: no-repeat;  
     background-image: url("./img/biofermin2-symbol.svg");
     z-index: 5;
