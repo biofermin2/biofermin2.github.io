@@ -1,0 +1,251 @@
+* [2023-03-30 木]
+
+((☼ . 晴れ) (☼ . 晴れ) (☼☁ . 晴れ 時々 くもり))
+
+[[./around-Japan-color-2023-03-30.png]]
+今日も集落の仕事をやってから、裏の竹藪を切りまくる。
+28日から桜が開花し始めたし、中庭の雪も無くなった。
+例年なら４月半ばに開花だし、雪もその頃まで残っているので、
+例年より２週間ほど早い気がする。
+このまま晴れた日が続けば５月頃には暑くなりそうな予感。
+
+
+** 先日のloopのnamedするかしないかでの挙動の違いについて :lisp:
+
+[2023-03-26 日]のブログに書いたけど、
+そもそもなんで挙動が違うのかをshibuya.lispで訊いてみた。
+
+改めて何の事か説明すると
+
+#+BEGIN_SRC lisp
+  (ql:quickload '(:unix-cmd) :silent t)   ; =>(:UNIX-CMD) 
+  (defpackage :myapp
+    (:use :cl :unix-cmd)
+    (:export :main))                      ; =>#<PACKAGE "MYAPP"> 
+  (in-package :myapp)                     ; =>#<PACKAGE "MYAPP"> 
+
+  (pwd)                                   ; =>#P"/home/hiro/biofermin2.github.io/docs/"
+  "docs" 
+
+  ;; 当初書いていたバージョン
+  (defun wc (files)
+    "line word char (in case unix,number means line word byte)"
+    (dolist (f (directory (merge-pathnames files (pwd))))
+      (with-open-file (in f :direction :input)
+        (loop :for l = (read-line in nil nil)
+              :while l
+              :count l :into line
+              :sum (length (split " " l)) :into word
+              :sum (length l) :into char
+              :finally (format t "~s~%" (list line word char f)))))) ; =>WC 
+
+  (wc "2023/*.org")                       ; => (36 143 1215 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0214-2.org")
+  (41 45 1016 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0219-2.org")
+  (156 740 6091 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0226-2.org")
+  (74 85 1375 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0227-2.org")
+  (104 383 2293 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0324-2.org")
+  (58 367 1492 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0326-2.org")
+  NIL
+
+  ;; ただこの場合、出力結果はstandard-output側に飛んで行く。
+  ;; 評価結果を別の関数で利用したい時はreturnを使うという事で下記のように変更。
+
+  (defun wc (files)
+    "line word char (in case unix,number means line word byte)"
+    (dolist (f (directory (merge-pathnames files (pwd))))
+      (with-open-file (in f :direction :input)
+        (loop :for l = (read-line in nil nil)
+              :while l
+              :count l :into line
+              :sum (length (split " " l)) :into word
+              :sum (length l) :into char
+              :finally (return (list line word char f)))))) ; =>WC 
+
+  (wc "2023/*.org")                       ; => NIL
+
+  ;; うまくいかない。
+  ;; なんかいろいろといじっててつい下のように書くと
+
+  (defun wc (files)
+    "line word char (in case unix,number means line word byte)"
+    (dolist (f (directory (merge-pathnames files (pwd))))
+      (with-open-file (in f :direction :input)
+        (loop :named hoge :for l = (read-line in nil nil)
+              :while l
+              :count l :into line
+              :sum (length (split " " l)) :into word
+              :sum (length l) :into char
+              :finally (return (list line word char f)))))) ; =>WC 
+
+  (wc "2023/*.org")                       ; =>(36 143 1215 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0214-2.org") 
+
+  ;; あれ？１つだけ先頭のものだけがreturnされた。
+
+  ;; これは裏技？何かのバグ？loopにnamed付けただけで
+  ;; なんで評価結果が違ってくるの？
+  ;; と質問したら、まずはmacroexpand-1しろと。
+
+  ;; いつもC-cC-mだかC-cM-mだかどっちがどっちかあまり使ってないので、
+  ;; 訳わからない事が多いが、C-cM-mの方
+
+
+  (DEFUN WC (FILES)
+    "line word char (in case unix,number means line word byte)"
+    (BLOCK NIL
+      (LET ((#:LIST271
+              (SB-KERNEL:THE*
+                  (LIST :USE-ANNOTATIONS T :SOURCE-FORM
+                   (DIRECTORY (MERGE-PATHNAMES FILES (PWD))))
+                  (DIRECTORY (MERGE-PATHNAMES FILES (PWD))))))
+        (TAGBODY
+           #:START272
+           (IF (ENDP #:LIST271)
+               NIL
+               (PROGN
+                 (LET ((F (CAR #:LIST271)))
+                   (DECLARE (IGNORABLE F))
+                   (SETQ #:LIST271 (CDR #:LIST271))
+                   (TAGBODY
+                      (LET ((IN (OPEN F :DIRECTION :INPUT)) (#:G273 T))
+                        (UNWIND-PROTECT
+                             (MULTIPLE-VALUE-PROG1
+                                 (PROGN
+                                   (BLOCK HOGE
+                                     (LET ((L NIL))
+                                       (DECLARE (IGNORABLE L))
+                                       (LET ((LINE 0))
+                                         (DECLARE (TYPE FIXNUM LINE))
+                                         (LET ((WORD 0))
+                                           (DECLARE (TYPE NUMBER WORD))
+                                           (LET ((CHAR 0))
+                                             (DECLARE (TYPE NUMBER CHAR))
+                                             (TAGBODY
+                                              SB-LOOP::NEXT-LOOP
+                                                (SETQ L (READ-LINE IN NIL NIL))
+                                                (IF L
+                                                    NIL
+                                                    (GO SB-LOOP::END-LOOP))
+                                                (IF L
+                                                    (SETQ LINE (1+ LINE)))
+                                                (SETQ WORD
+                                                      (+ WORD
+                                                         (LENGTH (SPLIT " " L))))
+                                                (SETQ CHAR (+ CHAR (LENGTH L)))
+                                                (GO SB-LOOP::NEXT-LOOP)
+                                              SB-LOOP::END-LOOP
+                                                (RETURN-FROM NIL
+                                                  (LIST LINE WORD CHAR F)))))))))
+                               (SETQ #:G273 NIL))
+                          (IF IN
+                              (CLOSE IN :ABORT #:G273))))))
+                 (GO #:START272)))))
+      NIL))
+
+  ;; これを読み解くとreturn-from hogeではなく、ただreturnにするとnilという名前のblockに
+  ;; returnしろという命令になる。
+
+  ;; で、先頭のdolistには暗黙のblockが使われているがその暗黙のブロック名こそnil
+  ;; となっている訳だ。つまりdolistのブロック側まで飛んでいるという話。
+
+  ;; 当初loopのnamedを指定していなかったので、
+  ;; loopのブロック名はnilとなっていた。
+  ;; つまりreturnで飛んだのはdolistではなくloopの方のblockに
+  ;; 飛んでいたという話。
+  ;; １つ前のバージョンのwcのmacroexpand-1は以下の通り。
+
+  (DEFUN WC (FILES)
+    "line word char (in case unix,number means line word byte)"
+    (BLOCK NIL
+      (LET ((#:LIST277
+             (SB-KERNEL:THE*
+              (LIST :USE-ANNOTATIONS T :SOURCE-FORM
+                    (DIRECTORY (MERGE-PATHNAMES FILES (PWD))))
+              (DIRECTORY (MERGE-PATHNAMES FILES (PWD))))))
+        (TAGBODY
+         #:START278
+          (IF (ENDP #:LIST277)
+              NIL
+              (PROGN
+               (LET ((F (CAR #:LIST277)))
+                 (DECLARE (IGNORABLE F))
+                 (SETQ #:LIST277 (CDR #:LIST277))
+                 (TAGBODY
+                   (LET ((IN (OPEN F :DIRECTION :INPUT)) (#:G279 T))
+                     (UNWIND-PROTECT
+                         (MULTIPLE-VALUE-PROG1
+                             (PROGN
+                              (BLOCK NIL
+                                (LET ((L NIL))
+                                  (DECLARE (IGNORABLE L))
+                                  (LET ((LINE 0))
+                                    (DECLARE (TYPE FIXNUM LINE))
+                                    (LET ((WORD 0))
+                                      (DECLARE (TYPE NUMBER WORD))
+                                      (LET ((CHAR 0))
+                                        (DECLARE (TYPE NUMBER CHAR))
+                                        (TAGBODY
+                                         SB-LOOP::NEXT-LOOP
+                                          (SETQ L (READ-LINE IN NIL NIL))
+                                          (IF L
+                                              NIL
+                                              (GO SB-LOOP::END-LOOP))
+                                          (IF L
+                                              (SETQ LINE (1+ LINE)))
+                                          (SETQ WORD
+                                                  (+ WORD
+                                                     (LENGTH (SPLIT " " L))))
+                                          (SETQ CHAR (+ CHAR (LENGTH L)))
+                                          (GO SB-LOOP::NEXT-LOOP)
+                                         SB-LOOP::END-LOOP
+                                          (RETURN-FROM NIL
+                                            (LIST LINE WORD CHAR F)))))))))
+                           (SETQ #:G279 NIL))
+                       (IF IN
+                           (CLOSE IN :ABORT #:G279))))))
+               (GO #:START278)))))
+      NIL))
+
+  ;; 見てわかる通り２つ目のblockもnilになっているし、
+  ;; return-fromもnilになっているので、これはloop側に飛んでいる。
+  ;; つまりloop側に飛んだらloopの次の処理に入って、
+  ;; loop内でそれを繰り返したらnilを戻して終了してしまう。
+  ;; named hogeを入れたらdolist側に飛んで、
+  ;; １行出力して終了。うーん、これで合ってるのか？
+  ;; とりあえず、そんな感じでジャンプするポジションが変わる事が原因。
+
+  ;; それを受けて書いてたのが、次のコード。
+
+
+  (defun wc (files)
+    "line word char (in case unix,number means line word byte)"
+    (loop :for f :in (directory (merge-pathnames files (pwd)))
+          :collect
+          (with-open-file (in f :direction :input)
+            (loop :for l = (read-line in nil nil)
+                  :while l
+                  :count l :into line
+                  :sum (length (split " " l)) :into word
+                  :sum (length l) :into char
+                  :finally (return (list line word char f)))))) ; =>WC 
+
+  (wc "2023/*.org")                       ; =>((36 143 1215 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0214-2.org")
+   (41 45 1016 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0219-2.org")
+   (156 740 6091 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0226-2.org")
+   (74 85 1375 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0227-2.org")
+   (104 383 2293 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0324-2.org")
+   (58 367 1492 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0326-2.org")) 
+  (third (wc "2023/*.org"))           ; => (156 740 6091 #P"/home/hiro/biofermin2.github.io/docs/2023/2023-0226-2.org")
+
+  ;; 自分のと違ってpushなんて使ってない分エレガントな気がする。
+  ;; １行出てる訳だから、collectすればいいという、
+  ;; こういうのをサクッと書ける能力って凄い。
+  ;; あと何か挙動がよくわからない時はとにかくmacroexpand-1という
+  ;; 基本的なツールがあるんだから、そういう便利なlispの
+  ;; ツールにもっと親しむ必要があるなと改めて感じた。
+#+END_SRC
+
+とにかくlisperの方との力量の厳然たる差を感じざるを得ない。
+対応は柔軟だし、理解力は抜群だし、コードも普通に文書書くような
+感覚で書くし、どうやったらそんな能力を身につけられたのか
+いつも圧倒される。そんな凄い方々にオンラインとは言え、
+直接相談に乗ってもらえるのって本当に贅沢な事だと思う。
