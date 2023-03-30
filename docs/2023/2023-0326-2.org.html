@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>2023-0326-2.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #ffffd9;
+        background-color: #000b00;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #68be8d;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #f0908d;
+      }
+      .default {
+        /* default */
+        color: #ffffd9;
+        background-color: #000b00;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #89c3eb;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #ffd900;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #f39800;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #f0908d;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #f0908d;
+      }
+      .org-date {
+        /* org-date */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #ffd900;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #c3d825;
+      }
+      .org-link {
+        /* org-link */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #ec6d71;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #f6bfbc;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #f6ad49;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #ffec47;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #68be8d;
+      }
+      .rainbow-delimiters-depth-6 {
+        /* rainbow-delimiters-depth-6-face */
+        color: #478384;
+      }
+      .rainbow-delimiters-depth-7 {
+        /* rainbow-delimiters-depth-7-face */
+        color: #a0d8ef;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #89c3eb;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-level-1">* </span><span class="org-date">[2023-03-26 &#26085;]</span>
+((&#9748; . &#38632;) (&#9729;&#8594;&#9788; . &#12367;&#12418;&#12426; &#26172;&#21069; &#12363;&#12425; &#26228;&#12428;) (&#9788;&#9729; . &#26228;&#12428; &#26178;&#12293; &#12367;&#12418;&#12426;))
+<img src="around-Japan-color-2023-03-26.png" alt="./around-Japan-color-2023-03-26.png" />
+
+<span class="org-level-2">** loop&#12398;&#12362;&#12363;&#12375;&#12394;&#25369;&#21205;</span>
+
+unix-cmd&#12398;wc&#38306;&#25968;&#12434;&#12356;&#12376;&#12387;&#12390;&#12383;&#12290;
+&#12414;&#12378;&#12399;&#12385;&#12423;&#12387;&#12392;&#12418;&#12398;&#12434;&#35211;&#12390;&#12415;&#12424;&#12358;&#12290;
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block">  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">wc</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">files</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="doc">"line word char (in case unix,number means line word byte)"</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">dolist</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">f </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">directory </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">merge-pathnames files </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">pwd</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">with-open-file</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">in f </span><span class="org-block"><span class="builtin">:direction</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:input</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+        </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:for</span></span><span class="org-block"> l = </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">read-line in nil nil</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+              </span><span class="org-block"><span class="builtin">:while</span></span><span class="org-block"> l
+              </span><span class="org-block"><span class="builtin">:count</span></span><span class="org-block"> l </span><span class="org-block"><span class="builtin">:into</span></span><span class="org-block"> line
+              </span><span class="org-block"><span class="builtin">:sum</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">length </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">split </span><span class="org-block"><span class="string">" "</span></span><span class="org-block"> l</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:into</span></span><span class="org-block"> word
+              </span><span class="org-block"><span class="builtin">:sum</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">length l</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:into</span></span><span class="org-block"> char
+              </span><span class="org-block"><span class="builtin">:finally</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">format t </span><span class="org-block"><span class="string">"~s~%"</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">list line word char f</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;WC 
+</span></span><span class="org-block-end-line">#+END_SRC
+</span>
+loop&#12398;&#26368;&#24460;&#12398;finally&#31680;&#12391;&#12289;*standard-output*&#12395;&#20986;&#21147;&#12375;&#12390;&#12356;&#12427;&#12290;
+&#12471;&#12455;&#12523;&#12391;&#12467;&#12510;&#12531;&#12489;&#23455;&#34892;&#12377;&#12427;&#12394;&#12425;&#12381;&#12428;&#12391;&#21839;&#38988;&#12394;&#12356;&#12392;&#24605;&#12358;&#12290;
+
+&#12375;&#12363;&#12375;&#12289;&#12381;&#12371;&#12391;&#20986;&#21147;&#12375;&#12383;&#20516;&#12434;&#20351;&#12356;&#12383;&#12356;&#22580;&#21512;&#12364;&#20986;&#12390;&#12365;&#12383;&#12398;&#12391;&#12289;
+format&#12391;&#12399;&#12394;&#12367;return&#12434;&#20351;&#12387;&#12390;&#12415;&#12383;&#12364;&#12289;&#12358;&#12414;&#12367;&#12356;&#12363;&#12394;&#12356;&#12290;
+
+&#12392;&#12371;&#12429;&#12364;&#12356;&#12429;&#12356;&#12429;&#12392;&#12356;&#12376;&#12387;&#12390;&#12356;&#12427;&#12392;&#12289;loop&#12395;&#20309;&#12363;&#12375;&#12425;named&#12434;&#35373;&#23450;&#12375;&#12383;&#26178;&#12399;
+&#26368;&#24460;&#12398;&#65297;&#34892;&#20998;&#12398;return&#12399;&#36820;&#12387;&#12390;&#12367;&#12427;&#12424;&#12358;&#12395;&#12394;&#12387;&#12383;&#12290;
+
+&#20491;&#20154;&#30340;&#12395;&#12399;&#20840;&#34892;&#12434;return&#12375;&#12390;&#12411;&#12375;&#12356;&#12398;&#12384;&#12364;&#12289;
+&#29694;&#29366;&#12371;&#12398;&#35023;&#25216;&#12391;&#12399;&#26368;&#24460;&#12398;&#34892;&#12384;&#12369;&#12290;
+
+&#12388;&#12414;&#12426;&#12381;&#12428;&#12414;&#12391;&#12398;&#34892;&#12399;finally&#12395;&#12356;&#12363;&#12378;&#12395;&#20516;&#12364;
+&#25448;&#12390;&#12425;&#12428;&#12390;&#12289;&#26368;&#24460;&#12398;&#34892;&#12384;&#12369;finally&#12391;&#20966;&#29702;&#12373;&#12428;&#12390;&#12356;&#12427;&#12392;&#12356;&#12358;&#35441;&#12363;&#12290;
+
+&#12394;&#12427;&#12411;&#12393;&#12289;&#26360;&#12356;&#12390;&#12383;&#12425;&#35211;&#12360;&#12390;&#12365;&#12383;&#12290;&#20986;&#26469;&#12383;&#12290;
+
+<span class="org-block-begin-line">#+BEGIN_SRC lisp
+</span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block"><span class="keyword">defun</span></span><span class="org-block"> </span><span class="org-block"><span class="function-name">wc</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">files</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block">
+  </span><span class="org-block"><span class="doc">"line word char (in case unix,number means line word byte)"</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="keyword">let</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">result</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+    </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block"><span class="keyword">dolist</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">f </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">directory </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">merge-pathnames files </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">pwd</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
+      </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">with-open-file</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">in f </span><span class="org-block"><span class="builtin">:direction</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:input</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block">
+        </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block"><span class="keyword">loop</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:for</span></span><span class="org-block"> l = </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">read-line in nil nil</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block">
+              </span><span class="org-block"><span class="builtin">:while</span></span><span class="org-block"> l
+              </span><span class="org-block"><span class="builtin">:count</span></span><span class="org-block"> l </span><span class="org-block"><span class="builtin">:into</span></span><span class="org-block"> line
+              </span><span class="org-block"><span class="builtin">:sum</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">length </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">split </span><span class="org-block"><span class="string">" "</span></span><span class="org-block"> l</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:into</span></span><span class="org-block"> word
+              </span><span class="org-block"><span class="builtin">:sum</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">length l</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:into</span></span><span class="org-block"> char
+              </span><span class="org-block"><span class="builtin">:finally</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-6">(</span></span><span class="org-block">push </span><span class="org-block"><span class="rainbow-delimiters-depth-7">(</span></span><span class="org-block">list line word char f</span><span class="org-block"><span class="rainbow-delimiters-depth-7">)</span></span><span class="org-block"> result</span><span class="org-block"><span class="rainbow-delimiters-depth-6">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block">
+    result</span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">                            </span><span class="org-block"><span class="comment">; =&gt;WC 
+</span></span><span class="org-block">
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+&#12371;&#12435;&#12394;&#24863;&#12376;&#12363;&#12290;&#12385;&#12423;&#12387;&#12392;push&#12364;&#12480;&#12469;&#12356;&#27671;&#12364;&#12375;&#12394;&#12356;&#12391;&#12418;&#12394;&#12356;&#12290;
+&#20491;&#20154;&#30340;&#12395;push&#12387;&#12390;&#12394;&#12380;&#12363;&#12354;&#12414;&#12426;&#20351;&#12356;&#12383;&#12367;&#12394;&#12356;&#12290;
+&#30772;&#22730;&#30340;&#12384;&#12363;&#12425;&#12363;&#12394;&#65311;
+</pre>
+  </body>
+</html>
