@@ -23,11 +23,6 @@
         color: #ffc0cb;
         font-weight: bold;
       }
-      .org-date {
-        /* org-date */
-        color: #00ffff;
-        text-decoration: underline;
-      }
       .org-level-1 {
         /* org-level-1 */
         color: #ffd900;
@@ -41,14 +36,33 @@
         color: #00ffff;
         text-decoration: underline;
       }
-      .org-tag {
-        /* org-tag */
-        font-weight: bold;
+      .org-modern-date-active {
+        /* org-modern-date-active */
+        color: #ffffff;
+        background-color: #333333;
+        font-size: 80%;
       }
-      .org-todo {
-        /* org-todo */
-        color: #ffc0cb;
-        font-weight: bold;
+      .org-modern-date-inactive {
+        /* org-modern-date-inactive */
+        color: #b3b3b3;
+        background-color: #333333;
+        font-size: 80%;
+      }
+      .org-modern-tag {
+        /* org-modern-tag */
+        color: #ffffff;
+        background-color: #4a708b;
+        font-size: 80%;
+      }
+      .org-modern-time-active {
+        /* org-modern-time-active */
+        color: #000000;
+        background-color: #bfbfbf;
+        font-size: 80%;
+      }
+      .org-special-keyword {
+        /* org-special-keyword */
+        color: #f39800;
       }
 
       a {
@@ -65,17 +79,14 @@
   </head>
   <body>
     <pre>
-<span class="org-level-1">* </span><span class="org-date">[2023-04-23 &#26085;]</span>
+<span class="org-level-1">&#9673;  </span><span class="org-modern-date-inactive">2023-04-23 &#26085; </span>
   ((&#9788; . &#26228;&#12428;) (&#9788; . &#26228;&#12428;) (&#9729;&#8594;&#9748; . &#12367;&#12418;&#12426; &#24460; &#38632;))
-<img src="around-Japan-color-2023-04-24.png" alt="./around-Japan-color-2023-04-24.png" />
-
-
-<span class="org-level-1">* </span><span class="org-todo">ROUTINE</span><span class="org-level-1"> </span><span class="org-date">&lt;2023-04-24 &#26376; 06:00&gt;</span><span class="org-level-1"> morning routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
-<span class="org-level-1">* </span><span class="org-todo">ROUTINE</span><span class="org-level-1"> </span><span class="org-date">&lt;2023-04-24 &#26376; 06:30&gt;</span><span class="org-level-1"> days routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
-<span class="org-level-1">* </span><span class="org-todo">ROUTINE</span><span class="org-level-1"> </span><span class="org-date">&lt;2023-04-24 &#26376; 20:00&gt;</span><span class="org-level-1"> night routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
-<span class="org-level-1">* </span><span class="org-todo">ROUTINE</span><span class="org-level-1"> Monday routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
-
-<span class="org-level-2">** dpANS&#12398;org&#25991;&#26360;&#21270; </span><span class="org-level-2"><span class="org-tag">:lisp:</span></span>
+<img src="around-Japan-color-2023-04-24.png" alt="./around-Japan-color-2023-04-24.png" /><a href="./around-Japan-color-2023-04-24.png">
+</a>&#9673;<span class="org-level-1"> </span><span class="org-special-keyword">COMMENT</span><span class="org-level-1"> ROUTINE  </span><span class="org-modern-date-active">2023-04-24 &#26376; </span><span class="org-modern-time-active"> 06:00 </span><span class="org-level-1"> morning routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
+&#9673;<span class="org-level-1"> </span><span class="org-special-keyword">COMMENT</span><span class="org-level-1"> ROUTINE  </span><span class="org-modern-date-active">2023-04-24 &#26376; </span><span class="org-modern-time-active"> 06:30 </span><span class="org-level-1"> days routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
+&#9673;<span class="org-level-1"> </span><span class="org-special-keyword">COMMENT</span><span class="org-level-1"> ROUTINE  </span><span class="org-modern-date-active">2023-04-24 &#26376; </span><span class="org-modern-time-active"> 20:00 </span><span class="org-level-1"> night routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
+&#9673;<span class="org-level-1"> </span><span class="org-special-keyword">COMMENT</span><span class="org-level-1"> ROUTINE Monday routine </span><span class="org-checkbox-statistics-todo">[/]</span>...
+&#9675;<span class="org-level-2"> dpANS&#12398;org&#25991;&#26360;&#21270; : l</span><span class="org-modern-tag">isp :</span>
 &#20170;&#26085;&#12398;&#12392;&#12356;&#12358;&#12363;&#12418;&#12358;&#21427;&#23494;&#12395;&#12399;&#26152;&#26085;&#12392;&#12394;&#12387;&#12390;&#12375;&#12414;&#12387;&#12383;&#12364;&#12289;
 lispteatime&#12391;&#12399;&#12418;&#12367;&#12418;&#12367;&#20250;&#12384;&#12387;&#12383;&#12398;&#12391;&#12289;&#20491;&#20154;&#30340;&#12395;&#12399;
 &#20363;&#12398;&#35352;&#20107;&#12398;&#32154;&#12365;&#12434;&#24403;&#21021;&#12420;&#12429;&#12358;&#12392;&#12418;&#24605;&#12387;&#12390;&#12356;&#12383;&#12364;&#12289;
@@ -196,6 +207,7 @@ dpANS&#12395;&#12388;&#12356;&#12390;&#12418;&#26085;&#26412;&#35486;&#12395;&#3
 <span class="org-link"><a href="dpans2.pdf">dpANS2.pdf</a></span>
 <span class="org-link"><a href="dpans3.pdf">dpANS3.pdf</a></span>
 <span class="org-link"><a href="dpans3r.pdf">dpANS3r.pdf</a></span>
+
 
 </pre>
   </body>
