@@ -17,10 +17,26 @@ header {
     color: #ffffd9;
     height: 81px;
     display:block;
-    background-position: top 1px right 15px;
-    background-repeat: no-repeat;  
+}
+
+header div {
+  margin: 0;
+  padding: 0;
+}
+
+.left-column {
+  float: left;
+  width: 80%;
+}
+
+.right-column {
+  float: right;
+  width: 20%;
     background-image: url("./img/biofermin2-symbol.svg");
-    z-index: 5;
+    background-position: top 1px right 15px;
+    background-repeat: no-repeat;
+    cursor: pointer; /* マウスカーソルをポインターに変更 */
+	  pointer-events: auto;
 }
 
 .flex div {
@@ -29,19 +45,6 @@ header {
     height: 80px;
 }
 
-#header-left div {
-   float: left;
-   top:0px;
-   height: 80px;
- }
-#header-right div {
-   height: 80px;
-   top: 0px;
-   float: right;
- }
-
-#symbol img {
-}
 
 
 #wmap img {
