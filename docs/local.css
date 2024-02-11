@@ -29,7 +29,7 @@ header div {
   width: 80%;
 }
 
-.right-column {
+#.right-column {
   float: right;
   width: 20%;
     background-image: url("./img/biofermin2-symbol.svg");
