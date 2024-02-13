@@ -36,7 +36,7 @@ header div {
     background-position: top 1px right 15px;
     background-repeat: no-repeat;
     cursor: pointer; /* マウスカーソルをポインターに変更 */
-	  pointer-events: auto;
+	  pointer-events: none;
 }
 
 .flex div {
