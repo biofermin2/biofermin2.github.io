@@ -30,7 +30,7 @@ header div {
 }
 
 .right-column {
-  display: inline;
+  display: inline-block;
   float: right;
   width: 20%;
   background-image: url("./img/biofermin2-symbol.svg");
