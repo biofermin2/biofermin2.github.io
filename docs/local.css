@@ -2,85 +2,54 @@ body {
     color: #ffffd9;
     background-color: #000b00;
     margin: 0px;
-    height: auto;
-    padding: auto;
+    padding: 0px;
 }
 
 header {
-    position: fixed;
-    width: 100vw;
     text-align: left;
-    margin-top: 0px;
-    margin-right: 5px;
-    padding-top: 0px;
-    padding-right: 5px;
-    color: #ffffd9;
-    height: 81px;
-    display:block;
-}
-
-header div {
-  margin: 0;
-  padding: 0;
-}
-
-.left-column {
-  float: left;
-  width: 80%;
-}
-
-.right-column {
-  display: inline-block;
-  float: right;
-  width: 20%;
-  background-image: url("./img/biofermin2-symbol.svg");
-  background-position: top 1px right 15px;
-  background-repeat: no-repeat;
-  cursor: pointer; /* マウスカーソルをポインターに変更 */
-  pointer-events: all;
-}
-
-.flex div {
-    display: flex;
-    top:0px;
+    margin: 0px 0px;
     height: 80px;
+    background-image: url("./img/biofermin2-symbol.svg");
+    background-repeat: no-repeat;
+    backgournd-color: #000b00;
+    background-position: top 0px right 15px;
+    position: sticky;
+    top: 0px;
+}
+
+/* 不要 */
+.flex {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
 }
 
 
-#wmap img {
-    width: 35%
-}
 
-#menu iframe {
-  border: none;
-  width: 100vw;
-  padding-top: 90px;
-  top: 95px;
-  padding-left: 0px;
-  align: left;
-}
-#jscl iframe {
-  border: none;
-  width: 100%;
-  padding-left: 0px;
-  padding-bottom: 20px;
-  align: left;
-}
 
 main {
-    padding-top: 85px; 
-    padding-bottom: 30px; 
-    z-index: 0;
+    display: block;
+    margin: 80px auto 30px; 
 }
+
+#menu {
+    border: 0px;
+    width: 100%;
+    height: 500px;
+}
+
+#jscl {
+    border: 0px;
+    width: 100%;
+    loading: lazy;
+}
+
 footer {
-  width: 100vw;
-  height: 30px; 
-  text-align: left;
-  padding-bottom: 10px;
-  position: fixed;
-  bottom: 0px;
-  z-index: 1;
-  color: #ffffd9;
+    margin-bottom: 0px;
+    width: 100%;
+    height: 30px; 
 }
 
 .builtin {
