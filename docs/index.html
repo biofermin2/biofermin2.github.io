@@ -22,9 +22,9 @@
     <script>
       $(function() {
 
-    $('body').delay(5000).animate({
+    $('menu').delay(5000).animate({
 
-      scrollTop: $(document).height()
+      menu.scrollTop: $(document).height()
 
     },5500);
 
@@ -41,6 +41,7 @@
  */
 
 });
+
 </script>
   </head>
 
@@ -52,7 +53,17 @@
     </header>
 
     <main>
-        <iframe id="menu" title="menu" src="./menu.org.html"></iframe><br>
+        <iframe id="menu" title="menu" src="./menu.org.html"></iframe>
+        <script>
+            var iframe = document.getElementById('menu');
+            iframe.onload = function() {
+                            var iframeDocument = iframe.contentWindow.document;
+                            var textElement = iframeDocument.getElementById('menu');
+                            textElement.style.position = 'relative';
+                            textElement.style.top = '0';
+                          };
+        </script>
+        </br>
         <iframe id="jscl" title="REPL" src="./jscl/jscl.html"></iframe>
     </main>
 

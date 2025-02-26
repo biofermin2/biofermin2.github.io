@@ -1,0 +1,15 @@
+<div class="header">
+    <div class="head">
+;;; <span class="org-link"><a href="./index.html">(peek-char t *sexp-life*)</a></span> --- Peeking into S-expression life<br>
+;; Author: biofermin2 <span class="org-link"><a href="https://twitter.com/biofermin2">twitter: @biofermin2</a></span><br>
+;; Version: <a href="./ChangeLog.org.html">0.3</a>
+    </div>
+    <div class="symbol">
+	<a class="symbol-link" href="https://biofermin2.github.io">
+	    <object type="image/svg+xml" data="./img/biofermin2-symbol.svg">
+		<img src="./img/biofermin2-symbol.png" alt="シンボルマーク">
+	    </object>
+	</a>
+    </div>
+</div>
+
