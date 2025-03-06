@@ -5,7 +5,9 @@ body {
     padding: 0px;
 }
 
-header {
+img.symbol { float: right; }
+
+.header {
     text-align: left;
     margin: 0px 0px;
     height: 80px;
@@ -15,25 +17,10 @@ header {
     background-position: top 0px right 15px;
     position: sticky;
     top: 0px;
-}
-
-.header {
-    display: inline-block;
-}
-
-.symbol-link object{
-	pointer-events: none;
-}
-
-
-/* 不要 */
-.flex {
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
     display: flex;
+    justify-content: space-between;
 }
+
 
 main {
     display: block;
