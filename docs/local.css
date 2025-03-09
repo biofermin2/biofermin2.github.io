@@ -7,7 +7,7 @@ body {
 
 img.symbol { float: right; }
 
-header {
+.head {
     text-align: left;
     margin: 0px 0px;
     height: 80px;
