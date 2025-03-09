@@ -7,6 +7,6 @@ function header(){
         success: function(html){
         document.write(html);
         }
-        });
+     });
 }
 
