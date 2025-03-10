@@ -19,6 +19,15 @@ header {
     top: 0px;
     display: flex;
     justify-content: space-between;
+    z-index: 1;
+}
+
+div.head {
+  z-index: 2;
+
+}
+div.symbol {
+  z-index: 3;
 }
 
 
