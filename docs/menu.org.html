@@ -7,7 +7,7 @@
     <!--
       body {
         color: #ffffd9;
-        background-color: #000000;
+        background-color: #000b00;
         font-style: italic;
       }
       .builtin {
@@ -24,7 +24,7 @@
       }
       .function-name {
         /* font-lock-function-name-face */
-        color: #ffd900;
+        color: #fcc800;
       }
       .keyword {
         /* font-lock-keyword-face */
@@ -95,6 +95,10 @@
         background-color: #bfbfbf;
         font-size: 80%;
       }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
       .rainbow-delimiters-depth-1 {
         /* rainbow-delimiters-depth-1-face */
         color: #ec6d71;
@@ -141,7 +145,7 @@
       }
       .variable-name {
         /* font-lock-variable-name-face */
-        color: #c3d825;
+        color: #b8d200;
       }
       .warning {
         /* font-lock-warning-face */
@@ -163,9 +167,16 @@
   </head>
   <body>
     <pre>
-<span class="org-level-1">&#9660; (peek-char t \*sexp-life*) --- Peeking into Symbolic expression life</span>
-<span class="org-meta-line">NAME: blog-menu</span>
-<span class="org-modern-block-name"><span class="org-block-begin-line">SRC</span></span><span class="org-block-begin-line"> lisp :results value raw drawer output :var year="2025"
+<span class="org-level-1">&#9660; </span><span class="org-level-1"><span class="org-link"><a href="https://biofermin2.github.io">(peek-char t </a></span></span><span class="org-level-1"><span class="org-link"><span class="org-verbatim"><a href="https://biofermin2.github.io">*sexp-life*</a></span></span></span><span class="org-level-1"><span class="org-link"><a href="https://biofermin2.github.io">)</a></span></span><span class="org-level-1"> --- Peeking into Symbolic expression life</span><span class="keyword">
+</span>
+
+<span class="org-meta-line">NAME: this-year</span><span class="keyword">
+</span><span class="org-modern-block-name"><span class="org-block-begin-line">src</span></span><span class="org-block-begin-line"> sh :results silent
+</span><span class="org-block">  date +%Y
+</span><span class="org-modern-block-name"><span class="org-block-end-line">src</span></span><span class="org-block-end-line">
+</span><span class="keyword">
+</span><span class="org-meta-line">NAME: blog-menu</span><span class="keyword">
+</span><span class="org-modern-block-name"><span class="org-block-begin-line">SRC</span></span><span class="org-block-begin-line"> lisp :results value raw drawer output :var year=this-year()
 </span><span class="org-block">
   </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">ql:quickload '</span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block"><span class="builtin">:unix-cmd</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"> </span><span class="org-block"><span class="builtin">:silent</span></span><span class="org-block"> t</span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;(:UNIX-CMD) 
 </span></span><span class="org-block">
@@ -272,128 +283,128 @@
             </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">mapcar #'</span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block"><span class="keyword">lambda</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">x</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"> </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">make-link x</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block">
                     </span><span class="org-block"><span class="rainbow-delimiters-depth-4">(</span></span><span class="org-block">reverse </span><span class="org-block"><span class="rainbow-delimiters-depth-5">(</span></span><span class="org-block">ll html-file</span><span class="org-block"><span class="rainbow-delimiters-depth-5">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-4">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block"> </span><span class="org-block"><span class="comment">; =&gt;MENU 
 </span></span><span class="org-block">
-  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">menu </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">concatenate 'string year </span><span class="org-block"><span class="string">"/*.html"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
+  </span><span class="org-block"><span class="rainbow-delimiters-depth-1">(</span></span><span class="org-block">menu </span><span class="org-block"><span class="rainbow-delimiters-depth-2">(</span></span><span class="org-block">concatenate 'string </span><span class="org-block"><span class="rainbow-delimiters-depth-3">(</span></span><span class="org-block">format nil </span><span class="org-block"><span class="string">"~d"</span></span><span class="org-block"> year</span><span class="org-block"><span class="rainbow-delimiters-depth-3">)</span></span><span class="org-block"> </span><span class="org-block"><span class="string">"/*.html"</span></span><span class="org-block"><span class="rainbow-delimiters-depth-2">)</span></span><span class="org-block"><span class="rainbow-delimiters-depth-1">)</span></span><span class="org-block">
 </span><span class="org-modern-block-name"><span class="org-block-end-line">SRC</span></span><span class="org-block-end-line">
-</span>
-<span class="org-meta-line">RESULTS: blog-menu</span>
-<span class="org-drawer">:results:</span>
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2025/2025-0224.org.html">2025-02-24 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2025/2025-0224.org.html"> </a></span></span>
- &#8211; &#12502;&#12525;&#12464;&#12398;&#20877;&#38283;
- &#8211; hoge
- &#8211; hoge
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2025/2025-0219.org.html">2025-02-19 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2025/2025-0219.org.html"> </a></span></span>
- &#8211; &#12502;&#12525;&#12464;&#12398;&#20877;&#38283;
- &#8211; 2025-02-19 &#27700; ROUTINEs <span class="org-checkbox-statistics-todo">[/]</span>
- &#8211; DONE  <span class="org-modern-date-active">2025-02-19 &#27700; </span><span class="org-modern-time-active"> 14:45 </span>  org-tangle&#12395;&#12388;&#12356;&#12390;&#35519;&#12409;&#12427;
- &#8211; TODO  <span class="org-modern-date-active">2025-02-19 &#27700; </span><span class="org-modern-time-active"> 14:46 </span>  org&#25991;&#26360;&#12434;&#12456;&#12463;&#12473;&#12509;&#12540;&#12488;&#12377;&#12427;&#38555;&#12467;&#12513;&#12531;&#12488;&#12398;&#38750;&#34920;&#31034;&#21270;&#12398;&#26041;&#27861;&#12395;&#12388;&#12356;&#12390;&#35519;&#12409;&#12427;
- &#8211; HTML&#21270;&#12377;&#12427; testcomment
-<span class="org-drawer">:end:</span>
+</span><span class="keyword">
+</span><span class="org-meta-line">RESULTS: blog-menu</span><span class="keyword">
+</span><span class="org-drawer">:results:</span><span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2025/2025-0224.org.html">2025-02-24 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2025/2025-0224.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12502;&#12525;&#12464;&#12398;&#20877;&#38283;<span class="keyword">
+</span> &#8211; hoge<span class="keyword">
+</span> &#8211; hoge<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2025/2025-0219.org.html">2025-02-19 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2025/2025-0219.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12502;&#12525;&#12464;&#12398;&#20877;&#38283;<span class="keyword">
+</span> &#8211; 2025-02-19 &#27700; ROUTINEs <span class="org-checkbox-statistics-todo">[/]</span><span class="keyword">
+</span> &#8211; DONE  <span class="org-modern-date-active">2025-02-19 &#27700; </span><span class="org-modern-time-active"> 14:45 </span>  org-tangle&#12395;&#12388;&#12356;&#12390;&#35519;&#12409;&#12427;<span class="keyword">
+</span> &#8211; TODO  <span class="org-modern-date-active">2025-02-19 &#27700; </span><span class="org-modern-time-active"> 14:46 </span>  org&#25991;&#26360;&#12434;&#12456;&#12463;&#12473;&#12509;&#12540;&#12488;&#12377;&#12427;&#38555;&#12467;&#12513;&#12531;&#12488;&#12398;&#38750;&#34920;&#31034;&#21270;&#12398;&#26041;&#27861;&#12395;&#12388;&#12356;&#12390;&#35519;&#12409;&#12427;<span class="keyword">
+</span> &#8211; HTML&#21270;&#12377;&#12427; testcomment<span class="keyword">
+</span><span class="org-drawer">:end:</span><span class="keyword">
 
-<span class="org-meta-line">CALL: blog-menu(year="2023")</span>
+</span><span class="org-meta-line">CALL: blog-menu(year="2023")</span>
 
 <span class="org-meta-line">RESULTS:</span>
-<span class="org-drawer">:results:</span>
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0901.org.html">2023-09-01 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0901.org.html"> </a></span></span>
- &#8211; org-mode&#12398;&#12467;&#12513;&#12531;&#12488;
+<span class="org-drawer">:results:</span><span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0901.org.html">2023-09-01 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0901.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; org-mode&#12398;&#12467;&#12513;&#12531;&#12488;
  &#8211; ROUTINEs     <span class="org-modern-label">5/7     </span>
- &#8211; DONE  <span class="org-modern-date-active">2023-09-01 &#37329; </span><span class="org-modern-time-active"> 08:14 </span> &#27700;&#36963;&#12426; 
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0831.org.html">2023-08-31 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0831.org.html"> </a></span></span>
- &#8211; &#22303;&#12392;lisp :lisp:
+ &#8211; DONE  <span class="org-modern-date-active">2023-09-01 &#37329; </span><span class="org-modern-time-active"> 08:14 </span> &#27700;&#36963;&#12426; <span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0831.org.html">2023-08-31 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0831.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#22303;&#12392;lisp :lisp:
  &#8211; &#23494;&#26893; :agri:
  &#8211; ROUTINEs     <span class="org-modern-label">4/7     </span>
  &#8211; DONE  <span class="org-modern-date-active">2023-08-31 &#26408; </span><span class="org-modern-time-active"> 10:25 </span> &#30045;&#19968;&#26412;&#20316;&#12427; :agri:
  &#8211; DONE  <span class="org-modern-date-active">2023-08-31 &#26408; </span><span class="org-modern-time-active"> 10:26 </span> &#12468;&#12508;&#12454;&#25773;&#31278; :agri:
- &#8211; DONE  <span class="org-modern-date-active">2023-08-31 &#26408; </span><span class="org-modern-time-active"> 10:28 </span> &#30033;&#12398;&#27700;&#25746;&#12365; :agri:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0424.org.html">2023-04-23 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0424.org.html"> </a></span></span>
- &#8211; dpANS&#12398;org&#25991;&#26360;&#21270; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0330-2.org.html">2023-03-30 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0330-2.org.html"> </a></span></span>
- &#8211; &#20808;&#26085;&#12398;loop&#12398;named&#12377;&#12427;&#12363;&#12375;&#12394;&#12356;&#12363;&#12391;&#12398;&#25369;&#21205;&#12398;&#36949;&#12356;&#12395;&#12388;&#12356;&#12390; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0326-2.org.html">2023-03-26 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0326-2.org.html"> </a></span></span>
- &#8211; loop&#12398;&#12362;&#12363;&#12375;&#12394;&#25369;&#21205; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0324-2.org.html">2023-03-24 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0324-2.org.html"> </a></span></span>
- &#8211; &#37197;&#21015;&#12392;&#12495;&#12483;&#12471;&#12517;&#12486;&#12540;&#12502;&#12523;&#12398;&#36949;&#12356; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0227-2.org.html">2023-02-27 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0227-2.org.html"> </a></span></span>
- &#8211; &#26152;&#26085;&#12398;&#32154;&#12365; :lisp:
- &#8211; janet-lang&#12398;&#12452;&#12531;&#12473;&#12488;&#12540;&#12523; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0226-2.org.html">2023-02-26 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0226-2.org.html"> </a></span></span>
- &#8211; lisptea time&#12398;&#36074;&#21839;&#12398;&#12414;&#12392;&#12417; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0219-2.org.html">2023-02-19 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0219-2.org.html"> </a></span></span>
- &#8211; &#28271;&#12383;&#12435;&#12413;&#35441; :lifehack:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0214-2.org.html">2023-02-14 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0214-2.org.html"> </a></span></span>
- &#8211; the :lisp:
+ &#8211; DONE  <span class="org-modern-date-active">2023-08-31 &#26408; </span><span class="org-modern-time-active"> 10:28 </span> &#30033;&#12398;&#27700;&#25746;&#12365; :agri:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0424.org.html">2023-04-23 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0424.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; dpANS&#12398;org&#25991;&#26360;&#21270; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0330-2.org.html">2023-03-30 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0330-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#20808;&#26085;&#12398;loop&#12398;named&#12377;&#12427;&#12363;&#12375;&#12394;&#12356;&#12363;&#12391;&#12398;&#25369;&#21205;&#12398;&#36949;&#12356;&#12395;&#12388;&#12356;&#12390; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0326-2.org.html">2023-03-26 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0326-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; loop&#12398;&#12362;&#12363;&#12375;&#12394;&#25369;&#21205; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0324-2.org.html">2023-03-24 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0324-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#37197;&#21015;&#12392;&#12495;&#12483;&#12471;&#12517;&#12486;&#12540;&#12502;&#12523;&#12398;&#36949;&#12356; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0227-2.org.html">2023-02-27 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0227-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#26152;&#26085;&#12398;&#32154;&#12365; :lisp:
+ &#8211; janet-lang&#12398;&#12452;&#12531;&#12473;&#12488;&#12540;&#12523; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0226-2.org.html">2023-02-26 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0226-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; lisptea time&#12398;&#36074;&#21839;&#12398;&#12414;&#12392;&#12417; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0219-2.org.html">2023-02-19 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0219-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#28271;&#12383;&#12435;&#12413;&#35441; :lifehack:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2023/2023-0214-2.org.html">2023-02-14 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2023/2023-0214-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; the :lisp:
 <span class="org-drawer">:end:</span>
 
 <span class="org-meta-line">CALL: blog-menu(year="2022")</span>
 
 <span class="org-meta-line">RESULTS:</span>
-<span class="org-drawer">:results:</span>
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1228-2.org.html">2022-12-28 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1228-2.org.html"> </a></span></span>
- &#8211; &#39173;&#12388;&#12365;
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1226-2.org.html">2022-12-26 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1226-2.org.html"> </a></span></span>
- &#8211; &#21315;&#27503;&#25201;&#12365;&#21021;&#20307;&#39443; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1217-2.org.html">2022-12-17 &#22303;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1217-2.org.html"> </a></span></span>
- &#8211; &#12469;&#12484;&#12510;&#12452;&#12514;&#23436;&#39135; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1213-2.org.html">2022-12-13 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1213-2.org.html"> </a></span></span>
- &#8211; &#29483;&#29992;&#20986;&#20837;&#12426;&#21475;&#12434;&#20316;&#12427; :diy:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1210-2.org.html">2022-12-10 &#22303;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1210-2.org.html"> </a></span></span>
- &#8211; ubuntu&#12398;&#20462;&#24489;&#20316;&#26989;
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1207-2.org.html">2022-12-07 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1207-2.org.html"> </a></span></span>
- &#8211; org-mode&#24489;&#24112;
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1203-2.org.html">2022-12-03</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1203-2.org.html"> </a></span></span>
- &#8211; &#12459;&#12502;&#12398;&#28023;&#27700;&#28460;&#12369; :cooking:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1130-2.org.html">2022-11-30 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1130-2.org.html"> </a></span></span>
- &#8211; menu&#34920;&#31034;&#27231;&#33021;&#12434;&#20316;&#12387;&#12390;&#12415;&#12383; :dev:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1127-2.org.html">2022-11-27 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1127-2.org.html"> </a></span></span>
- &#8211; &#37324;&#33419;&#12398;&#21454;&#31339; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1115-2.org.html">2022-11-15 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1115-2.org.html"> </a></span></span>
- &#8211; &#12481;&#12455;&#12540;&#12531;&#12477;&#12540;&#12434;&#35430;&#12377; :forestry:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1114-2.org.html">2022-11-14 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1114-2.org.html"> </a></span></span>
- &#8211; jscl&#12434;&#20837;&#12428;&#12390;&#12415;&#12383; :lisp:
- &#8211; &#12371;&#12398;&#12502;&#12525;&#12464;&#12398;&#22312;&#12426;&#26041;&#12395;&#12388;&#12356;&#12390;
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1030-2.org.html">2022-10-30 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1030-2.org.html"> </a></span></span>
- &#8211; &#26408;&#12434;&#20999;&#12427; :forestry:
- &#8211; subst&#12392;sublis :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1028-2.org.html">2022-10-28 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1028-2.org.html"> </a></span></span>
- &#8211; &#26408;&#12434;&#20999;&#12427; :forestry:
- &#8211; &#32789;&#36939;&#27231;&#12434;&#38914;&#12367; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1027-2.org.html">2022-10-27 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1027-2.org.html"> </a></span></span>
- &#8211; aws&#12395;lisp&#12434;&#12452;&#12531;&#12473;&#12488;&#12540;&#12523; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1026-2.org.html">2022-10-26 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1026-2.org.html"> </a></span></span>
- &#8211; &#12450;&#12473;&#12497;&#12521;&#12460;&#12473;&#12392;&#20154;&#21442;&#12398;&#25773;&#31278; :agriculture:
- &#8211; &#12502;&#12525;&#12464;&#36939;&#29992;&#12391;&#12398;&#21839;&#38988;&#28857; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1024-2.org.html">2022-10-24 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1024-2.org.html"> </a></span></span>
- &#8211; &#38894;&#12289;&#38738;&#32043;&#34311;&#12289;&#21335;&#29916;&#12289;&#34217;&#25705;&#33419;&#12289;&#33853;&#33457;&#29983;&#12289;&#40658;&#35910;&#12289;&#38738;&#22823;&#35910;&#12289;&#40658;&#12373;&#12373;&#12370;&#12289;&#12474;&#12483;&#12461;&#12540;&#12491; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1020-2.org.html">2022-10-20 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1020-2.org.html"> </a></span></span>
- &#8211; &#12521;&#12483;&#12459;&#12475;&#12452;&#12398;&#21454;&#31339; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1019-2.org.html">2022-10-19 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1019-2.org.html"> </a></span></span>
- &#8211; &#12463;&#12525;&#12510;&#12513;&#12289;&#12450;&#12458;&#12480;&#12452;&#12474;&#12289;&#12463;&#12525;&#12469;&#12469;&#12466;&#21454;&#31339; :agriculture:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0930-2.org.html">2022-09-30 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0930-2.org.html"> </a></span></span>
- &#8211; fusion! :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0927-2.org.html">2022-09-27 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0927-2.org.html"> </a></span></span>
- &#8211; common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563;2
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0916-2.org.html">2022-09-16 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0916-2.org.html"> </a></span></span>
- &#8211; &#25105;&#12364;&#23478;&#12398;lisp&#26412; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0914-2.org.html">2022-09-14 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0914-2.org.html"> </a></span></span>
- &#8211; &#31354;&#33455;&#33756;&#12398;&#21454;&#31339; :agriculture:
- &#8211; common-lisp&#12391;fizzbuzz :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0913-2.org.html">2022-09-13 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0913-2.org.html"> </a></span></span>
- &#8211; &#26368;&#36817;&#12398;lisp&#31995;&#12398;&#20670;&#21521;&#12395;&#12388;&#12356;&#12390;&#24605;&#12358;&#20107;&#12290; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0912-2.org.html">2022-09-12 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0912-2.org.html"> </a></span></span>
- &#8211; &#12371;&#12398;&#12502;&#12525;&#12464;&#12398;&#12371;&#12428;&#12363;&#12425;&#12398;&#22312;&#12426;&#26041; :dev:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0910-2.org.html">2022-09-10 &#22303;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0910-2.org.html"> </a></span></span>
- &#8211; common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0909-2.org.html">2022-09-09 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0909-2.org.html"> </a></span></span>
- &#8211; &#12394;&#12380;markdown&#24418;&#24335;&#12391;&#12399;&#12394;&#12367;org-mode&#24418;&#24335;&#12391;&#26360;&#12367;&#12398;&#12363;&#65311; :lisp:
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0908-2.html">2022-09-08 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0908-2.html"> org-mode&#12395;&#12424;&#12427;github pages&#12398;&#20316;&#25104;&#65298; </a></span></span>
- &#8211; &#12354;&#12428;&#12363;&#12425; 
+<span class="org-drawer">:results:</span><span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1228-2.org.html">2022-12-28 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1228-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#39173;&#12388;&#12365;<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1226-2.org.html">2022-12-26 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1226-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#21315;&#27503;&#25201;&#12365;&#21021;&#20307;&#39443; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1217-2.org.html">2022-12-17 &#22303;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1217-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12469;&#12484;&#12510;&#12452;&#12514;&#23436;&#39135; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1213-2.org.html">2022-12-13 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1213-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#29483;&#29992;&#20986;&#20837;&#12426;&#21475;&#12434;&#20316;&#12427; :diy:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1210-2.org.html">2022-12-10 &#22303;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1210-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; ubuntu&#12398;&#20462;&#24489;&#20316;&#26989;<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1207-2.org.html">2022-12-07 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1207-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; org-mode&#24489;&#24112;<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1203-2.org.html">2022-12-03</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1203-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12459;&#12502;&#12398;&#28023;&#27700;&#28460;&#12369; :cooking:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1130-2.org.html">2022-11-30 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1130-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; menu&#34920;&#31034;&#27231;&#33021;&#12434;&#20316;&#12387;&#12390;&#12415;&#12383; :dev:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1127-2.org.html">2022-11-27 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1127-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#37324;&#33419;&#12398;&#21454;&#31339; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1115-2.org.html">2022-11-15 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1115-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12481;&#12455;&#12540;&#12531;&#12477;&#12540;&#12434;&#35430;&#12377; :forestry:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1114-2.org.html">2022-11-14 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1114-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; jscl&#12434;&#20837;&#12428;&#12390;&#12415;&#12383; :lisp:
+ &#8211; &#12371;&#12398;&#12502;&#12525;&#12464;&#12398;&#22312;&#12426;&#26041;&#12395;&#12388;&#12356;&#12390;<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1030-2.org.html">2022-10-30 &#26085;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1030-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#26408;&#12434;&#20999;&#12427; :forestry:
+ &#8211; subst&#12392;sublis :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1028-2.org.html">2022-10-28 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1028-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#26408;&#12434;&#20999;&#12427; :forestry:
+ &#8211; &#32789;&#36939;&#27231;&#12434;&#38914;&#12367; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1027-2.org.html">2022-10-27 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1027-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; aws&#12395;lisp&#12434;&#12452;&#12531;&#12473;&#12488;&#12540;&#12523; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1026-2.org.html">2022-10-26 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1026-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12450;&#12473;&#12497;&#12521;&#12460;&#12473;&#12392;&#20154;&#21442;&#12398;&#25773;&#31278; :agriculture:
+ &#8211; &#12502;&#12525;&#12464;&#36939;&#29992;&#12391;&#12398;&#21839;&#38988;&#28857; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1024-2.org.html">2022-10-24 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1024-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#38894;&#12289;&#38738;&#32043;&#34311;&#12289;&#21335;&#29916;&#12289;&#34217;&#25705;&#33419;&#12289;&#33853;&#33457;&#29983;&#12289;&#40658;&#35910;&#12289;&#38738;&#22823;&#35910;&#12289;&#40658;&#12373;&#12373;&#12370;&#12289;&#12474;&#12483;&#12461;&#12540;&#12491; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1020-2.org.html">2022-10-20 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1020-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12521;&#12483;&#12459;&#12475;&#12452;&#12398;&#21454;&#31339; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-1019-2.org.html">2022-10-19 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-1019-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12463;&#12525;&#12510;&#12513;&#12289;&#12450;&#12458;&#12480;&#12452;&#12474;&#12289;&#12463;&#12525;&#12469;&#12469;&#12466;&#21454;&#31339; :agriculture:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0930-2.org.html">2022-09-30 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0930-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; fusion! :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0927-2.org.html">2022-09-27 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0927-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563;2<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0916-2.org.html">2022-09-16 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0916-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#25105;&#12364;&#23478;&#12398;lisp&#26412; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0914-2.org.html">2022-09-14 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0914-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#31354;&#33455;&#33756;&#12398;&#21454;&#31339; :agriculture:
+ &#8211; common-lisp&#12391;fizzbuzz :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0913-2.org.html">2022-09-13 &#28779;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0913-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#26368;&#36817;&#12398;lisp&#31995;&#12398;&#20670;&#21521;&#12395;&#12388;&#12356;&#12390;&#24605;&#12358;&#20107;&#12290; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0912-2.org.html">2022-09-12 &#26376;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0912-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12371;&#12398;&#12502;&#12525;&#12464;&#12398;&#12371;&#12428;&#12363;&#12425;&#12398;&#22312;&#12426;&#26041; :dev:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0910-2.org.html">2022-09-10 &#22303;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0910-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; common lisp&#12391;&#12398;&#25991;&#23383;&#21015;&#32622;&#25563; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0909-2.org.html">2022-09-09 &#37329;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0909-2.org.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12394;&#12380;markdown&#24418;&#24335;&#12391;&#12399;&#12394;&#12367;org-mode&#24418;&#24335;&#12391;&#26360;&#12367;&#12398;&#12363;&#65311; :lisp:<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0908-2.html">2022-09-08 &#26408;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0908-2.html"> org-mode&#12395;&#12424;&#12427;github pages&#12398;&#20316;&#25104;&#65298;</a><a href="./2022/2022-0908-2.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#12354;&#12428;&#12363;&#12425; 
  &#8211; vim&#12395;&#12424;&#12427;html&#21270;
  &#8211; emacs&#12391;&#12398;html&#21270;
  &#8211; emacs&#12398;&#37197;&#33394;&#35373;&#23450;
  &#8211; &#26368;&#21021;&#12399;
  &#8211; org-babel&#12398;&#21839;&#38988;&#28857;
- &#8211; &#12362;&#12431;&#12426;
-&#9661;<span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0907-2.html">2022-09-07 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0907-2.html"> org-mode&#12391;github pages&#12398;&#12469;&#12452;&#12488;&#12434;&#20316;&#12427; </a></span></span>
- &#8211; &#20491;&#20154;blog&#12398;&#20316;&#25104;
+ &#8211; &#12362;&#12431;&#12426;<span class="keyword">
+&#9661;</span><span class="org-level-2"> </span><span class="org-level-2"><span class="org-link"> </span></span><span class="org-modern-date-inactive"><a href="./2022/2022-0907-2.html">2022-09-07 &#27700;</a> </span><span class="org-level-2"><span class="org-link"><a href="./2022/2022-0907-2.html"> org-mode&#12391;github pages&#12398;&#12469;&#12452;&#12488;&#12434;&#20316;&#12427;</a><a href="./2022/2022-0907-2.html"> </a></span></span><span class="keyword">
+</span> &#8211; &#20491;&#20154;blog&#12398;&#20316;&#25104;
  &#8211; org&#12501;&#12449;&#12452;&#12523;&#12398;html&#21270;&#12398;&#26041;&#27861;
  &#8211; &#21839;&#38988;&#28857;
 <span class="org-drawer">:end:</span>
