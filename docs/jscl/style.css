@@ -1,5 +1,5 @@
 /* The console container element */
-body { background-color: #000b00; font-size: 16px; font-family: Courier; overflow: hidden; padding: 0 0 0 0;}
+body { background-color: black; font-size: 16px; font-family: Courier; overflow: hidden; padding: 0 0 0 0;}
 
 #console {
     position: absolute;
@@ -7,7 +7,7 @@ body { background-color: #000b00; font-size: 16px; font-family: Courier; overflo
     bottom: 0px;
     left: 0px;
     right: 0px;
-    background-color:#000b00;
+    background-color:black;
 }
 
 .parents {
@@ -28,29 +28,29 @@ body { background-color: #000b00; font-size: 16px; font-family: Courier; overflo
 }
 /* The current prompt text color */
 .jqconsole-prompt {
-    color: #F39800;
+    color: White;
 }
 /* The command history */
 .jqconsole-old-prompt {
-    color: #ffffd9;
+    color: White;
     font-weight: normal;
 }
 /* The text color when in input mode. */
 .jqconsole-input {
-    color: #ffffd9;
+    color: White;
 }
 /* Previously entered input. */
 .jqconsole-old-input {
-    color: #ffffd9;
+    color: White;
     font-weight: normal;
 }
 /* The text color of the output. */
 .jqconsole-output {
-    color: #89c3eb;
+    color: green;
 }
 .jqconsole-return, .jqconsole-header {
-    color: #f0908d;
+    color: gray;
 }
 .jqconsole-error {
-    color: #d9333f;
+    color: red;
 }

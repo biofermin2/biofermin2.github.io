@@ -33,8 +33,8 @@ var jscl = Object.create(null);
 
 if (typeof module !== 'undefined')
   module.exports = jscl;
-else if (typeof window !== 'undefined')
-  window.jscl = jscl;
+else if (typeof self !== 'undefined')
+  self.jscl = jscl;
 
 
 var internals = jscl.internals = Object.create(null);
@@ -464,7 +464,7 @@ function runCommonLispScripts() {
             continue;
         }
 
-        if("src" in documentScripts[i]) {
+        if("src" in documentScripts[i] && documentScripts[i].src.length != 0) {
             script = {
                 executed: false,
                 error: false,

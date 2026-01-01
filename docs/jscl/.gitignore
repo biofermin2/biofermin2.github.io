@@ -5,6 +5,7 @@
 *.wx64fsl
 *.lib
 \#*
+jscl.js
 tests.js
 .tmp/
 
