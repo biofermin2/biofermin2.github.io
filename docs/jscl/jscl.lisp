@@ -78,6 +78,16 @@
     ("hash-table"    :target)
     ("types-prelude" :both)
     ("types"         :target)
+    ("ansiloop"
+     ("ansi-loop"    :both))
+    ("stream"        :target)
+    ("print"         :target)
+    ("misc"          :target)
+    ("read"          :both)
+    ("backquote"     :both)
+    ("compiler"
+     ("codegen"      :both)
+     ("compiler"     :both))
     ("clos"
      ("kludges"       :target)
      ("std-object"    :target)
@@ -88,18 +98,8 @@
      ("macros"        :target)
      ("methods"       :target))
     ("conditions"    :target)
-    ("ansiloop"
-     ("ansi-loop"    :both))
     ("structures"    :both)
-    ("stream"        :target)
-    ("print"         :target)
-    ("misc"          :target)
-    ("format"        :target)
-    ("read"          :both)
-    ("backquote"     :both)
-    ("compiler"
-     ("codegen"      :both)
-     ("compiler"     :both))
+    ("format"        :both)
     ("documentation" :target)
     ("worker"        :target)
     ("clos"
@@ -180,7 +180,10 @@
     (dolist (b (lexenv-function *environment*))
       (when (eq (binding-type b) 'macro)
         (setf (binding-value b) `(,*magic-unquote-marker* ,(binding-value b)))))
-    (late-compile `(setq *environment* ',*environment*))
+    (late-compile
+     `(progn
+        (setq *environment* ',*environment*)
+        (setq *global-environment* *environment*)))
     ;; Set some counter variable properly, so user compiled code will
     ;; not collide with the compiler itself.
     (late-compile
@@ -192,7 +195,8 @@
 
 
 (defun compile-application (files output &key shebang)
-  (with-compilation-environment
+  (let ((*features* (list :jscl :jscl-xc)))
+    (with-compilation-environment
       (with-open-file (out output :direction :output :if-exists :supersede)
         (when shebang
           (format out "#!/usr/bin/env node~%"))
@@ -202,15 +206,17 @@
         (dolist (input files)
           (!compile-file input out))
         (format out "})(jscl.internals.pv, jscl.internals);~%")
-        (format out "})( typeof require !== 'undefined'? require('./jscl'): window.jscl )~%"))))
+        (format out "})( typeof require !== 'undefined'? require('./jscl'): window.jscl )~%")))))
 
 
 
 (defun bootstrap (&optional verbose)
-  (let ((*features* (list* :jscl :jscl-xc *features*))
+  (let ((*features* (list :jscl :jscl-xc))
         (*package* (find-package "JSCL"))
         (*default-pathname-defaults* *base-directory*))
     (setq *environment* (make-lexenv))
+    (setq *global-environment* *environment*)
+    (setq *fn-info* '())
     (with-compilation-environment
       (with-open-file (out (merge-pathnames "jscl.js" *base-directory*)
                            :direction :output

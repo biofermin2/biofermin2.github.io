@@ -37,20 +37,20 @@
 
 (defun web-worker-repl ()
   (loop
-     (let ((*web-worker-output-class* "jqconsole-prompt"))
-       (format t "~a> " (package-name *package*)))
+    (let ((*web-worker-output-class* "jqconsole-prompt"))
+       (format t "~a> " (package-name-for-prompt *package*)))
      (%js-try
       (progn
         (handler-case
             (let ((results (multiple-value-list
                             (eval-interactive (read)))))
               (dolist (result results)
-                (print result)))
+                (prin1 result)
+                (terpri)))
           (error (err)
             (let ((*web-worker-output-class* "jqconsole-error"))
               (clear-buffer)
-              (format t "ERROR: ")
-              (apply #'format t (!condition-args err))
+              (format t "~A: ~A" (class-name (class-of err)) err)
               (terpri)))))
       (catch (err)
         (let (((*web-worker-output-class* "jqconsole-error"))
@@ -107,7 +107,9 @@
 
 (defun initialize-web-worker ()
   (setq *standard-output*
-        (make-stream :write-fn #'%web-worker-write-string))
+        (make-stream :write-fn #'%web-worker-write-string)
+        *error-output* *standard-output*
+        *trace-output* *standard-output*)
 
   (setq *standard-input*
         (make-stream

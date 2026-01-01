@@ -14,7 +14,18 @@
 ;; along with JSCL.  If not, see <http://www.gnu.org/licenses/>.
 (/debug "loading symbol.lisp!")
 
+(defun make-symbol (name)
+  (make-symbol name))
+
 (defun symbolp (x) (symbolp x))
+
+(defvar *gentemp-counter* 0)
+(defun gentemp (&optional (prefix "T") (package *package*))
+  "Creates a new symbol interned in package PACKAGE with the given PREFIX."
+  (while t
+    (multiple-value-bind (sym accessibility)
+        (intern (concat prefix (integer-to-string *gensym-counter*)) package)
+      (unless accessibility (return sym)))))
 
 (defun symbol-plist (x)
   (cond
@@ -50,3 +61,22 @@
   (symbol-function symbol))
 
 (defsetf symbol-function fset)
+
+(defun symbol-value (symbol)
+  (symbol-value symbol))
+
+(defsetf symbol-value set)
+
+(defun copy-symbol (symbol &optional copy-props)
+  (unless (symbolp symbol)
+    (error "`~a' is not a symbol." symbol))
+  (cond (copy-props
+         (let ((new-symbol (make-symbol (string symbol))))
+           (when (boundp symbol)
+             (setf (symbol-value new-symbol) (symbol-value symbol)))
+           (when (fboundp symbol)
+             (setf (symbol-function new-symbol) (symbol-function symbol)))
+           (setf (symbol-plist new-symbol) (copy-list (symbol-plist symbol)))
+           new-symbol))
+        (t
+         (make-symbol (string symbol)))))

@@ -1,0 +1,63 @@
+name: Auto Build & Deploy Jekyll Blog
+
+# トリガー設定
+on:
+  push:
+    branches:
+      - main  # mainブランチにpushされたら実行
+  schedule:
+    - cron: "0 18 * * *"  # 毎日日本時間 03:00 に自動実行（UTC+9）
+  workflow_dispatch: # 手動でも実行可能
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリの内容を取得
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Ruby環境をセットアップ
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'   # Jekyll推奨Ruby
+          bundler-cache: true   # bundle install のキャッシュ有効化
+
+      # 3. 依存ライブラリをインストール
+      - name: Install dependencies
+        run: bundle install
+
+      # 4. Jekyllサイトをビルド
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
+
+      # 5. 自動記事生成（オプション）
+      - name: Generate daily post
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          POST_FILE="_posts/${DATE}-auto.md"
+          if [ ! -f "$POST_FILE" ]; then
+            echo "---" > "$POST_FILE"
+            echo "layout: post" >> "$POST_FILE"
+            echo "title: 'Auto Update ${DATE}'" >> "$POST_FILE"
+            echo "---" >> "$POST_FILE"
+            echo "This is an automatic daily update." >> "$POST_FILE"
+          fi
+
+      # 6. 変更をコミット＆プッシュ
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts/
+          git commit -m "Auto update post: ${DATE}" || echo "No changes to commit"
+          git push
+
+      # 7. GitHub Pages にデプロイ
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site

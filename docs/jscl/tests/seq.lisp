@@ -27,8 +27,24 @@
 ;;; FIND
 (test (find 1 #(2 1 3)))
 (test (find 1 '(2 1 3)))
+(test (find 1 '(2 1 3) :start 1))
+(test (find 1 '(2 1 3) :end 2))
+(test (find 1 #(2 1 3) :start 1))
+(test (find 1 #(2 1 3) :end 2))
+(test (find 1 '(2 1 3) :start 1 :from-end t))
+(test (find 1 '(2 1 3) :end 2 :from-end t))
+(test (find 1 #(2 1 3) :start 1 :from-end t))
+(test (find 1 #(2 1 3) :end 2 :from-end t))
 (test (not (find 1 #(2 2 2))))
 (test (not (find 1 '(2 2 2))))
+(test (not (find 1 '(2 1 3) :start 2)))
+(test (not (find 1 '(2 1 3) :end 1)))
+(test (not (find 1 #(2 1 3) :start 2)))
+(test (not (find 1 #(2 1 3) :end 1)))
+(test (not (find 1 '(2 1 3) :start 2 :from-end t)))
+(test (not (find 1 '(2 1 3) :end 1 :from-end t)))
+(test (not (find 1 #(2 1 3) :start 2 :from-end t)))
+(test (not (find 1 #(2 1 3) :end 1 :from-end t)))
 (test (not (find 1 #(1 1 1) :test-not #'=)))
 (test (not (find 1 '(1 1 1) :test-not #'=)))
 (test (not (find 1 #(1 2 3) :key double)))
@@ -39,11 +55,54 @@
 (test (not (find 1 (remove 1 '(1 2 3 1)))))
 (test (not (find 2 (remove 1 #(1 2 3 1) :key halve))))
 (test (not (find 2 (remove 1 '(1 2 3 1) :key halve))))
-;;; TODO: Rewrite this test when EQUALP exists and works on vectors
-(test (equal (length (remove '(1 2) #((1 2) (1 2)) :test #'equal)) 0))
+(test (equalp #() (remove '(1 2) #((1 2) (1 2)) :test #'equal)))
 (test (null          (remove '(1 2) '((1 2) (1 2)) :test #'equal)))
 (test (find 2 (remove 2 #(1 2 3) :test-not #'=)))
 (test (find 2 (remove 2 '(1 2 3) :test-not #'=)))
+(test (equal '(1 2 3 1) (remove 1 '(1 2 3 1) :count 0)))
+(test (equal '(2 3 1) (remove 1 '(1 2 3 1) :count 1)))
+(test (equal '(2 3) (remove 1 '(1 2 3 1) :count 2)))
+(test (equal '(1 2 3 2 1) (remove 1 '(1 2 3 1 1 2 1) :start 3 :end 5)))
+(test (equal '(1 2 3 1 2 1) (remove 1 '(1 2 3 1 1 2 1) :start 3 :end 5 :count 1)))
+(test (equal '(1 2 3 2 1) (remove 1 '(1 2 3 1 1 2 1) :start 3 :end 5 :count 2)))
+(test (equal '(1 2 3 2 3) (remove 1 '(1 2 3 1 1 2 3) :start 3)))
+(test (equal '(1 2 3 1 2 3) (remove 1 '(1 2 3 1 1 2 3) :start 3 :count 1)))
+(test (equal '(1 2 3 2 3) (remove 1 '(1 2 3 1 1 2 3) :start 3 :count 2)))
+(test (equal '(1 2 3 2 3) (remove 1 '(1 2 3 1 1 2 3) :start 3 :end 5)))
+
+(test (equal "1231" (remove #\1 "1231" :count 0)))
+(test (equal "231" (remove #\1 "1231" :count 1)))
+(test (equal "23" (remove #\1 "1231" :count 2)))
+(test (equal "12321" (remove #\1 "1231121" :start 3 :end 5)))
+(test (equal "123121" (remove #\1 "1231121" :start 3 :end 5 :count 1)))
+(test (equal "12321" (remove #\1 "1231121" :start 3 :end 5 :count 2)))
+
+;;; DELETE
+(test (not (find 1 (delete 1 (vector 1 2 3 1)))))
+(test (not (find 1 (delete 1 (list 1 2 3 1)))))
+(test (not (find 2 (delete 1 (vector 1 2 3 1) :key halve))))
+(test (not (find 2 (delete 1 (list 1 2 3 1) :key halve))))
+(test (equalp #() (delete '(1 2) (vector '(1 2) '(1 2)) :test #'equal)))
+(test (null (delete '(1 2) (list '(1 2) '(1 2)) :test #'equal)))
+(test (find 2 (delete 2 (vector 1 2 3) :test-not #'=)))
+(test (find 2 (delete 2 (list 1 2 3) :test-not #'=)))
+(test (equal '(1 2 3 1) (delete 1 (list 1 2 3 1) :count 0)))
+(test (equal '(2 3 1) (delete 1 (list 1 2 3 1) :count 1)))
+(test (equal '(2 3) (delete 1 (list 1 2 3 1) :count 2)))
+(test (equal '(1 2 3 2 1) (delete 1 (list 1 2 3 1 1 2 1) :start 3 :end 5)))
+(test (equal '(1 2 3 1 2 1) (delete 1 (list 1 2 3 1 1 2 1) :start 3 :end 5 :count 1)))
+(test (equal '(1 2 3 2 1) (delete 1 (list 1 2 3 1 1 2 1) :start 3 :end 5 :count 2)))
+(test (equal '(1 2 3 2 3) (delete 1 (list 1 2 3 1 1 2 3) :start 3)))
+(test (equal '(1 2 3 1 2 3) (delete 1 (list 1 2 3 1 1 2 3) :start 3 :count 1)))
+(test (equal '(1 2 3 2 3) (delete 1 (list 1 2 3 1 1 2 3) :start 3 :count 2)))
+(test (equal '(1 2 3 2 3) (delete 1 (list 1 2 3 1 1 2 3) :start 3 :end 5)))
+
+(test (equal "1231" (delete #\1 (copy-seq "1231") :count 0)))
+(test (equal "231" (delete #\1 (copy-seq "1231") :count 1)))
+(test (equal "23" (delete #\1 (copy-seq "1231") :count 2)))
+(test (equal "12321" (delete #\1 (copy-seq "1231121") :start 3 :end 5)))
+(test (equal "123121" (delete #\1 (copy-seq "1231121") :start 3 :end 5 :count 1)))
+(test (equal "12321" (delete #\1 (copy-seq "1231121") :start 3 :end 5 :count 2)))
 
 ;;; SUBSTITUTE
 (test (equal (substitute #\_ #\- "Hello-World") "Hello_World"))
@@ -51,9 +110,17 @@
 (test (equal (substitute 99 3 '(1 2 3 4)) '(1 2 99 4)))
 (test (equal (substitute 99 3 '(1 2 3 4) :test #'<=) '(1 2 99 99)))
 
-;;; This test fails expectely as you can't compare vectors with equal.
-#+nil
-(test (equal (substitute 99 3 #(1 2 3 4) :test #'<=) #(1 2 99 99)))
+(test (equal '(1 2 3 1) (substitute 99 1 '(1 2 3 1) :count 0)))
+(test (equal '(99 2 3 1) (substitute 99 1 '(1 2 3 1) :count 1)))
+(test (equal '(99 2 3 99) (substitute 99 1 '(1 2 3 1) :count 2)))
+(test (equal '(1 2 3 99 99 2 1) (substitute 99 1 '(1 2 3 1 1 2 1) :start 3 :end 5)))
+(test (equal '(1 2 3 99 1 2 1) (substitute 99 1 '(1 2 3 1 1 2 1) :start 3 :end 5 :count 1)))
+(test (equal '(1 2 3 99 99 2 1) (substitute 99 1 '(1 2 3 1 1 2 1) :start 3 :end 5 :count 2)))
+(test (equal '(1 2 3 99 99 2 3) (substitute 99 1 '(1 2 3 1 1 2 3) :start 3)))
+(test (equal '(1 2 3 99 1 2 3) (substitute 99 1 '(1 2 3 1 1 2 3) :start 3 :count 1)))
+(test (equal '(1 2 3 99 99 2 3) (substitute 99 1 '(1 2 3 1 1 2 3) :start 3 :count 2)))
+(test (equal '(1 2 3 99 99 2 3) (substitute 99 1 '(1 2 3 1 1 2 3) :start 3 :end 5)))
+(test (equalp (substitute 99 3 #(1 2 3 4) :test #'<=) #(1 2 99 99)))
 
 ;;; POSITION
 (test (= (position 1 #(1 2 3))  0))
@@ -71,6 +138,10 @@
 (test (= (position 1 '(1 1 3) :from-end nil) 0))
 (test (= (position 1 '(1 1 3) :from-end t) 1))
 (test (= (position #\a "baobab" :from-end t) 4))
+(test (= (position 1 '(1 2 3 1) :start 1) 3))
+(test (not (position 1 '(2 2 3 1) :end 3)))
+(test (= (position 1 '(1 1 3 1) :start 1 :from-end t) 3))
+(test (= (position 1 '(1 3 1 1) :end 3 :from-end t) 2))
 
 ;;; POSITION-IF, POSITION-IF-NOT
 (test (= 2 (position-if #'oddp '((1) (2) (3) (4)) :start 1 :key #'car)))
@@ -79,12 +150,36 @@
 (test (= 4 (position-if-not #'integerp '(1 2 3 4 X Y))))  ;; (hyperspec example used "5.0", but we don't have a full numeric tower yet!)
 (test (= 5 (position-if-not #'integerp '(1 2 3 4 X Y) :from-end t)))
 
+;;; SOME. EVERY
+(test (eql nil (some #'identity nil)))
+(test (eql nil (some #'identity '(nil nil))))
+(test (eql 1 (some #'identity '(nil 1))))
+(test (eql 1 (some #'identity '(1 2))))
+(test (eql 2 (some (lambda (a b) (or a b)) '(nil nil 3) '(nil 2 3))))
+(test (eql nil (every #'identity '(1 nil))))
+(test (eql nil (every #'identity '(nil 1))))
+(test (eql t (every #'identity '(1 2 3))))
+(test (eql t (every #'identity nil)))
+
+;;; NOTANY, NOTEVERY
+(test (eql t (notany #'identity nil)))
+(test (eql t (notany #'identity '(nil nil))))
+(test (eql nil (notany #'identity '(nil 1))))
+(test (eql nil (notany #'identity '(1 2))))
+(test (eql nil (notany (lambda (a b) (or a b)) '(nil nil 3) '(nil 2 3))))
+(test (eql t (notevery #'identity '(1 nil))))
+(test (eql t (notevery #'identity '(nil 1))))
+(test (eql nil (notevery #'identity '(1 2 3))))
+(test (eql nil (notevery #'identity nil)))
+
 ;;; REMOVE-IF
 (test (equal (remove-if     #'zerop '(1 0 2 0 3)) '(1 2 3)))
 (test (equal (remove-if-not #'zerop '(1 0 2 0 3)) '(0 0)))
-;;; TODO: Rewrite these tests when EQUALP exists and works on vectors
-(let ((v1 (remove-if #'zerop #(1 0 2 0 3))))
-  (test (and (= (aref v1 0) 1) (= (aref v1 1) 2) (= (aref v1 2) 3)))) 
+(test (equalp #(1 2 3) (remove-if #'zerop #(1 0 2 0 3))))
+(test (equal (remove-if     #'zerop '(1 0 2 0 3) :start 3) '(1 0 2 3)))
+(test (equal (remove-if-not #'zerop '(1 0 2 0 3) :start 3) '(1 0 2 0)))
+(test (equal (remove-if     #'zerop '(1 0 2 0 3) :end 3) '(1 2 0 3)))
+(test (equal (remove-if-not #'zerop '(1 0 2 0 3) :end 3) '(0 0 3)))
 (test (every #'zerop (remove-if-not #'zerop #(1 0 2 0 3))))
 
 ;;; SUBSEQ
@@ -94,12 +189,26 @@
   ;; Test that nums hasn't been altered: SUBSEQ should construct fresh lists
   (test (equal nums '(1 2 3 4 5))))
 
+;;; SETF with SUBSEQ
+(test (let ((list (list 0 1 2 3 4 5)))
+        (setf (subseq list 4) '(a b c))
+        (equal list '(0 1 2 3 a b))))
+(test (let ((list (list 0 1 2 3 4 5)))
+        (setf (subseq list 0 2) '(a))
+        (equal list '(a 1 2 3 4 5))))
+(test (let ((str (copy-seq "012345")))
+        (setf (subseq str 4) "abc")
+        (equal str "0123ab")))
+(test (let ((str (copy-seq "012345")))
+        (setf (subseq str 0 2) "A")
+        (equal str "A12345")))
+
 ;;; REVERSE
 (test (eq (reverse nil) nil))
 (test (equal (reverse '(a b c)) '(c b a)))
 ;;; FIXME: When replace the following two cases when implemented.
 (test (zerop (length (reverse #()))))
-;;; (test (equalp (reverse #(a b c)) #(c b a)))
+(test (equalp (reverse #(a b c)) #(c b a)))
 (let ((xs (reverse #(a b c)))
       (pattern #(c b a)))
   (test (equal (aref xs 0) (aref pattern 0)))
@@ -142,6 +251,8 @@
                        #(1 2 3 4) :start 2 :end 3)))
 
 (test (equal (reduce #'cons '(1) :initial-value 0) '(0 . 1)))
+
+(test (equal 6 (reduce #'+ '("123" "456") :key #'length)))
 
 ;;; The following tests reduced reduce were copied from ANSI CL TESTS.
 (test (equal (reduce #'cons '(a b c d e f) :start 1 :end 4 :from-end t)
@@ -276,6 +387,8 @@
 	(result (null (map nil (lambda (x) (push x acc)) '(1 2 3)))))
    (list acc result))
  '((3 2 1) t))
+
+(test (equal '(3) (array-dimensions (map 'vector #'identity '(1 2 3)))))
  
 ;;; CONCATENATE
 (test-equal
@@ -298,25 +411,87 @@
 
 
 ;;; REMOVE-DUPLICATES
-(test 
- (equal
-  (list
-   (equal (remove-duplicates "aBcDAbCd" :test #'char-equal :from-end t) "aBcD")
-   (equal (remove-duplicates '(a b c b d d e)) '(A C B D E))
-   (equal (remove-duplicates '(a b c b d d e) :from-end t) '(A B C D E))
-   (equal (remove-duplicates '((foo #\a) (bar #\%) (baz #\A))
-                             :test #'char-equal :key #'cadr) '((BAR #\%) (BAZ #\A)))
-   (equal (remove-duplicates '((foo #\a) (bar #\%) (baz #\A)) 
-                             :test #'char-equal :key #'cadr :from-end t) '((FOO #\a) (BAR #\%))))
-  (list t t t t t)))
+(test (equal (remove-duplicates "aBcDAbCd" :test #'char-equal :from-end t) "aBcD"))
+(test (equal (remove-duplicates '(a b c b d d e)) '(A C B D E)))
+(test (equal (remove-duplicates '(a b c b d d e) :from-end t) '(A B C D E)))
+(test (equal (remove-duplicates '((foo #\a) (bar #\%) (baz #\A))
+                                :test #'char-equal :key #'cadr)
+             '((BAR #\%) (BAZ #\A))))
+(test (equal (remove-duplicates '((foo #\a) (bar #\%) (baz #\A))
+                                :test #'char-equal :key #'cadr :from-end t)
+             '((FOO #\a) (BAR #\%))))
+(test (equal (remove-duplicates '(a a b b c b) :start 3) '(a a b c b)))
+(test (equal (remove-duplicates '(a a b b c b) :start 3 :from-end t) '(a a b b c)))
+(test (equal (remove-duplicates '(a a b b c b) :end 3) '(a b b c b)))
+(test (equal (remove-duplicates '(a a b b c b) :end 3 :from-end t) '(a b b c b)))
 
+;;; DELETE-DUPLICATES
+(test (equal (delete-duplicates (copy-seq "aBcDAbCd") :test #'char-equal :from-end t)
+             "aBcD"))
+(test (equal (delete-duplicates (copy-list '(a b c b d d e))) '(A C B D E)))
+(test (equal (delete-duplicates (copy-list '(a b c b d d e)) :from-end t) '(A B C D E)))
+(test (equal (delete-duplicates (list '(foo #\a) '(bar #\%) '(baz #\A))
+                                :test #'char-equal :key #'cadr)
+             '((BAR #\%) (BAZ #\A))))
+(test (equal (delete-duplicates (list '(foo #\a) '(bar #\%) '(baz #\A))
+                                :test #'char-equal :key #'cadr :from-end t)
+             '((FOO #\a) (BAR #\%))))
+(test (equal (delete-duplicates (copy-list '(a a b b c b)) :start 3) '(a a b c b)))
+(test (equal (delete-duplicates (copy-list '(a a b b c b)) :start 3 :from-end t)
+             '(a a b b c)))
+(test (equal (delete-duplicates (copy-list '(a a b b c b)) :end 3) '(a b b c b)))
+(test (equal (delete-duplicates (copy-list '(a a b b c b)) :end 3 :from-end t)
+             '(a b b c b)))
 
 ;;; SETF with ELT
-;;; TODO: Rewrite this test when EQUALP exists and works on vectors
-;;; https://github.com/jscl-project/jscl/issues/479
-(test (equal '(42 0 0)
+(test (equalp #(42 0 0)
              (let ((vec (vector 0 0 0)))
                (setf (elt vec 0) 42)
-               (jscl::vector-to-list vec))))
+               vec)))
+(test (equal '(42 0 0)
+             (let ((list (list 0 0 0)))
+               (setf (elt list 0) 42)
+               list)))
+
+;;; REPLACE
+(test (equalp #(1 1 2)
+              (let ((vec (vector 1 2 3)))
+                (replace vec #(1 2 3) :start1 1))))
+(test (equalp #(1 1 2)
+              (let ((vec (vector 1 2 3)))
+                (replace vec vec :start1 1))))
+(test (equalp #(2 3 3)
+              (let ((vec (vector 1 2 3)))
+                (replace vec #(1 2 3) :start2 1))))
+(test (equalp #(2 3 3)
+              (let ((vec (vector 1 2 3)))
+                (replace vec vec :start2 1))))
+
+(test (equal '(1 1 2)
+             (let ((list (list 1 2 3)))
+               (replace list '(1 2 3) :start1 1))))
+(test (equal '(1 1 2)
+             (let ((list (list 1 2 3)))
+               (replace list list :start1 1))))
+(test (equal '(2 3 3)
+             (let ((list (list 1 2 3)))
+               (replace list '(1 2 3) :start2 1))))
+(test (equal '(2 3 3)
+             (let ((list (list 1 2 3)))
+               (replace list list :start2 1))))
+
+(test (equalp #(1 1 2)
+              (let ((vec (vector 1 2 3)))
+                (replace vec '(1 2 3) :start1 1))))
+(test (equalp #(2 3 3)
+              (let ((vec (vector 1 2 3)))
+                (replace vec '(1 2 3) :start2 1))))
+
+(test (equal '(1 1 2)
+             (let ((list (list 1 2 3)))
+               (replace list #(1 2 3) :start1 1))))
+(test (equal '(2 3 3)
+             (let ((list (list 1 2 3)))
+               (replace list #(1 2 3) :start2 1))))
 
 ;;; EOF

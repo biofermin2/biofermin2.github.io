@@ -159,10 +159,10 @@
                     (when (mark x)
                       (visit (car x))
                       (visit (cdr x))))
-                   ((vectorp x)
+                   ((arrayp x)
                     (when (mark x)
-                      (dotimes (i (length x))
-                        (visit (aref x i))))))))
+                      (dotimes (i (array-total-size x))
+                        (visit (row-major-aref x i))))))))
         (visit form)))
     (values known-objects object-ids)))
 
@@ -266,7 +266,9 @@
             (ecase next
               (#\~ (write-char #\~ stream))
               (#\d (write-integer (pop args) stream))
-              (#\a (write-string (pop args) stream)))
+              (#\f (write-string (float-to-string (pop args)) stream))
+              (#\a (write-string (pop args) stream))
+              (#\% (write-char #\newline stream)))
             (incf i))
           (write-char char stream)))))
 
@@ -339,7 +341,7 @@
            (simple-format stream "#<FUNCTION ~a>" name)
            (write-string "#<FUNCTION>" stream))))
     ;; mop object
-    (mop-object (mop-object-printer form stream))
+    (mop-object (print-object form stream))
     ;; structure object
     (structure (structure-object-printer form stream))
     ;; hash-table object
@@ -363,16 +365,15 @@
          (write-char #\space stream)
          (write-aux (car tail) stream known-objects object-ids)))
      (write-char #\) stream))
-    ;; Vectors
-    (vector
-     (write-string "#(" stream)
-     (when (plusp (length form))
-       (write-aux (aref form 0) stream known-objects object-ids)
-       (do ((i 1 (1+ i)))
-           ((= i (length form)))
-         (write-char #\space stream)
-         (write-aux (aref form i) stream known-objects object-ids)))
-     (write-char #\) stream))
+    ;; Arrays
+    (array
+     (write-char #\# stream)
+     (unless (vectorp form)
+       (simple-format stream "~dA" (array-rank form)))
+     (let ((contents (%array-to-lists form)))
+       (if contents
+           (write-aux contents stream known-objects object-ids)
+           (write-string "()" stream))))
     ;; Packages
     (package
      (simple-format stream "#<PACKAGE ~a>" (package-name form)))
@@ -398,9 +399,8 @@
 
 ;;; structure object printer
 (defun structure-object-printer (form stream)
-  (let ((res))
-    (setq res (concat "#<structure " (string-downcase (string (car form))) ">"))
-    (simple-format stream res)))
+  (simple-format stream "#<structure ~a>"
+                 (string-downcase (string (structure-name form)))))
 
 ;;; hash-table printer
 (defun %hash-fn-print-name (form)
@@ -426,18 +426,12 @@
          (*print-gensym* gensym)
          (*print-base* base)
          (*print-radix* radix)
-         (*print-circle* circle))
-    (cond ((mop-object-p form)
-           (invoke-object-printer #'mop-object-printer form stream))
-          ((hash-table-p form)
-           (invoke-object-printer #'hash-table-object-printer form stream))
-          ((structure-p form)
-           (invoke-object-printer #'structure-object-printer form stream))
-          (t  (let ((stream (output-stream-designator stream)))
-                (multiple-value-bind (objs ids)
-                    (scan-multiple-referenced-objects form)
-                  (write-aux form stream objs ids)
-                  form))))))
+         (*print-circle* circle)
+         (stream (output-stream-designator stream)))
+    (multiple-value-bind (objs ids)
+        (scan-multiple-referenced-objects form)
+      (write-aux form stream objs ids)
+      form)))
 
 
 #+jscl

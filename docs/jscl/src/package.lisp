@@ -32,21 +32,21 @@
 (defun delete-package (package-designator)
   ;; TODO: Signal a correctlable error in case the package-designator does not
   ;; name a package.
-  ;; TODO: Implement unuse-package and remove the deleted package from packages
-  ;; that use it.
-  (delete-property (package-name (find-package-or-fail package-designator))
-                   *package-table*))
-
-(defun %make-package (name use)
-  (when (find-package name)
-    (error "A package namded `~a' already exists." name))
-  (let ((package (new)))
-    (setf (oget package "packageName") name)
-    (setf (oget package "symbols") (new))
-    (setf (oget package "exports") (new))
-    (setf (oget package "use") use)
-    (setf (oget *package-table* name) package)
-    package))
+  (let ((package (find-package-or-fail package-designator)))
+    (if (package-name package)
+        (let ((used-by (package-used-by-list package))
+              (use (package-use-list package)))
+          ;; TODO: provide a restart that does UNUSE-PACKAGE
+          (when used-by
+            (simple-package-error package "~a is used by ~a" package used-by))
+          (dolist (p use)
+            (unuse-package p package))
+          (dolist (n (cons (package-name package) (package-nicknames package)) t)
+            (delete-property n *package-table*))
+          (setf (oget package "packageName") nil)
+          t)
+        ;; This is a deleted package
+        nil)))
 
 (defun resolve-package-list (packages)
   (let (result)
@@ -54,10 +54,41 @@
       (pushnew package result :test #'eq))
     (reverse result)))
 
-(defun make-package (name &key use)
-  (%make-package
-   (string name)
-   (resolve-package-list use)))
+(defun rename-package (package new-name &optional new-nicknames)
+  (let* ((package (find-package-or-fail package))
+         (new-name (string new-name))
+         (new-nicknames (mapcar #'string new-nicknames))
+         (new-names (cons new-name new-nicknames))
+         (old-names (cons (oget package "packageName")
+                          (oget package "nicknames"))))
+    (dolist (n new-names)
+      (let ((p (find-package n)))
+        (when (and p (not (eq p package)))
+          (simple-package-error package "A package named `~a' already exists." n))))
+    (dolist (n old-names)
+      (delete-property n *package-table*))
+    (setf (oget package "packageName") new-name
+          (oget package "nicknames") new-nicknames)
+    (dolist (n new-names)
+      (setf (oget *package-table* n) package))
+    package))
+
+(defun make-package (name &key use nicknames)
+  (let* ((name (string name))
+         (nicknames (mapcar #'string nicknames))
+         (names (cons name nicknames))
+         (package (new)))
+    (dolist (n names)
+      (when (find-package n)
+        (simple-package-error name "A package named `~a' already exists." n)))
+    (setf (oget package "packageName") name)
+    (setf (oget package "symbols") (new))
+    (setf (oget package "exports") (new))
+    (setf (oget package "nicknames") nicknames)
+    (use-package use package)
+    (dolist (n names)
+      (setf (oget *package-table* n) package))
+    package))
 
 (defun packagep (x)
   (and (objectp x) (not (js-null-p x)) (in "symbols" x)))
@@ -65,6 +96,14 @@
 (defun package-name (package-designator)
   (let ((package (find-package-or-fail package-designator)))
     (oget package "packageName")))
+
+(defun package-nicknames (package-designator)
+  (let ((package (find-package-or-fail package-designator)))
+    (oget package "nicknames")))
+
+(defun package-shadowing-symbols (package-designator)
+  (let ((package (find-package-or-fail package-designator)))
+    (oget package "shadows")))
 
 (defun %package-symbols (package-designator)
   (let ((package (find-package-or-fail package-designator)))
@@ -74,12 +113,13 @@
   (let ((package (find-package-or-fail package-designator)))
     (oget package "use")))
 
+(defun package-used-by-list (package-designator)
+  (let ((package (find-package-or-fail package-designator)))
+    (oget package "usedBy")))
+
 (defun %package-external-symbols (package-designator)
   (let ((package (find-package-or-fail package-designator)))
     (oget package "exports")))
-
-(defvar *user-package*
-  (make-package "CL-USER" :use (list (find-package "CL"))))
 
 (defvar *keyword-package*
   (find-package "KEYWORD"))
@@ -87,50 +127,70 @@
 (defun keywordp (x)
   (and (symbolp x) (eq (symbol-package x) *keyword-package*)))
 
-(defvar *package* (find-package "CL"))
+(defvar *package* (find-package "COMMON-LISP"))
+
+(rename-package "COMMON-LISP" "COMMON-LISP" '("CL"))
 
 (defmacro in-package (string-designator)
   `(eval-when (:compile-toplevel :load-toplevel :execute)
      (setq *package* (find-package-or-fail ',string-designator))))
 
-
 (defmacro defpackage (name &rest options)
-  (let (exports use)
+  (let ( exports use nicknames doc imports shadowing-imports
+         shadow intern)
     (dolist (option options)
       (ecase (car option)
         (:export
          (setf exports (append exports (cdr option))))
         (:use
-         (setf use (append use (cdr option))))))
-    `(progn
-       (eval-when (:load-toplevel :execute)
-         (let ((package (%defpackage ',(string name) ',use)))
-           (export
-            (mapcar (lambda (symbol) (intern (symbol-name symbol) package)) ',exports)
-            package)
-           package))
-       (eval-when (:compile-toplevel)
-         (let ((package
-                 (or (find-package ,name)
-                     (make-package ',(string name) :use ',use))))
-           (export
-            (mapcar (lambda (symbol) (intern (symbol-name symbol) package)) ',exports)
-            package)
-           package))
-       (find-package ,name))))
+         (setf use (append use (cdr option))))
+        (:nicknames
+         (setf nicknames (append nicknames (cdr option))))
+        (:documentation
+         (if doc
+             (error "More than one :DOCUMENTATION is not allowed")
+             (setq doc (cadr option))))
+        (:import-from
+         (setf imports (append imports (list (cdr option)))))
+        (:shadowing-import-from
+         (setf shadowing-imports (append shadowing-imports (list (cdr option)))))
+        (:shadow (setf shadow (append shadow (cdr option))))
+        (:intern (setf intern (append intern (cdr option))))
+        ;; :size is currently ignored
+        (:size)))
+    `(eval-when (:compile-toplevel :load-toplevel :execute)
+       (let ((package (%defpackage ',(string name) ',nicknames)))
+         (unuse-package (package-use-list package) package)
+         (shadow ',shadow package)
+         (shadowing-import
+          (mapcan (lambda (import-spec)
+                    (mapcar (lambda (name)
+                              (find-symbol-for-import name (car import-spec)))
+                            (cdr import-spec)))
+                  ',shadowing-imports)
+          package)
+         (use-package ',use package)
+         (import (mapcan (lambda (import-spec)
+                           (mapcar (lambda (name)
+                                     (find-symbol-for-import name (car import-spec)))
+                                   (cdr import-spec)))
+                         ',imports)
+                 package)
+         (dolist (symb ',intern)
+           (intern symb package))
+         (export (mapcar (lambda (name) (intern (string name) package)) ',exports)
+                 package)
+         ,(when doc `(setf (documentation package 'package) ,doc))
+         package))))
 
 
-(defun %redefine-package (package use)
-  (setf (oget package "use") use)
-  package)
-
-(defun %defpackage (name use)
-  (let ((package (find-package name))
-        (use (resolve-package-list use)))
-    (if package
-        (%redefine-package package use)
-        (make-package name :use use))))
-
+(defun %find-inherited-symbols (name package)
+  (let ((symbols nil))
+    (dolist (used (package-use-list package))
+      (let ((exports (%package-external-symbols used)))
+        (when (in name exports)
+          (pushnew (oget exports name) symbols))))
+    (nreverse symbols)))
 
 (defun find-symbol (name &optional (package *package*))
   (let* ((package (find-package-or-fail package))
@@ -142,43 +202,154 @@
       ((in name symbols)
        (values (oget symbols name) :internal))
       (t
-       (dolist (used (package-use-list package) (values nil nil))
-         (let ((exports (%package-external-symbols used)))
-           (when (in name exports)
-             (return (values (oget exports name) :inherited)))))))))
+       (let ((inherited (%find-inherited-symbols name package)))
+         (if inherited
+             (values (car inherited) :inherited)
+             (values nil nil)))))))
 
-
-;;; It is a function to call when a symbol is interned. The function
-;;; is invoked with the already interned symbol as argument.
-(defvar *intern-hook* nil)
 
 (defun intern (name &optional (package *package*))
-  (let ((package (find-package-or-fail package)))
+  (let* ((name (string name))
+         (package (find-package-or-fail package))
+         (package-syms (%package-symbols package)))
     (multiple-value-bind (symbol foundp)
         (find-symbol name package)
       (if foundp
           (values symbol foundp)
-          (let ((symbols (%package-symbols package)))
-            (oget symbols name)
-            (let ((symbol (make-symbol name)))
-              (setf (oget symbol "package") package)
-              (when (eq package *keyword-package*)
-                (setf (oget symbol "value") symbol)
-                (export (list symbol) package))
-              (when *intern-hook*
-                (funcall *intern-hook* symbol))
-              (setf (oget symbols name) symbol)
-              (values symbol nil)))))))
+          (let ((symbol (make-symbol name)))
+            (setf (oget package-syms name) symbol)
+            (setf (oget symbol "package") package)
+            (when (eq package *keyword-package*)
+              (set symbol symbol))
+            (values symbol nil))))))
+
+(defun shadow (names &optional (package *package*))
+  (let* ((names (mapcar #'string (ensure-list names)))
+         (package (find-package-or-fail package))
+         (package-syms (%package-symbols package)))
+    (dolist (name names t)
+      (multiple-value-bind (symbol foundp)
+          (find-symbol name package)
+        (unless (member foundp '(:internal :external))
+          (setq symbol (make-symbol name))
+          (setf (oget package-syms name) symbol)
+          (setf (oget symbol "package") package)
+          (when (eq package *keyword-package*)
+            (set symbol symbol)))
+        (pushnew symbol (oget package "shadows"))))))
+
+(defun unintern (symbol &optional (package *package*))
+  (let ((name (symbol-name symbol))
+        (package (find-package-or-fail package)))
+    (multiple-value-bind (symbol-found status) (find-symbol name package)
+      (when (and (member status '(:internal :external))
+                 (eq symbol-found symbol))
+        (when (member symbol (package-shadowing-symbols package))
+          (let ((inherited (%find-inherited-symbols name package)))
+            (when (cdr inherited)
+              (simple-package-error package
+                                    "Unintern ~a in ~a would reveal name conflict: ~a"
+                                    symbol package inherited))))
+        (delete-property name (%package-external-symbols package))
+        (delete-property name (%package-symbols package))
+        (setf (oget package "shadows")
+              (remove symbol (oget package "shadows")))
+        (when (eq (symbol-package symbol) package)
+          (setf (oget symbol "package") nil))
+        t))))
 
 (defun symbol-package (symbol)
   (unless (symbolp symbol)
-    (error "`~S' is not a symbol." symbol))
+    (error 'type-error :datum symbol :expected-type 'symbol))
   (oget symbol "package"))
 
+(defun %check-accessible (symbols package)
+  (dolist (symbol symbols)
+    (multiple-value-bind (symbol-found status)
+        (find-symbol (symbol-name symbol) package)
+      (unless (and status (eq symbol symbol-found))
+        (simple-package-error package
+                              "~a is not accessible in ~a"
+                              symbol package)))))
+
+(defun %check-name-conflict (symbol package)
+  (multiple-value-bind (symbol-found status)
+      (find-symbol (symbol-name symbol) package)
+    (when (and status
+               (not (eq symbol-found symbol))
+               (not (member symbol-found (package-shadowing-symbols package))))
+      (simple-package-error package
+                            "Name conflict between ~a and ~a"
+                            symbol symbol-found))))
+
 (defun export (symbols &optional (package *package*))
-  (let ((exports (%package-external-symbols package)))
-    (dolist (symb (ensure-list symbols) t)
+  (let ((package (find-package-or-fail package))
+        (exports (%package-external-symbols package))
+        (package-syms (%package-symbols package))
+        (symbols (ensure-list symbols)))
+    (%check-accessible symbols package)
+    (dolist (symbol symbols)
+      (dolist (p (package-used-by-list package))
+        (%check-name-conflict symbol p)))
+    (import symbols package)
+    (dolist (symb symbols t)
       (setf (oget exports (symbol-name symb)) symb))))
+
+(defun unexport (symbols &optional (package *package*))
+  (let ((package (find-package-or-fail package))
+        (exports (%package-external-symbols package))
+        (symbols (ensure-list symbols)))
+    (%check-accessible symbols package)
+    (dolist (symb symbols t)
+      (delete-property (symbol-name symb) exports))))
+
+(defun %import (symbols package shadow-p)
+  (let ((package-syms (%package-symbols package)))
+    (dolist (symb symbols t)
+      (let ((name (symbol-name symb)))
+        (multiple-value-bind (symbol-found status) (find-symbol name package)
+          (when (and status (not (eq symb symbol-found)))
+            (if shadow-p
+                (unintern symbol-found package)
+                (simple-package-error package
+                                      "Import ~a causes name conflict with ~a"
+                                      symb symbol-found)))
+          (unless (and (member status '(:internal :external))
+                       (eq symb symbol-found))
+            (setf (oget package-syms (symbol-name symb)) symb)
+            (when (null (oget symb "package"))
+              (setf (oget symb "package") package)))
+          (when shadow-p
+            (pushnew symb (oget package "shadows"))))))))
+
+(defun import (symbols &optional (package *package*))
+  (%import (ensure-list symbols) (find-package-or-fail package) nil))
+
+(defun shadowing-import (symbols &optional (package *package*))
+  (%import (ensure-list symbols) (find-package-or-fail package) t))
+
+(defun use-package (use-list &optional (package *package*))
+  (let ((package (find-package-or-fail package))
+        (use-list (resolve-package-list (ensure-list use-list))))
+    (when (eq package *keyword-package*)
+      (error "Keyword package cannot use packages"))
+    (when (member *keyword-package* use-list)
+      (error "Cannot use keyword package"))
+    (%check-use-package-name-conflict
+     package
+     (set-difference use-list (package-use-list package)))
+    (dolist (use use-list t)
+      (pushnew use (oget package "use"))
+      (pushnew package (oget use "usedBy")))))
+
+(defun unuse-package (unuse-list &optional (package *package*))
+  (let ((package (find-package-or-fail package))
+        (unuse-list (resolve-package-list (ensure-list unuse-list))))
+    (dolist (unuse unuse-list t)
+      (setf (oget package "use")
+            (remove unuse (oget package "use")))
+      (setf (oget unuse "usedBy")
+            (remove package (oget unuse "usedBy"))))))
 
 (defun %map-external-symbols (function package)
   (map-for-in function (%package-external-symbols package)))
@@ -200,32 +371,65 @@
 
 (defmacro do-symbols ((var &optional (package '*package*) result-form)
                       &body body)
-  `(block nil
-     (%map-symbols
-      (lambda (,var) ,@body)
-      (find-package ,package))
-     ,result-form))
+  (multiple-value-bind (body decls) (parse-body body :declarations t)
+    `(block nil
+       (%map-symbols
+        (lambda (,var) (tagbody ,@body))
+        (find-package ,package))
+       (let (,var) ,result-form))))
 
 (defmacro do-external-symbols ((var &optional (package '*package*)
                                               result-form)
                                &body body)
-  `(block nil
-     (%map-external-symbols
-      (lambda (,var) ,@body)
-      (find-package ,package))
-     ,result-form))
+  (multiple-value-bind (body decls) (parse-body body :declarations t)
+    `(block nil
+       (%map-external-symbols
+        (lambda (,var) (tagbody ,@body))
+        (find-package ,package))
+       (let (,var) ,result-form))))
+
+(defun %check-use-package-name-conflict (package use-list)
+  ;; NAME-TABLE maps symbol name to a list of exported symbols from some
+  ;; package in USE-LIST
+  (let ((name-table (new)))
+    (dolist (use use-list)
+      (do-external-symbols (symbol use)
+        (pushnew symbol (oget name-table (symbol-name symbol)))))
+    (map-for-in (lambda (symbols)
+                  (when (cdr symbols)
+                    (simple-package-error package "Name conflict between ~a" symbols))
+                  (when symbols
+                    (%check-name-conflict (car symbols) package)))
+                name-table)))
 
 (defmacro do-all-symbols ((var &optional result-form) &body body)
-  `(block nil (%map-all-symbols (lambda (,var) ,@body)) ,result-form))
+  (multiple-value-bind (body decls) (parse-body body :declarations t)
+    `(block nil
+       (%map-all-symbols (lambda (,var) (tagbody ,@body)))
+       (let (,var) ,result-form))))
 
 (defmacro do-all-external-symbols ((var &optional result-form) &body body)
-  `(block nil (%map-all-external-symbols (lambda (,var) ,@body)) ,result-form))
+  (multiple-value-bind (body decls) (parse-body body :declarations t)
+    `(block nil
+       (%map-all-external-symbols (lambda (,var) (tagbody ,@body)))
+       (let (,var) ,result-form))))
 
-(defun find-all-symbols (string &optional external-only)
-  (let (symbols)
+(defun find-all-symbols (name &optional external-only)
+  (let ((name (string name)) symbols)
     (map-for-in (lambda (package)
-                  (multiple-value-bind (symbol status) (find-symbol string package)
+                  (multiple-value-bind (symbol status) (find-symbol name package)
                     (when (if external-only (eq status :external) status)
                       (pushnew symbol symbols :test #'eq))))
                 *package-table*)
     symbols))
+
+(defvar *user-package*
+  (make-package "COMMON-LISP-USER" :use (list (find-package "CL")) :nicknames '("CL-USER")))
+
+(defun package-name-for-prompt (package)
+  "Return the shortest name or nickname of PACKAGE."
+  (reduce (lambda (s1 s2)
+            (if (< (string-length s1) (string-length s2))
+                s1 s2))
+          (package-nicknames package)
+          :initial-value (package-name package)))

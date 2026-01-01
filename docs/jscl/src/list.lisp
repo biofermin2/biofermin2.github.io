@@ -47,17 +47,29 @@
 (defun rplacd (cons x)
   (rplacd cons x))
 
-(defun first   (x) (car    x))
-(defun second  (x) (cadr   x))
-(defun third   (x) (caddr  x))
-(defun fourth  (x) (cadddr x))
-(defun fifth   (x) (car    (cddddr x)))
-(defun sixth   (x) (cadr   (cddddr x)))
-(defun seventh (x) (caddr  (cddddr x)))
-(defun eighth  (x) (cadddr (cddddr x)))
-(defun ninth   (x) (car  (cddddr (cddddr x))))
-(defun tenth   (x) (cadr (cddddr (cddddr x))))
-(defun rest    (x) (cdr x))
+;;; Define both CAR and CDR variants and their SETF expanders
+;;; why using `!get-setf-expansion' ?
+;;; https://github.com/jscl-project/jscl/issues/118
+
+(defmacro define-abbrev (name (arg) expr)
+  "Like DEFMACRO, but define a function and SETF expander for NAME."
+  `(progn
+     (macrolet ((%do (,arg) ,expr))
+       (defun ,name (arg) (%do arg)))
+     (define-setf-expander ,name (,arg)
+       (!get-setf-expansion ,expr))))
+
+(define-abbrev first   (x) `(car    ,x))
+(define-abbrev second  (x) `(cadr   ,x))
+(define-abbrev third   (x) `(caddr  ,x))
+(define-abbrev fourth  (x) `(cadddr ,x))
+(define-abbrev fifth   (x) `(car    (cddddr ,x)))
+(define-abbrev sixth   (x) `(cadr   (cddddr ,x)))
+(define-abbrev seventh (x) `(caddr  (cddddr ,x)))
+(define-abbrev eighth  (x) `(cadddr (cddddr ,x)))
+(define-abbrev ninth   (x) `(car  (cddddr (cddddr ,x))))
+(define-abbrev tenth   (x) `(cadr (cddddr (cddddr ,x))))
+(define-abbrev rest    (x) `(cdr ,x))
 
 (defun list (&rest args)
   args)
@@ -95,36 +107,36 @@
             `(rplaca (nthcdr ,g!index ,g!list) ,g!value)
             `(nth ,g!index ,g!list))))
 
-(defun caar (x) (car (car x)))
-(defun cadr (x) (car (cdr x)))
-(defun cdar (x) (cdr (car x)))
-(defun cddr (x) (cdr (cdr x)))
+(define-abbrev caar (x) `(car (car ,x)))
+(define-abbrev cadr (x) `(car (cdr ,x)))
+(define-abbrev cdar (x) `(cdr (car ,x)))
+(define-abbrev cddr (x) `(cdr (cdr ,x)))
 
-(defun caaar (x) (car (caar x)))
-(defun caadr (x) (car (cadr x)))
-(defun cadar (x) (car (cdar x)))
-(defun caddr (x) (car (cddr x)))
-(defun cdaar (x) (cdr (caar x)))
-(defun cdadr (x) (cdr (cadr x)))
-(defun cddar (x) (cdr (cdar x)))
-(defun cdddr (x) (cdr (cddr x)))
+(define-abbrev caaar (x) `(car (caar ,x)))
+(define-abbrev caadr (x) `(car (cadr ,x)))
+(define-abbrev cadar (x) `(car (cdar ,x)))
+(define-abbrev caddr (x) `(car (cddr ,x)))
+(define-abbrev cdaar (x) `(cdr (caar ,x)))
+(define-abbrev cdadr (x) `(cdr (cadr ,x)))
+(define-abbrev cddar (x) `(cdr (cdar ,x)))
+(define-abbrev cdddr (x) `(cdr (cddr ,x)))
 
-(defun caaaar (x) (car (caaar x)))
-(defun caaadr (x) (car (caadr x)))
-(defun caadar (x) (car (cadar x)))
-(defun caaddr (x) (car (caddr x)))
-(defun cadaar (x) (car (cdaar x)))
-(defun cadadr (x) (car (cdadr x)))
-(defun caddar (x) (car (cddar x)))
-(defun cadddr (x) (car (cdddr x)))
-(defun cdaaar (x) (cdr (caaar x)))
-(defun cdaadr (x) (cdr (caadr x)))
-(defun cdadar (x) (cdr (cadar x)))
-(defun cdaddr (x) (cdr (caddr x)))
-(defun cddaar (x) (cdr (cdaar x)))
-(defun cddadr (x) (cdr (cdadr x)))
-(defun cdddar (x) (cdr (cddar x)))
-(defun cddddr (x) (cdr (cdddr x)))
+(define-abbrev caaaar (x) `(car (caaar ,x)))
+(define-abbrev caaadr (x) `(car (caadr ,x)))
+(define-abbrev caadar (x) `(car (cadar ,x)))
+(define-abbrev caaddr (x) `(car (caddr ,x)))
+(define-abbrev cadaar (x) `(car (cdaar ,x)))
+(define-abbrev cadadr (x) `(car (cdadr ,x)))
+(define-abbrev caddar (x) `(car (cddar ,x)))
+(define-abbrev cadddr (x) `(car (cdddr ,x)))
+(define-abbrev cdaaar (x) `(cdr (caaar ,x)))
+(define-abbrev cdaadr (x) `(cdr (caadr ,x)))
+(define-abbrev cdadar (x) `(cdr (cadar ,x)))
+(define-abbrev cdaddr (x) `(cdr (caddr ,x)))
+(define-abbrev cddaar (x) `(cdr (cdaar ,x)))
+(define-abbrev cddadr (x) `(cdr (cdadr ,x)))
+(define-abbrev cdddar (x) `(cdr (cddar ,x)))
+(define-abbrev cddddr (x) `(cdr (cdddr ,x)))
 
 (defun append-two (list1 list2)
   (if (null list1)
@@ -156,18 +168,19 @@
     (s tree)))
 
 (defun subst (new old tree &key key (test #'eql testp) (test-not #'eql test-not-p))
-  (labels ((s (x)
-             (cond ((satisfies-test-p old x :key key :test test :testp testp
-                                      :test-not test-not :test-not-p test-not-p)
-                    new)
-                   ((atom x) x)
-                   (t (let ((a (s (car x)))
-                            (b (s (cdr x))))
-                        (if (and (eq a (car x))
-                                 (eq b (cdr x)))
-                            x
-                            (cons a b)))))))
-    (s tree)))
+  (let ((test-fn (make-test-p :key key :test test :testp testp
+                              :test-not test-not :test-not-p test-not-p)))
+    (labels ((s (x)
+               (cond ((funcall test-fn old x)
+                      new)
+                     ((atom x) x)
+                     (t (let ((a (s (car x)))
+                              (b (s (cdr x))))
+                          (if (and (eq a (car x))
+                                   (eq b (cdr x)))
+                              x
+                              (cons a b)))))))
+      (s tree))))
 
 (defun copy-list (x)
   (if (null x)
@@ -214,10 +227,18 @@
 
 
 
-(defun last (x)
-  (while (consp (cdr x))
-    (setq x (cdr x)))
-  x)
+(defun last (x &optional (n 1))
+  (let ((returned-list x)
+        (checked-list x))
+    (while (< 0 n)
+      (unless (consp checked-list)
+        (return-from last returned-list))
+      (pop checked-list)
+      (decf n))
+    (while (consp checked-list)
+      (pop checked-list)
+      (pop returned-list))
+    returned-list))
 
 (defun butlast (x &optional (n 1))
   "Returns x, less the n last elements in the list."
@@ -245,28 +266,31 @@
          x)))))
 
 (defun member (x list &key key (test #'eql testp) (test-not #'eql test-not-p))
-  (while list
-    (when (satisfies-test-p x (car list) :key key :test test :testp testp
-                            :test-not test-not :test-not-p test-not-p)
-      (return list))
-    (setq list (cdr list))))
+  (let ((test-fn (make-test-p :key key :test test :testp testp
+                              :test-not test-not :test-not-p test-not-p)))
+    (while list
+      (when (funcall test-fn x (car list))
+        (return list))
+      (setq list (cdr list)))))
 
 
 (defun assoc (x alist &key key (test #'eql testp) (test-not #'eql test-not-p))
-  (while alist
-    (if (satisfies-test-p x (caar alist) :key key :test test :testp testp
-                          :test-not test-not :test-not-p test-not-p)
-      (return)
-      (setq alist (cdr alist))))
+  (let ((test-fn (make-test-p :key key :test test :testp testp
+                              :test-not test-not :test-not-p test-not-p)))
+    (while alist
+      (if (funcall test-fn x (caar alist))
+          (return)
+          (setq alist (cdr alist)))))
   (car alist))
 
 (defun rassoc (x alist &key key (test #'eql) (test #'eql testp)
                  (test-not #'eql test-not-p))
-  (while alist
-    (if (satisfies-test-p x (cdar alist) :key key :test test :testp testp
-                          :test-not test-not :test-not-p test-not-p)
-      (return)
-      (setq alist (cdr alist))))
+  (let ((test-fn (make-test-p :key key :test test :testp testp
+                              :test-not test-not :test-not-p test-not-p)))
+    (while alist
+      (if (funcall test-fn x (cdar alist))
+          (return)
+          (setq alist (cdr alist)))))
   (car alist))
 
 (defun acons (key datum alist)
@@ -304,105 +328,11 @@
             `(progn (rplacd ,cons ,new-value) ,new-value)
             `(cdr ,cons))))
 
-;;; setf expanders for  CAR and CDR variants
-;;; why using `!get-setf-expansion' ?
-;;; https://github.com/jscl-project/jscl/issues/118
-
-(define-setf-expander caar (x)
-  (!get-setf-expansion `(car (car ,x))))
-
-(define-setf-expander cadr (x)
-  (!get-setf-expansion `(car (cdr ,x))))
-
-(define-setf-expander cdar (x)
-  (!get-setf-expansion `(cdr (car ,x))))
-
-(define-setf-expander cddr (x)
-  (!get-setf-expansion `(cdr (cdr ,x))))
-
-(define-setf-expander caaar (x)
-  (!get-setf-expansion `(car (car (car ,x)))))
-
-(define-setf-expander caadr (x)
-  (!get-setf-expansion `(car (car (cdr ,x)))))
-
-(define-setf-expander cadar (x)
-  (!get-setf-expansion `(car (cdr (car ,x)))))
-
-(define-setf-expander caddr (x)
-  (!get-setf-expansion `(car (cdr (cdr ,x)))))
-
-(define-setf-expander cdaar (x)
-  (!get-setf-expansion `(cdr (car (car ,x)))))
-
-(define-setf-expander cdadr (x)
-  (!get-setf-expansion `(cdr (car (cdr ,x)))))
-
-(define-setf-expander cddar (x)
-  (!get-setf-expansion `(cdr (cdr (car ,x)))))
-
-(define-setf-expander cdddr (x)
-  (!get-setf-expansion `(cdr (cdr (cdr ,x)))))
-
-(define-setf-expander caaaar (x)
-  (!get-setf-expansion `(car (car (car (car ,x))))))
-
-(define-setf-expander caaadr (x)
-  (!get-setf-expansion `(car (car (car (cdr ,x))))))
-
-(define-setf-expander caadar (x)
-  (!get-setf-expansion `(car (car (cdr (car ,x))))))
-
-(define-setf-expander caaddr (x)
-  (!get-setf-expansion `(car (car (cdr (cdr ,x))))))
-
-(define-setf-expander cadaar (x)
-  (!get-setf-expansion `(car (cdr (car (car ,x))))))
-
-(define-setf-expander cadadr (x)
-  (!get-setf-expansion `(car (cdr (car (cdr ,x))))))
-
-(define-setf-expander caddar (x)
-  (!get-setf-expansion `(car (cdr (cdr (car ,x))))))
-
-(define-setf-expander cadddr (x)
-  (!get-setf-expansion `(car (cdr (cdr (cdr ,x))))))
-
-(define-setf-expander cdaaar (x)
-  (!get-setf-expansion `(cdr (car (car (car ,x))))))
-
-(define-setf-expander cdaadr (x)
-  (!get-setf-expansion `(cdr (car (car (cdr ,x))))))
-
-(define-setf-expander cdadar (x)
-  (!get-setf-expansion `(cdr (car (cdr (car ,x))))))
-
-(define-setf-expander cdaddr (x)
-  (!get-setf-expansion `(cdr (car (cdr (cdr ,x))))))
-
-(define-setf-expander cddaar (x)
-  (!get-setf-expansion `(cdr (cdr (car (car ,x))))))
-
-(define-setf-expander cddadr (x)
-  (!get-setf-expansion `(cdr (cdr (car (cdr ,x))))))
-
-(define-setf-expander cdddar (x)
-  (!get-setf-expansion `(cdr (cdr (cdr (car ,x))))))
-
-(define-setf-expander cddddr (x)
-  (!get-setf-expansion `(cdr (cdr (cdr (cdr ,x))))))
-
-(define-setf-expander first (x)
-  (get-setf-expansion `(car ,x)))
-
-(define-setf-expander rest (x)
-  (get-setf-expansion `(cdr ,x)))
-
 
 ;; The NCONC function is based on the SBCL's one.
 (defun nconc (&rest lists)
   (flet ((fail (object)
-           (error "type-error in nconc")))
+           (error 'type-error :datum object :expected-type 'list)))
     (do ((top lists (cdr top)))
         ((null top) nil)
       (let ((top-of-top (car top)))
@@ -447,6 +377,15 @@
       (when (member (funcall key x) list2 :test test :key key)
         (push x new-list)))
     new-list))
+
+(defun nintersection (list1 list2 &key (test #'eql) (key #'identity))
+  (when (and list1 list2)
+    (let ((result nil))
+      (while list1
+        (if (member (funcall key (car list1)) list2 :key key :test test)
+            (shiftf list1 (cdr list1) result list1)
+            (pop list1)))
+      result)))
 
 (defun get-properties (plist indicator-list)
   (do* ((plist plist (cddr plist))
@@ -566,33 +505,32 @@
 
 
 ;;; set-difference
-(defun set-difference (list1 list2 &key key (test #'eq))
+(defun set-difference (list1 list2 &key (key #'identity) (test #'eq))
   (cond (list2
          (let ((result '()))
            (dolist (it list1)
-             (when (not (member it list2 :key key :test test))
+             (when (not (member (funcall key it) list2 :key key :test test))
                (push it result)))
            result))
         (t list1)))
 
-;;; makeset
-(defun makeset (lst &key (test #'eq))
-  (prog ((result)
-         (seq lst))
-   feed
-     (when (null seq) (return (reverse result)))
-     (if (not (member (car seq) result :test test))
-         (setq result (cons (car seq) result)))
-     (setq seq (cdr seq))
-     (go feed)))
-
 ;;; union
-(defun union (list1 list2 &key key (test #'eq))
+(defun union (list1 list2 &key (key #'identity) (test #'eq))
   (cond ((and list1 list2)
-         (let ((result (makeset list2 :test #'equal)))
-           (dolist (it list1)
-             (when (not (member it list2 :key key :test test))
-               (push it result)))
+         (let ((result list2))
+           (dolist (it list1 result)
+             (unless (member (funcall key it) list2 :key key :test test)
+               (push it result)))))
+        (list1)
+        (list2)))
+
+(defun nunion (list1 list2 &key (key #'identity) (test #'eq))
+  (cond ((and list1 list2)
+         (let ((result list2))
+           (while list1
+             (if (member (funcall key (car list1)) list2 :key key :test test)
+                 (pop list1)
+                 (shiftf list1 (cdr list1) result list1)))
            result))
         (list1)
         (list2)))

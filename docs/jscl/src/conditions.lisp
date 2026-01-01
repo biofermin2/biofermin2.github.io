@@ -47,12 +47,14 @@
            (if (not (eql (car report) 'lambda))
                (error "Must be LAMBDA ~s." report))
            (setq report-fn `,report))
+          (symbol
+           (setq report-fn `#',report))
           (t (error "What can I compile it: ~s ?" report)))
         (setq method
               `(defmethod print-object ((condition ,name) &optional (stream *standard-output*))
                  (if *print-escape*
                      (call-next-method)
-                     (funcall #',report-fn condition stream))
+                     (funcall ,report-fn condition stream))
                  nil)))
       (values name class method))))
 
@@ -72,12 +74,20 @@
                    :reader simple-condition-format-control)
    (format-arguments :initarg :format-arguments
                      :initform nil
-                     :reader simple-condition-format-arguments)))
+                     :reader simple-condition-format-arguments))
+  (:report (lambda (condition stream)
+             (apply #'format stream
+                    (simple-condition-format-control condition)
+                    (simple-condition-format-arguments condition)))))
 (%define-condition serious-condition (condition) ())
 (%define-condition warning (condition) ())
+(%define-condition style-warning (warning condition) ())
 (%define-condition simple-warning (simple-condition warning) ())
 (%define-condition error (serious-condition) ())
 (%define-condition simple-error (simple-condition error) ())
+
+;;; FIXME: actually raise following conditions from JavaScript, instead of
+;;; generic SIMPLE-ERROR
 (%define-condition type-error (error)
   ((datum :initform nil
           :initarg :datum
@@ -86,9 +96,54 @@
                   :initarg :expected-type
                   :reader type-error-expected-type))
   (:report (lambda (condition stream)
-             (format stream "~S does not designate a ~S.~%"
+             (format stream "~S is not a ~S."
                      (type-error-datum condition)
                      (type-error-expected-type condition)))))
+(%define-condition simple-type-error (simple-condition type-error) ())
+(%define-condition parse-error (error) ())
+(%define-condition program-error (error) ())
+(%define-condition control-error (error) ())
+(%define-condition cell-error (error)
+   ((name :initform nil
+          :initarg :name
+          :reader cell-error-name)))
+(%define-condition undefined-function (cell-error) ()
+   (:report (lambda (condition stream)
+              (format stream "Undefined function ~S" (cell-error-name condition)))))
+(%define-condition unbound-variable (cell-error) ()
+   (:report (lambda (condition stream)
+              (format stream "Unbound variable ~S" (cell-error-name condition)))))
+(%define-condition arithmetic-error (error)
+   ((operation :initform nil
+               :initarg :operation
+               :reader arithmetic-error-operation)
+    (operands :initform nil
+              :initarg :operands
+              :reader arithmetic-error-operands)))
+(%define-condition division-by-zero (arithmetic-error)
+   ((operation :initform '/))
+   (:report (lambda (condition stream)
+              (format stream "Division by zero: ~S" (arithmetic-error-operands condition)))))
+
+
+;;; Conditions used in previous bootstrap process
+(%define-condition package-error (error)
+   ((package :initform nil
+             :initarg :package
+             :reader package-error-package)))
+(%define-condition simple-package-error (simple-condition package-error) ())
+(%define-condition stream-error (error)
+   ((stream :initform nil
+            :initarg :stream
+            :reader stream-error-stream)))
+(%define-condition end-of-file (stream-error) ()
+   (:report (lambda (condition stream)
+              (format stream "End of file on ~S." (stream-error-stream condition)))))
+(%define-condition reader-error (parse-error stream-error) ())
+(%define-condition simple-reader-error (simple-condition reader-error) ())
+(%define-condition simple-reader-package-error (simple-reader-error package-error) ())
+(%define-condition reader-eof-error (reader-error end-of-file) ())
+(%define-condition simple-parse-error (simple-condition parse-error) ())
 
 (defun %%make-condition (type &rest slot-initializations)
     (apply #'make-instance type slot-initializations))
@@ -126,27 +181,26 @@
     ;; prevent all conditions ERROR class
     (check-type condition warning)
     (%%signal condition)
-    (format stream "WARNING: ")
-    (apply 'format stream (simple-condition-format-control condition)
-           (simple-condition-format-arguments condition))
+    (format t "~A: ~A" (class-name (class-of condition)) condition)
     (write-char #\newline stream)
     nil))
 
 (defun %%error (datum &rest args)
-  (let ((stream *standard-output*)
-        (condition (%%coerce-condition 'simple-error datum args)))
+  (let ((condition (%%coerce-condition 'simple-error datum args)))
     ;; prevent all condition WARNING class
     (check-type condition error)
     (%%signal condition)
     ;;(format stream "~&ERROR: ~a~%" (type-of condition))
-    (typecase condition
-      (simple-error
-       (format stream (simple-condition-format-control condition)
-               (simple-condition-format-arguments condition)))
-      (type-error
-       (format stream "Type error. ~a does not designate a ~a" (type-error-datum condition)
-               (type-error-expected-type condition))))
+    (format t "~A: ~A" (class-name (class-of condition)) condition)
     nil))
+
+(defun %%check-type-error (place value typespec string)
+  (error 'simple-type-error
+         :datum value
+         :expected-type typespec
+         :format-control "Check type error.~%The value of ~s is ~s, is not ~a."
+         :format-arguments (list place value
+                                 (if (null string) (format nil "a ~s" typespec) string))))
 
 ;;; handlers
 (defvar *handler-bindings* nil)
@@ -160,7 +214,7 @@
             ;; (error warning) -> (or error warning)
             ;; unless form - if someone smart has already used OR
             (unless (eq (car type) 'or) (setq type (push 'or type))))
-        (push `(push (cons ',type #',handler) *handler-bindings*)
+        (push `(push (cons ',type ,handler) *handler-bindings*)
               install-handlers)))
     `(let ((*handler-bindings* *handler-bindings*))
        ,@install-handlers
@@ -251,6 +305,7 @@
   (fset 'make-condition #'%%make-condition)
   (fset 'signal #'%%signal)
   (fset 'warn #'%%warn)
-  (fset 'error #'%%error))
+  (fset 'error #'%%error)
+  (fset '%check-type-error #'%%check-type-error))
 
 ;;; EOF

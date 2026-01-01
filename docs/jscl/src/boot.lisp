@@ -28,33 +28,28 @@
 
 (eval-when (:compile-toplevel)
   (let ((defmacro-macroexpander
-         '#'(lambda (form)
+         '#'(lambda (form env)
+              (declare (ignore env))
               (destructuring-bind (name args &body body)
-                  form
-                (multiple-value-bind (body decls docstring)
-                    (parse-body body :declarations t :docstring t)
-                  (let* ((whole (gensym))
-                         (expander `(function
-                                     (lambda (,whole)
-                                      ,docstring
-                                      (block ,name
-                                        (destructuring-bind ,args ,whole
-                                          ,@decls
-                                          ,@body))))))
+                  (cdr form)
+                (let* ((expander `(function ,(parse-macro name args body))))
 
-                    ;; If we are bootstrapping JSCL, we need to quote the
-                    ;; macroexpander, because the macroexpander will
-                    ;; need to be dumped in the final environment
-                    ;; somehow.
-                    (when (find :jscl-xc *features*)
-                      (setq expander `(quote ,expander)))
+                  ;; If we are bootstrapping JSCL, we need to quote the
+                  ;; macroexpander, because the macroexpander will
+                  ;; need to be dumped in the final environment
+                  ;; somehow.
+                  (when (find :jscl-xc *features*)
+                    (setq expander `(quote ,expander)))
 
-                    `(eval-when (:compile-toplevel :execute)
-                       (%compile-defmacro ',name ,expander))
+                  `(eval-when (:compile-toplevel :execute)
+                     (%compile-defmacro ',name ,expander))
 
-                    ))))))
+                  )))))
     
     (%compile-defmacro 'defmacro defmacro-macroexpander)))
+
+(defmacro backquote (form)
+  (bq-completely-process form))
 
 (defmacro declaim (&rest decls)
   `(eval-when (:compile-toplevel :execute)
@@ -70,8 +65,6 @@
 
 (defconstant t 't)
 (defconstant nil 'nil)
-(%js-vset "nil" nil)
-(%js-vset "t" t)
 
 (defmacro lambda (args &body body)
   `(function (lambda ,args ,@body)))
@@ -99,8 +92,6 @@
 ;;; Basic DEFUN for regular function names (not SETF)
 (defmacro %defun (name args &rest body)
   `(progn
-     (eval-when (:compile-toplevel)
-       (fn-info ',name :defined t))
      (fset ',name #'(named-lambda ,name ,args ,@body))
      ',name))
 
@@ -147,10 +138,24 @@
 (defmacro while (condition &body body)
   `(block nil (%while ,condition ,@body)))
 
+(defmacro define-compiler-macro (name args &rest body)
+  (let* ((expander `(function ,(parse-macro name args body))))
+
+    ;; If we are bootstrapping JSCL, we need to quote the
+    ;; macroexpander, because the macroexpander will
+    ;; need to be dumped in the final environment
+    ;; somehow.
+    (when (find :jscl-xc *features*)
+      (setq expander `(quote ,expander)))
+
+    `(eval-when (:compile-toplevel :execute)
+       (%define-compiler-macro ',name ,expander))))
+
 (defvar *gensym-counter* 0)
 (defun gensym (&optional (prefix "G"))
-  (setq *gensym-counter* (+ *gensym-counter* 1))
-  (make-symbol (concat prefix (integer-to-string *gensym-counter*))))
+  (let ((symbol (make-symbol (concat prefix (integer-to-string *gensym-counter*)))))
+    (setq *gensym-counter* (+ *gensym-counter* 1))
+    symbol))
 
 (defun boundp (x)
   (boundp x))
@@ -178,26 +183,30 @@
 
 (defmacro dolist ((var list &optional result) &body body)
   (let ((g!list (gensym)))
-    (unless (symbolp var) (error "`~S' is not a symbol." var))
-    `(block nil
-       (let ((,g!list ,list)
-             (,var nil))
-         (%while ,g!list
-                 (setq ,var (car ,g!list))
-                 (tagbody ,@body)
-                 (setq ,g!list (cdr ,g!list)))
-         ,result))))
+    (check-type var symbol)
+    (multiple-value-bind (body decls) (parse-body body :declarations t)
+      `(block nil
+         (let ((,g!list ,list)
+               (,var nil))
+           ,@decls
+           (%while ,g!list
+                   (setq ,var (car ,g!list))
+                   (tagbody ,@body)
+                   (setq ,g!list (cdr ,g!list)))
+           ,result)))))
 
 (defmacro dotimes ((var count &optional result) &body body)
   (let ((g!count (gensym)))
-    (unless (symbolp var) (error "`~S' is not a symbol." var))
-    `(block nil
-       (let ((,var 0)
-             (,g!count ,count))
-         (%while (< ,var ,g!count)
-                 (tagbody ,@body)
-                 (incf ,var))
-         ,result))))
+    (check-type var symbol)
+    (multiple-value-bind (body decls) (parse-body body :declarations t)
+      `(block nil
+         (let ((,var 0)
+               (,g!count ,count))
+           ,@decls
+           (%while (< ,var ,g!count)
+                   (tagbody ,@body)
+                   (setq ,var (1+ ,var)))
+           ,result)))))
 
 (defmacro cond (&rest clausules)
   (unless (null clausules)
@@ -271,10 +280,17 @@
 (defmacro prog2 (form1 result &body body)
   `(prog1 (progn ,form1 ,result) ,@body))
 
-(defmacro prog (inits &rest body )
-  (multiple-value-bind (forms decls docstring) (parse-body body)
+(defmacro prog (inits &rest body)
+  (multiple-value-bind (forms decls) (parse-body body :declarations t)
     `(block nil
        (let ,inits
+         ,@decls
+         (tagbody ,@forms)))))
+
+(defmacro prog* (inits &rest body)
+  (multiple-value-bind (forms decls) (parse-body body :declarations t)
+    `(block nil
+       (let* ,inits
          ,@decls
          (tagbody ,@forms)))))
 
@@ -295,41 +311,44 @@
     (setq assignments (reverse assignments))
     ;;
     `(let ,(mapcar #'cdr assignments)
-       (setq ,@(!reduce #'append (mapcar #'butlast assignments) nil)))))
+       (setq ,@(!reduce #'append (mapcar #'butlast assignments) nil))
+       nil)))
 
 (defmacro do (varlist endlist &body body)
-  `(block nil
-     (let ,(mapcar (lambda (x) (if (symbolp x)
-                                   (list x nil)
-                                 (list (first x) (second x)))) varlist)
-       (while t
-         (when ,(car endlist)
-           (return (progn ,@(cdr endlist))))
-         (tagbody ,@body)
-         (psetq
-          ,@(apply #'append
-                   (mapcar (lambda (v)
-                             (and (listp v)
-                                  (consp (cddr v))
-                                  (list (first v) (third v))))
-                           varlist)))))))
+  (multiple-value-bind (body decls) (parse-body body :declarations t)
+    `(block nil
+       (let ,(mapcar (lambda (x) (if (symbolp x)
+                                     (list x nil)
+                                     (list (first x) (second x)))) varlist)
+         ,@decls
+         (%while (not ,(car endlist))
+           (tagbody ,@body)
+           (psetq
+            ,@(apply #'append
+                     (mapcar (lambda (v)
+                               (and (listp v)
+                                    (consp (cddr v))
+                                    (list (first v) (third v))))
+                             varlist))))
+         ,@(cdr endlist)))))
 
 (defmacro do* (varlist endlist &body body)
-  `(block nil
-     (let* ,(mapcar (lambda (x1) (if (symbolp x1)
-                                     (list x1 nil)
-                                   (list (first x1) (second x1)))) varlist)
-       (while t
-         (when ,(car endlist)
-           (return (progn ,@(cdr endlist))))
-         (tagbody ,@body)
-         (setq
-          ,@(apply #'append
-                   (mapcar (lambda (v)
-                             (and (listp v)
-                                  (consp (cddr v))
-                                  (list (first v) (third v))))
-                           varlist)))))))
+  (multiple-value-bind (body decls) (parse-body body :declarations t)
+    `(block nil
+      (let* ,(mapcar (lambda (x1) (if (symbolp x1)
+                                      (list x1 nil)
+                                      (list (first x1) (second x1)))) varlist)
+        ,@decls
+        (%while (not ,(car endlist))
+          (tagbody ,@body)
+          (setq
+           ,@(apply #'append
+                    (mapcar (lambda (v)
+                              (and (listp v)
+                                   (consp (cddr v))
+                                   (list (first v) (third v))))
+                            varlist))))
+        ,@(cdr endlist)))))
 
 (defun identity (x) x)
 
@@ -417,9 +436,6 @@
     `(multiple-value-call (lambda ,gvars ,@setqs)
        ,@form)))
 
-(defun notany (fn seq)
-  (not (some fn seq)))
-
 (defconstant internal-time-units-per-second 1000)
 
 (defun values-list (list)
@@ -432,19 +448,6 @@
   `(multiple-value-call (lambda (&rest values)
                           (nth ,n values))
      ,form))
-
-(defun constantp (x)
-  ;; TODO: Consider quoted forms, &environment and many other
-  ;; semantics of this function.
-  (cond
-    ((symbolp x)
-     (cond
-       ((eq x t) t)
-       ((eq x nil) t)))
-    ((atom x)
-     t)
-    (t
-     nil)))
 
 (defparameter *features* '(:jscl :common-lisp))
 
@@ -459,29 +462,26 @@
 
 ;;; types predicate's
 (defun mop-object-p (obj)
-    (and (consp obj)
-         (eql (object-type-code obj) :mop-object)
-         (= (length obj) 5)))
+  (eql (object-type-code obj) :mop-object))
 
 (defun clos-object-p (object) (eql (object-type-code object) :clos_object))
 
 ;;; macro's
-(defun %check-type-error (place value typespec string)
-   (error "Check type error.~%The value of ~s is ~s, is not ~a ~a."
-          place value typespec (if (null string) "" string)))
 
-(defmacro %check-type (place typespec &optional (string ""))
+;;; N.B. The following definition is functional after `string.lisp' is
+;;; loaded, and superseded after `conditions.lisp' is loaded.
+(defun %check-type-error (place value typespec string)
+   (error "Check type error.~%The value of ~s is ~s, is not ~a."
+          place value (if (null string) (format nil "a ~s" typespec) string)))
+
+(defmacro %check-type (place typespec &optional string)
   (let ((value (gensym)))
-    (if (symbolp place)
-        `(do ((,value ,place ,place))
-             ((!typep ,value ',typespec))
-           (setf ,place (%check-type-error ',place ,value ',typespec ,string)))
-        (if (!typep place typespec)
-            t
-            (%check-type-error place place typespec string)))))
+    `(do ((,value ,place ,place))
+         ((!typep ,value ',typespec))
+       (setf ,place (%check-type-error ',place ,value ',typespec ,string)))))
 
 #+jscl
-(defmacro check-type (place typespec &optional (string ""))
+(defmacro check-type (place typespec &optional string)
   `(%check-type ,place ,typespec ,string))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -550,18 +550,20 @@
 
 ;;; Early error definition.
 (defun %coerce-panic-arg (arg)
-  (cond ((symbolp arg) (concat "symbol: " (symbol-name arg)))
-        ((consp arg ) (concat "cons: " (car arg)))
-        ((numberp arg) (concat "number:" arg))
-        (t " @ ")))
+  (if (fboundp 'prin1-to-string)
+      (concat (prin1-to-string arg) " ")
+      (cond ((symbolp arg) (concat "symbol: " (symbol-name arg) " "))
+            ((consp arg) (concat "cons: " (car arg)  " "))
+            ((numberp arg) (concat "number:" arg  " "))
+            (t "@ "))))
 
+;;; N.B. The following definition is functional after `string.lisp' is
+;;; loaded, and superseded after `conditions.lisp' is loaded.
 (defun error (fmt &rest args)
-  (if (fboundp 'format)
-      (%throw (apply #'format nil fmt args))
-    (%throw (lisp-to-js (concat "BOOT PANIC! "
-                                (string fmt)
-                                " "
-                                (%coerce-panic-arg (car args)))))))
+  (%throw (lisp-to-js (apply #'concat "BOOT PANIC! "
+                             (string fmt)
+                             " "
+                             (mapcar #'%coerce-panic-arg args)))))
 
 ;;; print-unreadable-object
 (defmacro !print-unreadable-object ((object stream &key type identity) &body body)
@@ -570,12 +572,13 @@
     `(let ((,g!stream ,stream)
            (,g!object ,object))
        (simple-format ,g!stream "#<")
+       ;; TYPE argument can't be used before `print.lisp' is loaded
        ,(when type
-          `(simple-format ,g!stream "~S" (type-of g!object)))
+          `(prin1 (type-of ,g!object) ,g!stream))
        ,(when (and type (or body identity))
           `(simple-format ,g!stream " "))
        ,@body
-       ,(when (and identity body)
+       #+nil ,(when (and identity body)
           `(simple-format ,g!stream " "))
        (simple-format ,g!stream ">")
        nil)))
@@ -595,5 +598,64 @@
 (defmacro assert (test &optional ignore datum &rest args)
   `(%%assert ,test ,ignore ,datum ,@args))
 
+(defun equalp (x y)
+  (cond
+    ((eql x y) t)
+    ((characterp x)
+     (and (characterp y)
+          (char-equal x y)))
+    ((hash-table-p x)
+     (and (hash-table-p y)
+          (eql (hash-table-test x) (hash-table-test y))
+          (= (hash-table-count x) (hash-table-count y))
+          (block nil
+            (maphash (lambda (k v)
+                       (multiple-value-bind (v1 present-p)
+                           (gethash k y)
+                         (unless (and present-p (equalp v v1))
+                           (return))))
+                     x)
+            t)))
+    ((consp x)
+     (and (consp y)
+          (equalp (car x) (car y))
+          (equalp (cdr x) (cdr y))))
+    ;; Treat VECTOR separately from ARRAY because of fill pointer
+    ((vectorp x)
+     (and (vectorp y)
+          (= (length x) (length y))
+          (dotimes (i (length x) t)
+            (unless (equalp (storage-vector-ref x i)
+                            (storage-vector-ref y i))
+              (return)))))
+    ((arrayp x)
+     (and (arrayp y)
+          (equal (array-dimensions x) (array-dimensions y))
+          (dotimes (i (array-total-size x) t)
+            (unless (equalp (storage-vector-ref x i)
+                            (storage-vector-ref y i))
+              (return)))))
+    ;; TODO: descend into structure-object
+    (t nil)))
+
+(defun coerce (object result-type)
+  (flet ((fail ()
+           (error "Can't coerce ~a to ~a" object result-type)))
+    (cond ((typep object result-type) object)
+          ((subtypep result-type 'list)
+           (if (vectorp object)
+               (vector-to-list object)
+               (fail)))
+          ((subtypep result-type 'vector)
+           (if (listp object)
+               (list-to-vector object)
+               (fail)))
+          ((eq result-type 'character)
+           (character object))
+          ((eq result-type 'function)
+           (if (and (listp object) (eq (car object) 'lambda))
+               (compile nil object)
+               (fdefinition object)))
+          (t (fail)))))
 
 ;;; EOF

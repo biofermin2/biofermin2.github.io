@@ -28,6 +28,7 @@
 
 var t;
 var nil;
+var errorSym;
 
 var jscl = Object.create(null);
 
@@ -39,10 +40,10 @@ else if (typeof self !== 'undefined')
 
 var internals = jscl.internals = Object.create(null);
 
-internals.globalEval = function(code){
+internals.globalEval = function(code, data){
   var geval = eval;             // Just an indirect eval
-  var fn = geval('(function(values, internals){ "use strict"; ' + code + '; })');
-  return fn(internals.mv, internals);
+  var fn = geval('(function(values, internals, data){ "use strict"; ' + code + '; })');
+  return fn(internals.mv, internals, data);
 };
 
 internals.pv = function(x) {
@@ -58,6 +59,17 @@ internals.mv = function(){
 internals.forcemv = function(x) {
   return typeof x == 'object' && x !== null && 'multiple-value' in x? x: internals.mv(x);
 };
+
+internals.error = function(){
+  var args = Array.prototype.slice.call(arguments);
+  errorSym.fvalue.apply(null, [internals.pv].concat(args));
+}
+
+internals.typeError = function (datum, expectedType) {
+  internals.error(internals.intern("TYPE-ERROR", "COMMON-LISP"),
+    internals.intern("DATUM", "KEYWORD"), datum,
+    internals.intern("EXPECTED-TYPE", "KEYWORD"), expectedType)
+}
 
 //
 // Workaround the problems with `new` for arbitrary number of
@@ -119,29 +131,22 @@ internals.checkArgs = function(args, n){
 // Lists
 
 internals.Cons = function (car, cdr) {
-  this.car = car;
-  this.cdr = cdr;
+  this['$$jscl_car'] = car;
+  this['$$jscl_cdr'] = cdr;
 };
 
-internals.car = function(x){
-  if (x === nil)
-    return nil;
-  else if (x instanceof internals.Cons)
-    return x.car;
-  else {
-    console.log(x);
-    throw new Error('CAR called on non-list argument');
-  }
-};
+Object.defineProperty(Object.prototype, "$$jscl_car", {
+  get: (function () { internals.typeError(this, internals.intern("CONS", "COMMON-LISP")); }),
+  set: (function () { internals.typeError(this, internals.intern("CONS", "COMMON-LISP")); }),
+});
 
-internals.cdr = function(x){
-  if (x === nil)
-    return nil;
-  else if (x instanceof internals.Cons)
-    return x.cdr;
-  else
-    throw new Error('CDR called on non-list argument');
-};
+Object.defineProperty(Object.prototype, "$$jscl_cdr", {
+  get: (function () { internals.typeError(this, internals.intern("CONS", "COMMON-LISP")); }),
+  set: (function () { internals.typeError(this, internals.intern("CONS", "COMMON-LISP")); }),
+});
+
+Object.defineProperty(internals.Cons.prototype, "$$jscl_car", { writable: true });
+Object.defineProperty(internals.Cons.prototype, "$$jscl_cdr", { writable: true });
 
 // Improper list constructor (like LIST*)
 internals.QIList = function(){
@@ -163,7 +168,8 @@ internals.QIList = function(){
 // Arithmetic
 
 internals.handled_division = function (x, y) {
-  if (y == 0) throw "Division by zero";
+  if (y == 0) internals.error(internals.intern("DIVISION-BY-ZERO", "COMMON-LISP"),
+    internals.intern("OPERANDS","KEYWORD"), internals.QIList(x, y, nil));
   return x/y;
 };
 
@@ -313,7 +319,7 @@ packages.JSCL = {
 };
 
 packages.CL = {
-  packageName: 'CL',
+  packageName: 'COMMON-LISP',
   symbols: Object.create(null),
   exports: Object.create(null),
   use: nil
@@ -335,7 +341,8 @@ jscl.CL = packages.CL.exports;
 const UNBOUND = Symbol('UnboundFunction')
 
 internals.makeUnboundFunction = function (symbol) {
-  const fn = ()=>{ throw new Error("Function '" + symbol.name + "' undefined");}
+  const fn = ()=>{ internals.error(internals.intern("UNDEFINED-FUNCTION","COMMON-LISP"),
+    internals.intern("NAME","KEYWORD"), symbol);}
   fn[UNBOUND] = true;
   return fn;
 };
@@ -351,7 +358,8 @@ internals.Symbol = function(name, package_name){
 internals.symbolValue = function (symbol){
   var value = symbol.value;
   if (value === undefined){
-    throw new Error("Variable " + symbol.name + " is unbound.");
+    internals.error(internals.intern("UNBOUND-VARIABLE", "COMMON-LISP"),
+      internals.intern("NAME", "KEYWORD"), symbol);
   } else {
     return value;
   }
@@ -361,7 +369,7 @@ internals.fboundp = function (symbol) {
   if (symbol instanceof internals.Symbol){
     return !symbol.fvalue[UNBOUND]
   } else {
-    throw new Error(`${symbol} is not a symbol`)
+    internals.typeError(symbol, internals.intern("SYMBOL", "COMMON-LISP"));
   }
 }
 
@@ -495,6 +503,14 @@ function runCommonLispScripts() {
     }
     progressivelyRunScripts();
 }
+
+// NIL and T
+
+nil = internals.intern("NIL", "COMMON-LISP");
+t = internals.intern("T", "COMMON-LISP");
+errorSym = internals.intern("ERROR", "COMMON-LISP");
+Object.defineProperty(nil, "$$jscl_car", { value: nil, writable: false });
+Object.defineProperty(nil, "$$jscl_cdr", { value: nil, writable: false });
 
 // Node Readline
 if (typeof module !== 'undefined' &&

@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.59 in css mode. -->
+<html>
+  <head>
+    <title>2026-0101.lisp</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #ffffd9;
+        background-color: #000b00;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #68be8d;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #f0908d;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #a25768;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #89c3eb;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #fcc800;
+        font-weight: bold;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #f39800;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #ec6d71;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #f6bfbc;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #f6ad49;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #ffec47;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #68be8d;
+      }
+      .rainbow-delimiters-depth-6 {
+        /* rainbow-delimiters-depth-6-face */
+        color: #478384;
+      }
+      .rainbow-delimiters-depth-7 {
+        /* rainbow-delimiters-depth-7-face */
+        color: #a0d8ef;
+      }
+      .rainbow-delimiters-depth-8 {
+        /* rainbow-delimiters-depth-8-face */
+        color: #aa4c8f;
+      }
+      .rainbow-delimiters-depth-9 {
+        /* rainbow-delimiters-depth-9-face */
+        color: #a6a5c4;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #89c3eb;
+      }
+      .warning {
+        /* font-lock-warning-face */
+        color: #d9333f;
+        font-weight: bold;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+read-delimited-list                     <span class="comment">; =&gt;
+</span><span class="comment-delimiter">;; </span><span class="comment">&#23433;&#20840;&#12395; {} reader macro &#12434;&#20351;&#12405;&#26041;&#27861;
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">&#12414;&#12378; readtable &#12434;&#30906;&#35469;
+</span>
+<span class="rainbow-delimiters-depth-1">(</span>get-macro-character #\{<span class="rainbow-delimiters-depth-1">)</span>               <span class="comment">; =&gt;#&lt;FUNCTION READ-RANGE&gt;
+</span>NIL 
+<span class="rainbow-delimiters-depth-1">(</span>get-macro-character #\}<span class="rainbow-delimiters-depth-1">)</span>               <span class="comment">; =&gt;SB-IMPL::READ-RIGHT-PAREN
+</span>NIL 
+<span class="comment-delimiter">;;</span><span class="comment">NIL&#12394;&#12425;&#26410;&#35373;&#23450;&#12375;&#12363;&#12375;&#12289;&#12371;&#12371;&#12391;&#12399;&#35373;&#23450;&#12373;&#12428;&#12390;&#12356;&#12427;&#12398;&#12364;&#12431;&#12363;&#12427;&#12290;
+</span>
+<span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defun</span> <span class="function-name">read-range</span> <span class="rainbow-delimiters-depth-2">(</span>stream char<span class="rainbow-delimiters-depth-2">)</span>
+  <span class="doc">"&#35712;&#12415;&#36796;&#12415;&#26178;&#12510;&#12463;&#12525;&#12395;&#12390;&#25976;&#20540;&#31684;&#22285;&#12434;&#23637;&#38283;&#12377;&#12427;&#38364;&#25976;"</span>
+  <span class="rainbow-delimiters-depth-2">(</span><span class="keyword">declare</span> <span class="rainbow-delimiters-depth-3">(</span>ignore char<span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span>
+  <span class="rainbow-delimiters-depth-2">(</span><span class="keyword">let*</span> <span class="rainbow-delimiters-depth-3">(</span><span class="rainbow-delimiters-depth-4">(</span>range-str <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">with-output-to-string</span> <span class="rainbow-delimiters-depth-6">(</span>s<span class="rainbow-delimiters-depth-6">)</span>
+                      <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">loop</span> for c = <span class="rainbow-delimiters-depth-7">(</span>read-char stream<span class="rainbow-delimiters-depth-7">)</span>
+                            until <span class="rainbow-delimiters-depth-7">(</span>char= c #\}<span class="rainbow-delimiters-depth-7">)</span>
+                            do <span class="rainbow-delimiters-depth-7">(</span>write-char c s<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+         <span class="rainbow-delimiters-depth-4">(</span>separator <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">cond</span> <span class="rainbow-delimiters-depth-6">(</span><span class="rainbow-delimiters-depth-7">(</span>search <span class="string">".."</span> range-str<span class="rainbow-delimiters-depth-7">)</span> <span class="string">".."</span><span class="rainbow-delimiters-depth-6">)</span>
+                          <span class="rainbow-delimiters-depth-6">(</span><span class="rainbow-delimiters-depth-7">(</span>search <span class="string">"-"</span> range-str<span class="rainbow-delimiters-depth-7">)</span> <span class="string">"-"</span><span class="rainbow-delimiters-depth-6">)</span>
+                          <span class="rainbow-delimiters-depth-6">(</span>t <span class="rainbow-delimiters-depth-7">(</span><span class="warning">error</span> <span class="string">"&#21306;&#20999;&#12426;&#25991;&#23383;&#28961;&#20043;&#20505;"</span><span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+         <span class="rainbow-delimiters-depth-4">(</span>parts <span class="rainbow-delimiters-depth-5">(</span>mapcar #'string-trim '<span class="rainbow-delimiters-depth-6">(</span>#\Space #\Tab<span class="rainbow-delimiters-depth-6">)</span>
+                        <span class="rainbow-delimiters-depth-6">(</span>uiop:split-string range-str <span class="builtin">:separator</span> separator<span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>
+    <span class="rainbow-delimiters-depth-3">(</span>format t <span class="string">"~%range-str: ~S~%"</span> range-str<span class="rainbow-delimiters-depth-3">)</span>
+    <span class="rainbow-delimiters-depth-3">(</span>format t <span class="string">"separator: ~S~%"</span> separator<span class="rainbow-delimiters-depth-3">)</span>
+    <span class="rainbow-delimiters-depth-3">(</span>format t <span class="string">"parts: ~S~%"</span> parts<span class="rainbow-delimiters-depth-3">)</span>
+    <span class="rainbow-delimiters-depth-3">(</span><span class="keyword">let</span> <span class="rainbow-delimiters-depth-4">(</span><span class="rainbow-delimiters-depth-5">(</span>start <span class="rainbow-delimiters-depth-6">(</span>parse-integer <span class="rainbow-delimiters-depth-7">(</span>first parts<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+          <span class="rainbow-delimiters-depth-5">(</span>end <span class="rainbow-delimiters-depth-6">(</span>parse-integer <span class="rainbow-delimiters-depth-7">(</span>second parts<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+      <span class="rainbow-delimiters-depth-4">(</span><span class="keyword">if</span> <span class="rainbow-delimiters-depth-5">(</span>&lt; start end<span class="rainbow-delimiters-depth-5">)</span>
+          <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">loop</span> for i from start to end collect i<span class="rainbow-delimiters-depth-5">)</span>
+          <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">loop</span> for i from start downto end collect i<span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;READ-RANGE 
+</span>
+'{1-5}                                  <span class="comment">; =&gt;(1 2 3 4 5) 
+</span>'{5-1}                                  <span class="comment">; =&gt;(5 4 3 2 1) 
+</span>
+'{1..5}                                 <span class="comment">; =&gt; 
+</span>'{5..1}                                 <span class="comment">; =&gt; 
+</span><span class="rainbow-delimiters-depth-1">(</span>set-macro-character #\] <span class="rainbow-delimiters-depth-2">(</span>get-macro-character #\)<span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;T 
+</span>
+  <span class="rainbow-delimiters-depth-1">(</span>set-dispatch-macro-character #\# #\[
+    #'<span class="rainbow-delimiters-depth-2">(</span><span class="keyword">lambda</span> <span class="rainbow-delimiters-depth-3">(</span>stream char1 char2<span class="rainbow-delimiters-depth-3">)</span>
+        <span class="rainbow-delimiters-depth-3">(</span><span class="keyword">let</span> <span class="rainbow-delimiters-depth-4">(</span><span class="rainbow-delimiters-depth-5">(</span>accum nil<span class="rainbow-delimiters-depth-5">)</span>
+              <span class="rainbow-delimiters-depth-5">(</span>pair <span class="rainbow-delimiters-depth-6">(</span>read-delimited-list #\] stream t<span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+          <span class="rainbow-delimiters-depth-4">(</span><span class="keyword">do</span> <span class="rainbow-delimiters-depth-5">(</span><span class="rainbow-delimiters-depth-6">(</span>i <span class="rainbow-delimiters-depth-7">(</span>ceiling <span class="rainbow-delimiters-depth-8">(</span>car pair<span class="rainbow-delimiters-depth-8">)</span><span class="rainbow-delimiters-depth-7">)</span> <span class="rainbow-delimiters-depth-7">(</span>1+ i<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+            <span class="rainbow-delimiters-depth-5">(</span><span class="rainbow-delimiters-depth-6">(</span>&gt; i <span class="rainbow-delimiters-depth-7">(</span>floor <span class="rainbow-delimiters-depth-8">(</span>cadr pair<span class="rainbow-delimiters-depth-8">)</span><span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span>
+             <span class="rainbow-delimiters-depth-6">(</span>list 'quote <span class="rainbow-delimiters-depth-7">(</span>nreverse accum<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+            <span class="rainbow-delimiters-depth-5">(</span>push i accum<span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span>          <span class="comment">; =&gt;T 
+</span>#[2 7]                                  <span class="comment">; =&gt; 7
+</span>
+<span class="rainbow-delimiters-depth-1">(</span>get-macro-character #\)<span class="rainbow-delimiters-depth-1">)</span>               <span class="comment">; =&gt; SB-IMPL::READ-RIGHT-PAREN
+</span><span class="rainbow-delimiters-depth-1">(</span>read-delimited-list #\]<span class="rainbow-delimiters-depth-1">)</span>               <span class="comment">; =&gt;
+</span>
+
+<span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defun</span> <span class="function-name">read-range</span> <span class="rainbow-delimiters-depth-2">(</span>stream char<span class="rainbow-delimiters-depth-2">)</span>
+  <span class="doc">"&#35712;&#12415;&#36796;&#12415;&#26178;&#12510;&#12463;&#12525;&#12395;&#12390;&#25976;&#20516;&#31684;&#22285;&#12434;&#23637;&#38283;&#12377;&#12427;&#38364;&#25976;&#65288;&#12473;&#12486;&#12483;&#12503;&#25976;&#23565;&#25033;&#65289;"</span>
+  <span class="rainbow-delimiters-depth-2">(</span><span class="keyword">declare</span> <span class="rainbow-delimiters-depth-3">(</span>ignore char<span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span>
+  <span class="rainbow-delimiters-depth-2">(</span><span class="keyword">let*</span> <span class="rainbow-delimiters-depth-3">(</span><span class="rainbow-delimiters-depth-4">(</span>range-str <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">with-output-to-string</span> <span class="rainbow-delimiters-depth-6">(</span>s<span class="rainbow-delimiters-depth-6">)</span>
+                      <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">loop</span> for c = <span class="rainbow-delimiters-depth-7">(</span>read-char stream<span class="rainbow-delimiters-depth-7">)</span>
+                            until <span class="rainbow-delimiters-depth-7">(</span>char= c #\}<span class="rainbow-delimiters-depth-7">)</span>
+                            do <span class="rainbow-delimiters-depth-7">(</span>write-char c s<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+         <span class="rainbow-delimiters-depth-4">(</span>separator <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">cond</span> <span class="rainbow-delimiters-depth-6">(</span><span class="rainbow-delimiters-depth-7">(</span>search <span class="string">".."</span> range-str<span class="rainbow-delimiters-depth-7">)</span> <span class="string">".."</span><span class="rainbow-delimiters-depth-6">)</span>
+                          <span class="rainbow-delimiters-depth-6">(</span><span class="rainbow-delimiters-depth-7">(</span>search <span class="string">"-"</span> range-str<span class="rainbow-delimiters-depth-7">)</span> <span class="string">"-"</span><span class="rainbow-delimiters-depth-6">)</span>
+                          <span class="rainbow-delimiters-depth-6">(</span>t <span class="rainbow-delimiters-depth-7">(</span><span class="warning">error</span> <span class="string">"&#21306;&#20999;&#12426;&#25991;&#23383;&#28961;&#20043;&#20505;"</span><span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+         <span class="rainbow-delimiters-depth-4">(</span>parts <span class="rainbow-delimiters-depth-5">(</span>mapcar <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">lambda</span> <span class="rainbow-delimiters-depth-7">(</span>s<span class="rainbow-delimiters-depth-7">)</span> 
+                          <span class="rainbow-delimiters-depth-7">(</span>string-trim '<span class="rainbow-delimiters-depth-8">(</span>#\Space #\Tab<span class="rainbow-delimiters-depth-8">)</span> s<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span>
+                        <span class="rainbow-delimiters-depth-6">(</span>uiop:split-string range-str <span class="builtin">:separator</span> separator<span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>
+    <span class="comment-delimiter">;; </span><span class="comment">step&#25351;&#23450;&#12398;&#26377;&#28961;&#12434;&#30906;&#35469;
+</span>    <span class="rainbow-delimiters-depth-3">(</span><span class="keyword">let*</span> <span class="rainbow-delimiters-depth-4">(</span><span class="rainbow-delimiters-depth-5">(</span>step-parts <span class="rainbow-delimiters-depth-6">(</span>uiop:split-string <span class="rainbow-delimiters-depth-7">(</span>second parts<span class="rainbow-delimiters-depth-7">)</span> <span class="builtin">:separator</span> <span class="string">":"</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+           <span class="rainbow-delimiters-depth-5">(</span>end <span class="rainbow-delimiters-depth-6">(</span>parse-integer <span class="rainbow-delimiters-depth-7">(</span>first step-parts<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+           <span class="rainbow-delimiters-depth-5">(</span>step <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">if</span> <span class="rainbow-delimiters-depth-7">(</span>second step-parts<span class="rainbow-delimiters-depth-7">)</span>
+                     <span class="rainbow-delimiters-depth-7">(</span>parse-integer <span class="rainbow-delimiters-depth-8">(</span>second step-parts<span class="rainbow-delimiters-depth-8">)</span><span class="rainbow-delimiters-depth-7">)</span>
+                     1<span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+           <span class="rainbow-delimiters-depth-5">(</span>start <span class="rainbow-delimiters-depth-6">(</span>parse-integer <span class="rainbow-delimiters-depth-7">(</span>first parts<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+      <span class="rainbow-delimiters-depth-4">(</span><span class="keyword">if</span> <span class="rainbow-delimiters-depth-5">(</span>&lt; start end<span class="rainbow-delimiters-depth-5">)</span>
+          <span class="comment-delimiter">;; </span><span class="comment">&#26119;&#38918;
+</span>          <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">loop</span> for i from start to end by step collect i<span class="rainbow-delimiters-depth-5">)</span>
+          <span class="comment-delimiter">;; </span><span class="comment">&#38477;&#38918;
+</span>          <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">loop</span> for i from start downto end by step collect i<span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;READ-RANGE 
+</span>
+<span class="rainbow-delimiters-depth-1">(</span>set-macro-character #\{ #'read-range<span class="rainbow-delimiters-depth-1">)</span>  <span class="comment">; =&gt;T 
+</span><span class="rainbow-delimiters-depth-1">(</span>set-macro-character #\} <span class="rainbow-delimiters-depth-2">(</span>get-macro-character #\) nil<span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;T
+</span>
+
+<span class="rainbow-delimiters-depth-1">(</span><span class="keyword">defun</span> <span class="function-name">read-range</span> <span class="rainbow-delimiters-depth-2">(</span>stream char<span class="rainbow-delimiters-depth-2">)</span>
+  <span class="doc">"&#35712;&#12415;&#36796;&#12415;&#26178;&#12510;&#12463;&#12525;&#12395;&#12390;&#25976;&#20516;&#31684;&#22285;&#12434;&#23637;&#38283;&#12377;&#12427;&#38364;&#25976;&#65288;&#12473;&#12486;&#12483;&#12503;&#25976;&#23565;&#25033;&#65289;"</span>
+  <span class="rainbow-delimiters-depth-2">(</span><span class="keyword">declare</span> <span class="rainbow-delimiters-depth-3">(</span>ignore char<span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span>
+  <span class="rainbow-delimiters-depth-2">(</span><span class="keyword">let*</span> <span class="rainbow-delimiters-depth-3">(</span><span class="rainbow-delimiters-depth-4">(</span>range-str <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">with-output-to-string</span> <span class="rainbow-delimiters-depth-6">(</span>s<span class="rainbow-delimiters-depth-6">)</span>
+                      <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">loop</span> for c = <span class="rainbow-delimiters-depth-7">(</span>read-char stream<span class="rainbow-delimiters-depth-7">)</span>
+                            until <span class="rainbow-delimiters-depth-7">(</span>char= c #\}<span class="rainbow-delimiters-depth-7">)</span>
+                            do <span class="rainbow-delimiters-depth-7">(</span>write-char c s<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+         <span class="rainbow-delimiters-depth-4">(</span>separator <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">cond</span> <span class="rainbow-delimiters-depth-6">(</span><span class="rainbow-delimiters-depth-7">(</span>search <span class="string">".."</span> range-str<span class="rainbow-delimiters-depth-7">)</span> <span class="string">".."</span><span class="rainbow-delimiters-depth-6">)</span>
+                          <span class="rainbow-delimiters-depth-6">(</span><span class="rainbow-delimiters-depth-7">(</span>search <span class="string">"-"</span> range-str<span class="rainbow-delimiters-depth-7">)</span> <span class="string">"-"</span><span class="rainbow-delimiters-depth-6">)</span>
+                          <span class="rainbow-delimiters-depth-6">(</span>t <span class="rainbow-delimiters-depth-7">(</span><span class="warning">error</span> <span class="string">"&#21306;&#20999;&#12426;&#25991;&#23383;&#28961;&#20043;&#20505;"</span><span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+         <span class="rainbow-delimiters-depth-4">(</span>parts <span class="rainbow-delimiters-depth-5">(</span>remove-if <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">lambda</span> <span class="rainbow-delimiters-depth-7">(</span>s<span class="rainbow-delimiters-depth-7">)</span> <span class="rainbow-delimiters-depth-7">(</span>string= s <span class="string">""</span><span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span>
+                           <span class="rainbow-delimiters-depth-6">(</span>mapcar <span class="rainbow-delimiters-depth-7">(</span><span class="keyword">lambda</span> <span class="rainbow-delimiters-depth-8">(</span>s<span class="rainbow-delimiters-depth-8">)</span> 
+                                     <span class="rainbow-delimiters-depth-8">(</span>string-trim '<span class="rainbow-delimiters-depth-9">(</span>#\Space #\Tab<span class="rainbow-delimiters-depth-9">)</span> s<span class="rainbow-delimiters-depth-8">)</span><span class="rainbow-delimiters-depth-7">)</span>
+                                   <span class="rainbow-delimiters-depth-7">(</span>uiop:split-string range-str <span class="builtin">:separator</span> separator<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>
+    <span class="comment-delimiter">;; </span><span class="comment">step&#25351;&#23450;&#12398;&#26377;&#28961;&#12434;&#30906;&#35469;
+</span>    <span class="rainbow-delimiters-depth-3">(</span><span class="keyword">let*</span> <span class="rainbow-delimiters-depth-4">(</span><span class="rainbow-delimiters-depth-5">(</span>step-parts <span class="rainbow-delimiters-depth-6">(</span>uiop:split-string <span class="rainbow-delimiters-depth-7">(</span>second parts<span class="rainbow-delimiters-depth-7">)</span> <span class="builtin">:separator</span> <span class="string">":"</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+           <span class="rainbow-delimiters-depth-5">(</span>end <span class="rainbow-delimiters-depth-6">(</span>parse-integer <span class="rainbow-delimiters-depth-7">(</span>first step-parts<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+           <span class="rainbow-delimiters-depth-5">(</span>step <span class="rainbow-delimiters-depth-6">(</span><span class="keyword">if</span> <span class="rainbow-delimiters-depth-7">(</span>second step-parts<span class="rainbow-delimiters-depth-7">)</span>
+                     <span class="rainbow-delimiters-depth-7">(</span>parse-integer <span class="rainbow-delimiters-depth-8">(</span>second step-parts<span class="rainbow-delimiters-depth-8">)</span><span class="rainbow-delimiters-depth-7">)</span>
+                     1<span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span>
+           <span class="rainbow-delimiters-depth-5">(</span>start <span class="rainbow-delimiters-depth-6">(</span>parse-integer <span class="rainbow-delimiters-depth-7">(</span>first parts<span class="rainbow-delimiters-depth-7">)</span><span class="rainbow-delimiters-depth-6">)</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span>
+      <span class="rainbow-delimiters-depth-4">(</span><span class="keyword">if</span> <span class="rainbow-delimiters-depth-5">(</span>&lt; start end<span class="rainbow-delimiters-depth-5">)</span>
+          <span class="comment-delimiter">;; </span><span class="comment">&#26119;&#38918;
+</span>          <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">loop</span> for i from start to end by step collect i<span class="rainbow-delimiters-depth-5">)</span>
+          <span class="comment-delimiter">;; </span><span class="comment">&#38477;&#38918;
+</span>          <span class="rainbow-delimiters-depth-5">(</span><span class="keyword">loop</span> for i from start downto end by step collect i<span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span><span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;READ-RANGE 
+</span>
+<span class="rainbow-delimiters-depth-1">(</span>set-macro-character #\{ #'read-range<span class="rainbow-delimiters-depth-1">)</span>                  <span class="comment">; =&gt;T 
+</span><span class="rainbow-delimiters-depth-1">(</span>set-macro-character #\} <span class="rainbow-delimiters-depth-2">(</span>get-macro-character #\) nil<span class="rainbow-delimiters-depth-2">)</span><span class="rainbow-delimiters-depth-1">)</span> <span class="comment">; =&gt;T 
+</span>
+'{2-7}                                  <span class="comment">; =&gt;(2 3 4 5 6 7) 
+</span>'{2-10:3}                               <span class="comment">; =&gt;(2 5 8) 
+</span>'{10-3:4}                               <span class="comment">; =&gt;(10 6) 
+</span>'{2..8:2}                               <span class="comment">; =&gt;(2 4 6 8) 
+</span>'{9..2:2}                               <span class="comment">; =&gt;(9 7 5 3) 
+</span>'{ 2-7 }                                <span class="comment">; =&gt; 
+</span>'{2 - 10:3}                             <span class="comment">; =&gt; 
+</span>'{10-3:4}                               <span class="comment">; =&gt;(10 6) 
+</span>'{2..8:2}                               <span class="comment">; =&gt;(2 4 6 8) 
+</span>'{9..2:2}                               <span class="comment">; =&gt;(9 7 5 3) 
+</span><span class="rainbow-delimiters-depth-1">(</span>apply #'+ '{1-10:2}<span class="rainbow-delimiters-depth-1">)</span>                   <span class="comment">; =&gt; 25
+</span>'{2-6:}                                 <span class="comment">; =&gt; </span></pre>
+  </body>
+</html>

@@ -15,7 +15,7 @@
 
 (defun start-repl ()
   (welcome-message)
-  (let ((prompt (format nil "~a>" (package-name *package*))))
+  (let ((prompt (format nil "~a>" (package-name-for-prompt *package*))))
     (loop
       do
       (let ((line (#j:prompt prompt)))
@@ -33,7 +33,7 @@
           (catch (err)
             (let ((message (or (oget err "message") err)))
               (format t "ERROR[!]: ~a~%" message))))
-        (setf prompt (format nil "~a>" (package-name *package*)))))))
+        (setf prompt (format nil "~a>" (package-name-for-prompt *package*)))))))
 
 (defun deno-init ()
   (let ((text-encoder (make-new #j:TextEncoder)))
@@ -41,7 +41,9 @@
       (make-stream
         :write-fn (lambda (string)
                     ;; TODO switch to std/io/utils because Deno.writeAllSync is deprecated
-                    (#j:Deno:writeAllSync #j:Deno:stdout ((oget text-encoder "encode") string))))))
+                    (#j:Deno:writeAllSync #j:Deno:stdout ((oget text-encoder "encode") string))))
+      *error-output* *standard-output*
+      *trace-output* *standard-output*))
   (start-repl))
 
 (deno-init)

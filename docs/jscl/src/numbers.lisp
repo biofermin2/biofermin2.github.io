@@ -110,17 +110,23 @@
              `(defun ,operator (x &rest args)
                 (dolist (y args) 
                   (if (,operator x y)
-                      (setq x    (car args))
+                      (setq x y)
                       (return-from ,operator nil)))
                 t)))
   (def >)
   (def >=)
   (def =) 
   (def <)
-  (def <=)
-  (def /=))
+  (def <=))
 
-(defconstant pi 3.141592653589793) 
+(defun /= (x &rest args)
+  (do* ((head x (car list))
+        (list args (cdr list)))
+       ((null list) t)
+    (dolist (y list)
+      (when (= head y) (return-from /= nil)))))
+
+(defconstant pi 3.141592653589793)
 
 (defun evenp (x) (= (mod x 2) 0))
 (defun oddp  (x) (not (evenp x)))
@@ -210,7 +216,7 @@
       (/ (log number) (log base))
       (if (numberp number)
           (#j:Math:log number)
-          (error "`~S' is not a number." number))))
+          (error 'type-error :datum number :expected-type 'number))))
 
 ;;; lognot
 (defun lognot (x) (%lognot x))
@@ -320,8 +326,8 @@
 (defun lognor   (x y)  (%lognot (%logior x y)))
 (defun logandc1 (x y)  (%logand (%lognot x) y))
 (defun logandc2 (x y)  (%logand x (%lognot y)))
-(defun logiorc1  (x y)  (%logior  (%lognot x) y))
-(defun logiorc2  (x y)  (%logior x (%lognot y)))
+(defun logorc1  (x y)  (%logior  (%lognot x) y))
+(defun logorc2  (x y)  (%logior x (%lognot y)))
 
 ;;; BOOLE
 (defun boole (op i1 i2)

@@ -61,7 +61,8 @@
 (defun _load_form_eval_ (input verbose)
   (let ((stream)
         (expr)
-        (eof (gensym "LOADER" )))
+        (eof (gensym "LOADER" ))
+        (*package* *package*))
     (setq stream (make-string-input-stream input))
     (terpri)
     (tagbody
@@ -188,7 +189,8 @@
    hook))
 
 (defun _load_eval_bundle_ (input verbose bundle-name place hook)
-  (let (stream eof code expr rc code-stor fbundle)
+  (let ((*package* *package*)
+        stream eof code expr rc code-stor fbundle)
     (setq eof (gensym "LOADER"))
     (if hook (setq code-stor hook))
     (when bundle-name
@@ -207,7 +209,7 @@
              (when verbose (format t "~a ~a~%" (car expr) (cadr expr)))
              (with-compilation-environment
                (setq code (compile-toplevel expr t t))
-               (setq rc (js-eval code))
+               (setq rc (js-eval code nil))
                (when verbose (format t "  ~a~%" rc))
                ;; so, expr already verifyed
                ;; store expression after compilation/evaluated
@@ -216,7 +218,7 @@
                      (t t)) ))
          (error (msg)
            (format t "   Error: ")
-           (load_cond_err_handl_ msg)
+           (_load_cond_err_handl_ msg)
            ;; break read-eval loop
            ;; no bundle
            (setq fbundle nil)

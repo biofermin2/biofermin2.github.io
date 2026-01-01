@@ -15,11 +15,11 @@
 
 (/debug "loading repl-web/repl.lisp!")
 
-(defun %write-string (string &optional (escape t))
+(defun %write-string (string &optional (escape t) (style "jqconsole-output"))
     (if #j:jqconsole
         (if escape
-            (#j:jqconsole:Write string "jqconsole-output")
-            (#j:jqconsole:Write string "jqconsole-output" ""))
+            (#j:jqconsole:Write string style)
+            (#j:jqconsole:Write string style ""))
         (#j:console:log string)))
 
 (defun load-history ()
@@ -30,44 +30,6 @@
 (defun save-history ()
   (#j:localStorage:setItem "jqhist" (#j:JSON:stringify (#j:jqconsole:GetHistory))))
 
-
-;;; Decides wheater the input the user has entered is completed or we
-;;; should accept one more line.
-(defun %sexpr-complete (string)
-    (let ((i 0)
-          (stringp nil)
-          (comments nil)
-          (s (length string))
-          (depth 0))
-        (while (< i s)
-            (cond
-              (comments 
-               (case (char string i)
-                 (#\newline 
-                  (setq comments nil))))
-              (stringp
-               (case (char string i)
-                 (#\\
-                  (incf i))
-                 (#\"
-                  (setq stringp nil)
-                  (decf depth))))
-              (t
-               (case (char string i)
-                 (#\; 
-                  (setq comments t))
-                 ;; skip character literals
-                 (#\\
-                  (incf i))
-                 (#\( (unless comments (incf depth)))
-                 (#\) (unless comments (decf depth)))
-                 (#\"
-                  (incf depth)
-                  (setq stringp t)))))
-            (incf i))
-        (if (<= depth 0)
-            nil
-            0)))
 
 ;;; decode error.msg object from (js-try)
 (defun %map-js-object (job)
@@ -83,37 +45,16 @@
 
 (defparameter +err-css+ "jqconsole-error")
 
-(defgeneric display-condition (c &optional style newline))
-
-(defmethod display-condition (c &optional (style +err-css+) ignore)
-  (errmsg-prefix)
-  (#j:jqconsole:Write
-   (format nil
-           "Unhandled error condition ~a~%" (class-name (class-of c)))
-   style))
-
-(defmethod display-condition ((c type-error) &optional (style +err-css+) ignore)
-  (errmsg-prefix)
-  (#j:jqconsole:Write
-   (format nil
-           "Type error.~% ~a does not designate a ~a~%"
-           (type-error-datum c)
-           (type-error-expected-type c))
-   style))
-
-(defmethod display-condition ((c simple-error) &optional (style +err-css+) (nl t))
-  (errmsg-prefix)
-  (#j:jqconsole:Write
-   (apply #'format nil
-          (simple-condition-format-control c)
-          (simple-condition-format-arguments c))
-   style)
-  (when nl (%console-terpri)))
+(defun display-condition (c &optional (style +err-css+) (newline t))
+  (#j:jqconsole:Write (format nil "~A: ~A"
+                              (class-name (class-of c)) c)
+                      style)
+  (when newline (%console-terpri)))
 
 
 (defun toplevel ()
   (#j:jqconsole:RegisterMatching "(" ")" "parents")
-  (let ((prompt (format nil "~a> " (package-name *package*))))
+  (let ((prompt (format nil "~a> " (package-name-for-prompt *package*))))
     (#j:jqconsole:Write prompt "jqconsole-prompt"))
   (flet ((process-input (input)
            ;; Capture unhandled Javascript exceptions. We evaluate the
@@ -122,11 +63,11 @@
            (%js-try
             ;; Capture unhandled Lisp conditions.
             (handler-case
-                (when (> (length input) 0)
-                  (let* ((form (read-from-string input))
-                         (results (multiple-value-list (eval-interactive form))))
-                    (dolist (x results)
-                      (#j:jqconsole:Write (format nil "~S~%" x) "jqconsole-return"))))
+                (dolist (x (multiple-value-list (eval-interactive-input input)))
+                  ;; ensure jqconsole is on fresh line
+                  (unless (zerop (#j:jqconsole:GetColumn))
+                    (#j:jqconsole:Write #\newline "jqconsole-return"))
+                  (#j:jqconsole:Write (format nil "~S~%" x) "jqconsole-return"))
               ;; only error condition's
               (error (condition) (display-condition condition)))
             (catch (js-err)
@@ -135,13 +76,19 @@
                 (#j:jqconsole:Write (format nil "ERROR[!]: ~a~%" message) "jqconsole-error"))))
            (save-history)
            (toplevel)))
-    (#j:jqconsole:Prompt t #'process-input #'%sexpr-complete)))
+    (#j:jqconsole:Prompt t #'process-input #'%sexpr-incomplete)))
 
 (defun web-init ()
   (load-history)
   (setq *standard-output*
         (make-stream
-         :write-fn (lambda (string) (%write-string string))))
+         :write-fn (lambda (string) (%write-string string))
+         :kind 'web-repl-output-stream)
+        *error-output*
+        (make-stream
+         :write-fn (lambda (string) (%write-string string t "jqconsole-error"))
+         :kind 'web-repl-error-stream)
+        *trace-output* *standard-output*)
   (welcome-message :html t)
   (#j:window:addEventListener "load" (lambda (&rest args) (toplevel))))
 

@@ -95,7 +95,7 @@
     (nil               null           nil  list sequence t)
     (t                 true           nil  t)))
 
-(%i-struct (basic-type (:form &key))  name predicate class-of supertype tpl)
+(def!struct basic-type name predicate class-of supertype tpl)
 
 (defvar *builtin-types* (make-hash-table :test #'eql)  "hand off")
 
@@ -103,7 +103,7 @@
   (/debug "            compile basic types")
   (dolist (it *types-basic-types*)
     (destructuring-bind (name predicate class-of &rest  tpl) it
-      (setq tip (%make-basic-type
+      (setq tip (make-basic-type
                  :name name
                  :predicate predicate
                  :supertype (car tpl)
@@ -163,22 +163,12 @@
 
 ;;; type expander
 (defun %type-expand-1 (type)
-  (unless (symbolp type)
-    (unless (consp type)
-      (return-from %type-expand-1 (values type nil))))
-  (let ((expander (get-expander-for type)))
-    (cond (expander
-           (if (symbolp type)
-               (setq type (list type)))
-           (values (funcall expander type) t))
-          ((and (consp type)
-                (cadr type))
-           (multiple-value-bind (expansion expanded-p)
-               (%type-expand (cadr type))
-             (if expanded-p
-                 (values (list* (car type) expansion (cddr type)) t)
-                 (values type nil))))
-          (t (values type nil)))))
+  (if (or (symbolp type) (consp type))
+      (let ((expander (get-expander-for type)))
+        (if expander
+            (values (funcall expander (ensure-list type)) t)
+            (values type nil)))
+      (values type nil)))
 
 (defun %type-expand (form)
   (let ((expanded-p nil))
@@ -217,12 +207,10 @@
           (if (gethash type-specifier *class-table*)
               (let ((class-object
                       (cond ((std-instance-p object) (class-name (class-of object)))
-                            ;; fixme: 
-                            ((std-instance-class object) (class-name object))
                             (t nil))))
-                (if class-object
-                    (return-from !typep
-                      (%subclass (%class-cpl class-object) type-specifier)))))))
+                (return-from !typep
+                  (and class-object
+                       (%subclass (%class-cpl class-object) type-specifier)))))))
     ;; may be compound type specifier
     (let ((test (get-compound-for type-specifier)))
       (if test
@@ -282,16 +270,15 @@
                 (check-numeric-limit high limit-type) ))
       (values '* '*)))
 
-(defmacro deftype-compound (&whole whole name args &body body)
-  (destructuring-bind (name lambda-list &body body) whole
-    (multiple-value-bind (body decls docstring)
-        (parse-body body :declarations t :docstring t)
-      (let* ((compound
-               `(function
-                 (lambda ,lambda-list
-                  ,@body))))
-        `(eval-when (:load-toplevel :execute)
-           (%deftype ',name :compound ,compound))))))
+(defmacro deftype-compound (name lambda-list &body body)
+  (multiple-value-bind (body decls docstring)
+      (parse-body body :declarations t :docstring t)
+    (let* ((compound
+             `(function
+               (lambda ,lambda-list
+                ,@body))))
+      `(eval-when (:load-toplevel :execute)
+         (%deftype ',name :compound ,compound)))))
 
 (macrolet ((dc (type-name predicate-name limit-type)
                `(deftype-compound ,type-name (object type)
@@ -310,30 +297,26 @@
 
 ;;; type compound: (array type dimensions)
 (defun %compare-array-type (object type-spec)
-  (destructuring-bind (type-base &optional (type-element '* te-p) (type-dimensions '*))
+  (destructuring-bind (type-base &optional (type-element '*) (type-dimensions '*))
       type-spec
     (let ((object-type (array-element-type object))
           (object-dimensions (array-dimensions object)))
-      (when (and (eq object-type 'character) (not (eq type-element 'character)))
-             (if  te-p (return-from %compare-array-type nil)))
-      (when (null object-dimensions)
-        (setq object-dimensions (list (oget object "length"))))
-      (cond ((numberp type-dimensions)
-             (setq type-dimensions (make-list type-dimensions :initial-element '*)))
-            (t (if (eql '* type-dimensions)
-                   (setq type-dimensions
-                         (make-list (list-length object-dimensions) :initial-element '*)))))
-      (cond ((not (eql (list-length type-dimensions)
-                       (list-length object-dimensions)))
-             nil)
-            ((equal (make-list (list-length type-dimensions) :initial-element 't)
-                    (mapcar
-                     (lambda (axis-object axis-type)
-                       (cond ((eql axis-type '*) t)
-                             ((eql axis-object '*) nil)
-                             (t (= axis-object axis-type))))
-                     object-dimensions
-                     type-dimensions)))))))
+      (and
+       ;; check element type
+       (or (eq '* type-element)
+           ;; TODO: use subtypep
+           (not (and (eq object-type 'character) (not (eq type-element 'character)))))
+       ;; check dimensions
+       (or (eq '* type-dimensions)
+           (if (numberp type-dimensions)
+               (= type-dimensions (list-length object-dimensions))
+               (and (= (list-length type-dimensions)
+                       (list-length object-dimensions))
+                    (every (lambda (axis-object axis-type)
+                             (or (eql axis-type '*)
+                                 (= axis-object axis-type)))
+                           object-dimensions
+                           type-dimensions))))))))
 
 (defun %canonical-array-dimensions (dims)
   (cond ((consp dims)
@@ -408,21 +391,20 @@
 
 
 ;;; todo: canonical deftype lambda-list
-(defmacro deftype (&whole whole name lambda-list &body body)
-  (destructuring-bind (name (&rest args) &body body) whole
-    (if (null args)
-        (setq args '(&optional ignore)))
-    (multiple-value-bind (body decls docstring)
-        (parse-body body :declarations t :docstring t)
-      (let* ((expr (gensym (symbol-name name)))
-             (expander
-               `(function
-                 (lambda (,expr)
-                  (destructuring-bind ,args (cdr ,expr)
-                    ,@body)))))
-        `(progn
-           (%deftype ',name :expander ,expander)
-           ',name)))))
+(defmacro deftype (name (&rest args) &body body)
+  (if (null args)
+      (setq args '(&optional ignore)))
+  (multiple-value-bind (body decls docstring)
+      (parse-body body :declarations t :docstring t)
+    (let* ((expr (gensym (symbol-name name)))
+           (expander
+             `(function
+               (lambda (,expr)
+                (destructuring-bind ,args (cdr ,expr)
+                  ,@body)))))
+      `(progn
+         (%deftype ',name :expander ,expander)
+         ',name))))
 
 ;;; predefenition types
 ;;; (mod n) -> (1- n)
@@ -481,7 +463,7 @@
 (deftype string (&optional (size '*))
   `(array character (,size)))
 
-(deftype vector (&optional (type 't) (size '*))
+(deftype vector (&optional (type '*) (size '*))
   `(array ,type (,size)))
 
 #+jscl (fset 'typep (fdefinition '!typep))

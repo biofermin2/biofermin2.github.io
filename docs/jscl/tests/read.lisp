@@ -61,7 +61,13 @@
 
 
 (let ((*features* '(foo)))
+  (test (= (read-from-string "#+foo 1 2)") 2)))
+
+(let ((*features* '(:foo)))
   (test (= (read-from-string "#+foo 1 2)") 1)))
+
+(let ((*features* '(foo)))
+  (test (= (read-from-string "#+foo (1 #+(or) 2) 2)") 2)))
 
 ;;; sharp radix reader
 
@@ -117,6 +123,18 @@
      (equal
       (jscl::vector-to-list s1)
       '(1 2 3 4 5 6 7 8 9 10))))))
+
+;;; backquote
+
+(test (equal '(x (a b c) a b c foo b bar (b c) baz b c)
+             (let ((x (list 'a 'b 'c)))
+               `(x ,x ,@x foo ,(cadr x) bar ,(cdr x) baz ,@(cdr x)))))
+
+(test (equal '(a . b) `(a . b)))
+
+(test (equal '(a b . 1)
+             (let ((x 1))
+               `(a b . ,x))))
 
 ;;;
 ;;; parse-integer

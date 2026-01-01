@@ -19,10 +19,18 @@
 (/debug "loading toplevel.lisp!")
 
 (defun eval (x)
-  (let ((jscode
-         (with-compilation-environment
-             (compile-toplevel x t t))))
-    (js-eval jscode)))
+  (multiple-value-bind (jscode literal-table)
+      (let ((*compiling-file* nil)
+            (*compiling-in-process* t))
+        (with-compilation-environment
+          (values (compile-toplevel x t t) *literal-table*)))
+    (js-eval jscode (list-to-vector (nreverse (mapcar #'car literal-table))))))
+
+(defun compile (name &optional definition)
+  ;; TODO: collect compiler warning,  when we have them
+  (let ((compiled (eval `(function ,definition))))
+    (when name (fset name compiled))
+    (values compiled nil nil)))
 
 (defvar * nil)
 (defvar ** nil)
@@ -51,6 +59,18 @@
         ++ +
         + -)
   (values-list /))
+
+(defun eval-interactive-input (input)
+  "Evaluate INPUT string. INPUT may contain multiple forms, which are
+evaluated sequentially. Return the result of the last form in INPUT, or
+no values if INPUT is empty."
+  (let ((eof (list :eof))               ; sentinel value
+        values
+        form)
+    (with-input-from-string (stream input)
+      (while (not (eq eof (setq form (read stream nil eof))))
+        (setq values (multiple-value-list (eval-interactive form)))))
+    (values-list values)))
 
 (export
  '(&allow-other-keys &aux &body &environment &key &optional &rest &whole
@@ -168,7 +188,6 @@
    maphash mapl maplist mask-field max member member-if member-if-not
    merge merge-pathnames method method-combination
    method-combination-error method-qualifiers min minusp mismatch mod
-   mop-object mop-object-p
    most-negative-double-float most-negative-fixnum
    most-negative-long-float most-negative-short-float
    most-negative-single-float most-positive-double-float
@@ -252,6 +271,25 @@
    write-line write-sequence write-string write-to-string y-or-n-p
    yes-or-no-p zerop))
 
+(export '(mop-object mop-object-p) 'jscl)
+
+;;; Replace the bootstrap definition of DEFMACRO, evaluate
+;;; %COMPILE-DEFMACRO also at load time.
+(eval-always
+ (%compile-defmacro
+  'defmacro
+  (lambda (form env)
+    (destructuring-bind (name args &body body) (cdr form)
+      (let ((expander `(function ,(parse-macro name args body))))
+        `(eval-when (:compile-toplevel :load-toplevel :execute)
+           (%compile-defmacro ',name ,expander)))))))
+
+;;; Do the same for DEFINE-COMPILER-MACRO
+(defmacro define-compiler-macro (name args &body body)
+  (let ((expander `(function ,(parse-macro name args body))))
+    `(eval-when (:compile-toplevel :load-toplevel :execute)
+       (%define-compiler-macro ',name ,expander))))
+
 (setq *package* *user-package*)
 
 
@@ -297,17 +335,55 @@
        nil)
       (format t "For more information, visit the project page at https://github.com/jscl-project/jscl.~%~%")))
 
+;;; Decides whether the input the user has entered is completed or we
+;;; should accept one more line.
+(defun %sexpr-incomplete (string)
+  (let ((i 0)
+        (stringp nil)
+        (comments nil)
+        (s (length string))
+        (depth 0))
+    (while (< i s)
+      (cond
+        (comments
+         (case (char string i)
+           (#\newline
+            (setq comments nil))))
+        (stringp
+         (case (char string i)
+           (#\\
+            (incf i))
+           (#\"
+            (setq stringp nil)
+            (decf depth))))
+        (t
+         (case (char string i)
+           (#\;
+            (setq comments t))
+           ;; skip character literals
+           (#\\
+            (incf i))
+           (#\( (unless comments (incf depth)))
+           (#\) (unless comments (decf depth)))
+           (#\"
+            (incf depth)
+            (setq stringp t)))))
+      (incf i))
+    (if (<= depth 0)
+        nil
+        0)))
+
 
 ;;; Basic *standard-output* stream. This will usually be overriden by
 ;;; web or node REPL.
 ;;;
-;;; TODO: Cache character operation so they result in a single call to
-;;; console.log.
-;;;
 (setq *standard-output*
-      (make-stream
-       :write-fn (lambda (string)
-                   (#j:console:log string))))
+      (make-line-buffer-stream
+       (make-stream
+        :write-fn (lambda (string) (#j:console:log string))
+        :kind 'console-output-stream))
+      *error-output* *standard-output*
+      *trace-output* *standard-output*)
 
 (cond
   ((find :node *features*)

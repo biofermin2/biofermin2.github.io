@@ -115,12 +115,16 @@ accumulated, in the order."
   #+jscl (float-to-string x)
   #-jscl (format nil "~f" x))
 
-(defun satisfies-test-p (x y &key key (test #'eql) testp (test-not #'eql) test-not-p)
+(defun make-test-p (&key key (test #'eql) testp (test-not #'eql) test-not-p)
   (when (and testp test-not-p)
     (error "Both test and test-not are set"))
-  (let ((key-val (if key (funcall key y) y))
-        (fn (if test-not-p (complement test-not) test)))
-    (funcall fn x key-val)))
+  (if key
+      (if test-not-p
+          (lambda (x y) (not (funcall test-not x (funcall key y))))
+          (lambda (x y) (funcall test x (funcall key y))))
+      (if test-not-p
+          (lambda (x y) (not (funcall test-not x y)))
+          test)))
 
 
 (defun interleave (list element &optional after-last-p)
@@ -133,7 +137,35 @@ accumulated, in the order."
       (when after-last-p
         (collect element)))))
 
+(defun simple-package-error (package format-control &rest format-arguments)
+  (error 'simple-package-error
+         :stream package
+         :format-control format-control
+         :format-arguments format-arguments))
 
 (defun find-package-or-fail (package-designator)
   (or (find-package package-designator)
-      (error "The name `~S' does not designate any package." package-designator)))
+      (simple-package-error package-designator
+                            "The name `~S' does not designate any package."
+                            package-designator)))
+
+(defun find-symbol-for-import (name package)
+  (let ((name (string name)))
+    (multiple-value-bind (symbol status) (find-symbol name package)
+      (unless status
+        (simple-package-error package
+                              "Symbol with name ~A not found in ~A"
+                              name package))
+      symbol)))
+
+(defun %defpackage (name nicknames)
+  (let ((package (find-package name))
+        (nicknames (mapcar #'string nicknames)))
+    (if package
+        (rename-package package name nicknames)
+        (make-package name :nicknames nicknames))))
+
+(defun find-function (function-designator)
+  (if (functionp function-designator)
+      function-designator
+      (fdefinition function-designator)))
