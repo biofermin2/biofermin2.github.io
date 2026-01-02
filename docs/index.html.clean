@@ -24,7 +24,7 @@
 
     $('menu').delay(5000).animate({
 
-      scrollTop: $(document).height()
+      menu.scrollTop: $(document).height()
 
     },5500);
 

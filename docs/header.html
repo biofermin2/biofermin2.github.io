@@ -1,24 +1,87 @@
-<table>
-  <tr>
-    <td>
-<!---div class="header"--->
-    <div class="head">
-;;; <span class="org-link"><a href="./index.html">(peek-char t *sexp-life*)</a></span> --- Peeking into S-expression life<br>
-;; Author: biofermin2 <span class="org-link"><a href="https://twitter.com/biofermin2">twitter: @biofermin2</a></span><br>
-;; Version: <a href="./ChangeLog.org.html">0.3</a>
-    </div>
-    </td>
-    <td>
-    <div class="symbol">
-	<a class="symbol-link" href="https://biofermin2.github.io">
-	    <object type="image/svg+xml" data="./img/biofermin2-symbol.svg">
-		<img src="./img/biofermin2-symbol.png" alt="シンボルマーク" class="symbol">
-	    </object>
-	</a>
-    </div>
-    </td>
-  </tr>
-</table>
+<style>
+.header-container {
+    position: relative;
+    width: 100%;
+    min-height: 120px;
+    overflow: hidden;
+}
 
-<!---/div--->
+.header-table {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
 
+.header-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header-table td:first-child {
+    width: 70%;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.header-table td:last-child {
+    width: 30%;
+    text-align: right;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.symbol-container {
+    display: inline-block;
+    text-align: right;
+}
+
+.head {
+    font-family: monospace;
+    line-height: 1.6;
+}
+
+.symbol-link {
+    display: inline-block;
+}
+
+.symbol {
+    width: 100px;
+    height: 100px;
+}
+
+/* SVG背景削除済み */
+
+/* 右側セルを右寄せ */
+.header-table td:last-child {
+    width: 30%;
+    text-align: right;
+    vertical-align: top;
+    padding: 10px;
+}
+</style>
+
+<div class="header-container">
+    <!-- メインコンテンツ -->
+    <div class="header-table">
+        <table>
+            <tr>
+                <td>
+                    <div class="head">
+                        ;;; <span class="org-link"><a href="./index.html">(peek-char t *sexp-life*)</a></span> --- Peeking into S-expression life<br>
+                        ;; Author: biofermin2 <span class="org-link"><a href="https://twitter.com/biofermin2">twitter: @biofermin2</a></span><br>
+                        ;; Version: <a href="./ChangeLog.org.html">0.3</a>
+                    </div>
+                </td>
+                <td>
+                    <div class="symbol-container">
+                        <a class="symbol-link" href="https://biofermin2.github.io">
+                            <object type="image/svg+xml" data="./img/biofermin2-symbol.svg">
+                                <img src="./img/biofermin2-symbol.png" alt="シンボルマーク" class="symbol">
+                            </object>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
