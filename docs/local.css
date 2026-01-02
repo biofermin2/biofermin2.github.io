@@ -11,10 +11,7 @@ header {
     text-align: left;
     margin: 0px 0px;
     height: 80px;
-    background-image: url("./img/biofermin2-symbol.svg");
-    background-repeat: no-repeat;
     backgournd-color: #000b00;
-    background-position: top 0px right 15px;
     position: sticky;
     top: 0px;
     display: flex;
@@ -28,6 +25,65 @@ div.head {
 }
 div.symbol {
   z-index: 3;
+}
+
+.header-container {
+    position: relative;
+    width: 100%;
+    min-height: 120px;
+    overflow: hidden;
+}
+
+.header-table {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.header-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header-table td:first-child {
+    width: 70%;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.header-table td:last-child {
+    width: 30%;
+    text-align: right;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.symbol-container {
+    display: inline-block;
+    text-align: right;
+}
+
+.head {
+    font-family: monospace;
+    line-height: 1.6;
+}
+
+.symbol-link {
+    display: inline-block;
+}
+
+.symbol {
+    width: 100px;
+    height: 100px;
+}
+
+
+/* 右側セルを右寄せ */
+.header-table td:last-child {
+    width: 30%;
+    text-align: right;
+    vertical-align: top;
+    padding: 10px;
 }
 
 
